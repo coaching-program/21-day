@@ -75,8 +75,8 @@
        ===================================================================== */
     #introScrollRunway {
       position: relative;
-      height: calc(100vh + 320px);
-      height: calc(100dvh + 320px);
+      height: calc(100vh + 260px);
+      height: calc(100dvh + 260px);
       margin-bottom: 0;
       z-index: 45;
     }
@@ -1905,10 +1905,11 @@
       color: #6E1430 !important;
       -webkit-text-fill-color: #6E1430 !important;
       -webkit-text-stroke: 1.24px #6E1430 !important;
-      clip-path: none;
-      -webkit-clip-path: none;
-      opacity: 1;
-      animation: none;
+      clip-path: inset(-0.08em 100% -0.08em 0);
+      -webkit-clip-path: inset(-0.08em 100% -0.08em 0);
+      opacity: 0;
+      animation: refHighlightWordWipe 1.36s cubic-bezier(0.76, 0, 0.24, 1) 1.72s forwards;
+      will-change: clip-path, opacity;
     }
     #introStatementBlock .intro-word-sig .sig-char {
       color: #6E1430 !important;
@@ -1920,9 +1921,9 @@
       color: transparent;
       -webkit-text-fill-color: transparent;
       -webkit-text-stroke: 1.24px #6E1430;
-      transform: none;
-      opacity: 1;
-      animation: none;
+      transform: translate3d(0, 108%, 0);
+      opacity: 0;
+      animation: refLineMaskRise 0.85s cubic-bezier(0.16, 1, 0.3, 1) 1.32s forwards;
       will-change: transform, opacity;
     }
 
@@ -2532,32 +2533,6 @@
         clip-path: none !important;
         opacity: 1 !important;
         transform: none !important;
-      }
-      /* Tighter runway, exact 100svh viewport, zero header overlap and zero empty tail */
-      #introScrollRunway {
-        height: calc(100svh + 240px) !important;
-        z-index: 30 !important;
-      }
-      #introSplash {
-        height: 100svh !important;
-        min-height: 100svh !important;
-        max-height: 100svh !important;
-        overflow: hidden !important;
-        padding-top: 14px !important;
-        padding-bottom: 18px !important;
-        z-index: 30 !important;
-      }
-      #introSplash .intro-curtain-skirt {
-        display: none !important;
-      }
-      #introSplash .headline-row {
-        font-size: clamp(35px, 10.6vw, 48px) !important;
-        line-height: 0.96 !important;
-      }
-      #introSplash .intro-center-wrap {
-        padding-top: 4px !important;
-        padding-bottom: 4px !important;
-        gap: 14px !important;
       }
       #mainStickyHeader {
         z-index: 50 !important;
@@ -5483,20 +5458,19 @@
     const totalSigChars = sigCharNodes.length || 1;
     const prefersReducedMotionIntro = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Editorial Split-Curtain & Silk Burgundy Fill Choreography
-    // Crisp horizontal curtain parting (viewport-proportional vw) + focal center expansion
-    // Zero awkward 3D skew/wobble, zero muddy blur, immediate & expressive on both Desktop and Mobile
-    const SPLIT_CURTAIN_LAYERS = [
-      // Row 1: АВТОРСКАЯ — clean sweep left & slightly up
-      { xVw: -21, y: -56, scale: 0.0,   trackEm: 0.03, fadeStart: 0.56, fadeEnd: 0.98 },
-      // Row 2: ПРОГРАММА ПО — mirror sweep right & slightly up
-      { xVw:  21, y: -24, scale: 0.0,   trackEm: 0.03, fadeStart: 0.58, fadeEnd: 1.00 },
-      // Row 3: ОТНОШЕНИЯМ · 21 — focal center anchor: breathes open & scales smoothly
-      { xVw:   0, y:   0, scale: 0.115, trackEm: 0.085, fadeStart: 0.64, fadeEnd: 1.00 },
-      // Row 4: КОУЧ-СЕССИЯ С — clean sweep left & slightly down
-      { xVw: -21, y:  24, scale: 0.0,   trackEm: 0.03, fadeStart: 0.58, fadeEnd: 0.98 },
-      // Row 5: НАДЕЖДОЙ. — mirror sweep right & slightly down
-      { xVw:  21, y:  56, scale: 0.0,   trackEm: 0.03, fadeStart: 0.60, fadeEnd: 1.00 }
+    // 5-layer Depth Parallax Curtain profiles — words stay richly visible while sticky,
+    // parting gracefully in 3D and dissolving only as Page 2 actually glides into view (zero blank gap!)
+    const DEPTH_CURTAIN_LAYERS = [
+      // Row 1: АВТОРСКАЯ — foreground upper-left lift
+      { y: -110, x: -34, z: 120, rx: 8.5,  ry: -2.0, scale: 0.065, blur: 0.0, fadeStart: 0.44, fadeEnd: 0.98 },
+      // Row 2: ПРОГРАММА ПО — mid-foreground upper-right glide
+      { y: -52,  x: 28,  z: 58,  rx: 4.4,  ry: 1.6,  scale: 0.030, blur: 0.0, fadeStart: 0.48, fadeEnd: 1.00 },
+      // Row 3: ОТНОШЕНИЯМ · 21 — focal center subtle recession
+      { y: -6,   x: 0,   z: -95, rx: -1.6, ry: 0.0,  scale: -0.075, blur: 1.1, fadeStart: 0.54, fadeEnd: 1.00 },
+      // Row 4: КОУЧ-СЕССИЯ С — lower-left graceful drift
+      { y: 48,   x: -26, z: -145, rx: -5.8, ry: -1.5, scale: -0.110, blur: 1.6, fadeStart: 0.46, fadeEnd: 0.96 },
+      // Row 5: НАДЕЖДОЙ. — foreground signature lower-right sweep
+      { y: 98,   x: 32,  z: 135, rx: -8.8, ry: 1.8,  scale: 0.080, blur: 0.0, fadeStart: 0.50, fadeEnd: 1.00 }
     ];
 
     let targetFillP = 0;
@@ -5524,12 +5498,7 @@
           const row = introHeadlineRows[i];
           row.style.transform = '';
           row.style.opacity = '';
-          row.style.letterSpacing = '';
           row.style.filter = '';
-        }
-        for (let c = 0; c < sigCharNodes.length; c++) {
-          sigCharNodes[c].style.color = '';
-          sigCharNodes[c].style.webkitTextFillColor = '';
         }
         if (introVoiceBannerEl) {
           introVoiceBannerEl.style.transform = '';
@@ -5546,55 +5515,48 @@
       const isSimMobile = document.getElementById('siteViewport') &&
         document.getElementById('siteViewport').classList.contains('is-mobile-sim');
       const isCompact = vw < 768 || isSimMobile;
-      const effectiveVw = isSimMobile ? 390 : vw;
-
-      // 1) Letter-by-letter burgundy silk fill completes during first 48% of scroll progress
-      const fillPhaseP = Math.min(1, p / 0.48);
-      const spread = 0.28;
-      for (let c = 0; c < totalSigChars; c++) {
-        const startAt = (c / totalSigChars) * (1 - spread);
-        const cp = Math.min(1, Math.max(0, (fillPhaseP - startAt) / spread));
-        const easedFill = cp * cp * (3 - 2 * cp);
-        const fillCol = 'rgba(110, 20, 48, ' + easedFill.toFixed(3) + ')';
-        sigCharNodes[c].style.color = fillCol;
-        sigCharNodes[c].style.webkitTextFillColor = fillCol;
-      }
-
-      // 2) Responsive, immediate Editorial Split-Curtain parting (easeOutCubic kicks in on first 15px!)
-      const moveP = easeOutCubic(p);
-      const xMultiplier = isCompact ? 1.38 : 1.0;
-      const yMultiplier = isCompact ? 0.68 : 1.0;
+      const motionScale = isCompact ? 0.54 : 1.0;
+      const moveP = easeInOutQuad(p);
 
       for (let i = 0; i < introHeadlineRows.length; i++) {
         const row = introHeadlineRows[i];
-        const cfg = SPLIT_CURTAIN_LAYERS[i] || SPLIT_CURTAIN_LAYERS[2];
+        const cfg = DEPTH_CURTAIN_LAYERS[i] || DEPTH_CURTAIN_LAYERS[2];
 
-        const tx = (cfg.xVw / 100) * effectiveVw * moveP * xMultiplier;
-        const ty = cfg.y * moveP * yMultiplier;
-        const sc = 1 + cfg.scale * moveP;
-        const trackEm = -0.01 + cfg.trackEm * moveP;
+        const tx = cfg.x * moveP * motionScale;
+        const ty = cfg.y * moveP * motionScale;
+        const tz = cfg.z * moveP * (isCompact ? 0.65 : 1.0);
+        const rx = cfg.rx * moveP * (isCompact ? 0.72 : 1.0);
+        const ry = cfg.ry * moveP * (isCompact ? 0.65 : 1.0);
+        const sc = 1 + cfg.scale * moveP * (isCompact ? 0.75 : 1.0);
 
+        // Late-onset quadratic fade: rows stay crisp while sticky and dissolve only as Section 2 enters
         const fadeNorm = Math.min(1, Math.max(0, (p - cfg.fadeStart) / Math.max(0.01, cfg.fadeEnd - cfg.fadeStart)));
         const opacity = 1 - easeInQuad(fadeNorm);
 
         row.style.transform =
-          'translate3d(' + tx.toFixed(1) + 'px, ' + ty.toFixed(1) + 'px, 0) scale(' + sc.toFixed(3) + ')';
-        row.style.letterSpacing = trackEm.toFixed(4) + 'em';
+          'translate3d(' + tx.toFixed(1) + 'px, ' + ty.toFixed(1) + 'px, ' + tz.toFixed(1) + 'px) ' +
+          'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
         row.style.opacity = opacity.toFixed(3);
-        row.style.filter = '';
+
+        if (!isCompact && cfg.blur > 0) {
+          const blurPx = cfg.blur * easeInQuad(moveP);
+          row.style.filter = blurPx > 0.05 ? ('blur(' + blurPx.toFixed(2) + 'px)') : '';
+        } else {
+          row.style.filter = '';
+        }
       }
 
-      // Gently glide voice capsule & bottom bar down-out as curtains part
+      // Gently recede voice prompt & bottom scroll indicator as Page 2 approaches
       if (introVoiceBannerEl) {
-        const vp = Math.min(1, Math.max(0, (p - 0.14) / 0.50));
+        const vp = Math.min(1, Math.max(0, (p - 0.18) / 0.52));
         const ve = easeInOutQuad(vp);
-        introVoiceBannerEl.style.transform = 'translate3d(0, ' + (22 * ve).toFixed(1) + 'px, 0) scale(' + (1 - 0.04 * ve).toFixed(3) + ')';
+        introVoiceBannerEl.style.transform = 'translate3d(0, ' + (18 * ve).toFixed(1) + 'px, ' + (-35 * ve).toFixed(1) + 'px)';
         introVoiceBannerEl.style.opacity = (1 - ve).toFixed(3);
       }
       if (introBottomBarEl) {
-        const bp = Math.min(1, Math.max(0, (p - 0.12) / 0.48));
+        const bp = Math.min(1, Math.max(0, (p - 0.22) / 0.55));
         const be = easeInOutQuad(bp);
-        introBottomBarEl.style.transform = 'translate3d(0, ' + (16 * be).toFixed(1) + 'px, 0)';
+        introBottomBarEl.style.transform = 'translate3d(0, ' + (14 * be).toFixed(1) + 'px, 0)';
         introBottomBarEl.style.opacity = (1 - be).toFixed(3);
       }
     }
@@ -5602,26 +5564,22 @@
     function stepSmoothLetters() {
       const sy = window.scrollY || window.pageYOffset || 0;
       const vh = window.innerHeight || 800;
-      const isSimMobile = document.getElementById('siteViewport') &&
-        document.getElementById('siteViewport').classList.contains('is-mobile-sim');
-      const isCompact = (window.innerWidth < 768) || isSimMobile;
       const runwayExtra = (introRunwayEl && introSplash)
-        ? Math.max(180, introRunwayEl.offsetHeight - introSplash.offsetHeight)
+        ? Math.max(160, introRunwayEl.offsetHeight - introSplash.offsetHeight)
         : 260;
-      // Calibrated so ~75% of the parting happens while Page 1 is pinned in full view!
-      const spreadSpan = isCompact ? (runwayExtra + vh * 0.18) : (runwayExtra + vh * 0.28);
+      // Span across sticky runway PLUS 62% of viewport lift-off so words never vanish while Page 1 is still full-screen
+      const spreadSpan = runwayExtra + vh * 0.62;
       targetFillP = Math.min(1, Math.max(0, sy / spreadSpan));
 
-      const lerpFactor = isCompact ? 0.36 : 0.22;
-      smoothFillP += (targetFillP - smoothFillP) * lerpFactor;
+      smoothFillP += (targetFillP - smoothFillP) * 0.18;
       if (Math.abs(targetFillP - smoothFillP) < 0.0015) {
         smoothFillP = targetFillP;
       }
 
       renderLettersAtProgress(smoothFillP);
 
-      const liftStart = Math.max(120, runwayExtra * 0.68);
-      const liftP = Math.min(1, Math.max(0, (sy - liftStart) / (vh * 0.80)));
+      const liftStart = Math.max(120, runwayExtra * 0.65);
+      const liftP = Math.min(1, Math.max(0, (sy - liftStart) / (vh * 0.85)));
       const archScale = Math.sin(liftP * Math.PI);
       if (introSplash) {
         introSplash.style.setProperty('--arch-scale', archScale.toFixed(3));
