@@ -133,6 +133,8 @@
     }
     #introStatementBlock .headline-row {
       transform-origin: 50% 50%;
+    }
+    #introStatementBlock.is-scrolling-parallax .headline-row {
       will-change: transform, opacity;
     }
     #introSplash .intro-bottom-bar,
@@ -169,11 +171,14 @@
     /* Контурный стиль: благородный тёплый эспрессо-графит (без GPU-бага обрезки stroke в Chrome) */
     .intro-outline-inv {
       font-family: 'Playfair Display', serif;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1.24px #2B1C22;
+      /* Non-zero 2.5% silk fill prevents macOS Chrome Skia GPU from dropping transparent stroked glyphs on async HTTPS font load */
+      color: rgba(248, 243, 236, 0.025);
+      -webkit-text-fill-color: rgba(248, 243, 236, 0.025);
+      -webkit-text-stroke: 1.25px #2B1C22;
+      paint-order: stroke fill;
       font-weight: 400;
       -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
     }
 
     /* Значимые слова: фирменный глубокий бордо (#6E1430) в палитре сайта */
@@ -2541,6 +2546,127 @@
       }
       #mainStickyHeader {
         z-index: 50 !important;
+      }
+    }
+
+
+    /* =========================================================================
+       MOBILE SCROLL FLUIDITY FIX (Zero sticky-hang & zero dvh address-bar jump)
+       ========================================================================= */
+    @media (max-width: 768px) {
+      #introScrollRunway {
+        height: auto !important;
+        min-height: 100svh !important;
+      }
+      #introSplash {
+        position: relative !important;
+        min-height: 100svh !important;
+        height: 100svh !important;
+        max-height: none !important;
+      }
+      .intro-curtain-skirt {
+        display: none !important;
+      }
+      #introStatementBlock .headline-row,
+      #introSplash .intro-bottom-bar,
+      #introSplash .intro-voice-parallax-wrap {
+        transform: none !important;
+        opacity: 1 !important;
+        letter-spacing: normal !important;
+        will-change: auto !important;
+      }
+    }
+
+    /* =========================================================================
+       GLOBAL LUXURY FLOATING SOUND DOCK (#siteSoundDock)
+       Independent site-wide music toggle in Silk, Champagne Gold & Burgundy aesthetic
+       ========================================================================= */
+    .site-sound-dock {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 65;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 16px 9px 12px;
+      border-radius: 9999px;
+      background: rgba(252, 249, 244, 0.88);
+      border: 1px solid rgba(184, 134, 75, 0.45);
+      box-shadow: 0 12px 34px rgba(42, 12, 22, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: #2B1C22;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, color 0.28s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .site-sound-dock:hover {
+      transform: translateY(-2px);
+      border-color: rgba(140, 29, 64, 0.55);
+      box-shadow: 0 16px 40px rgba(110, 20, 48, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    }
+    .site-sound-dock.is-music-on {
+      background: linear-gradient(135deg, rgba(110, 20, 48, 0.94) 0%, rgba(74, 14, 35, 0.96) 100%);
+      border-color: rgba(230, 199, 156, 0.58);
+      color: #FDF8F0;
+      box-shadow: 0 16px 40px rgba(110, 20, 48, 0.28), 0 0 0 3px rgba(184, 134, 75, 0.14);
+    }
+    .site-sound-dock-eq {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5px;
+      width: 24px;
+      height: 24px;
+      border-radius: 9999px;
+      background: rgba(110, 20, 48, 0.08);
+      flex-shrink: 0;
+      transition: background-color 0.28s ease;
+    }
+    .site-sound-dock.is-music-on .site-sound-dock-eq {
+      background: rgba(230, 199, 156, 0.18);
+    }
+    .site-sound-dock-bar {
+      width: 2px;
+      height: 4px;
+      border-radius: 9999px;
+      background-color: #6E1430;
+      transition: height 0.25s ease, background-color 0.28s ease;
+    }
+    .site-sound-dock.is-music-on .site-sound-dock-bar {
+      background-color: #E6C79C;
+      animation: soundDockWave 1.15s ease-in-out infinite;
+    }
+    .site-sound-dock.is-music-on .site-sound-dock-bar:nth-child(1) { animation-delay: 0.0s; }
+    .site-sound-dock.is-music-on .site-sound-dock-bar:nth-child(2) { animation-delay: 0.22s; }
+    .site-sound-dock.is-music-on .site-sound-dock-bar:nth-child(3) { animation-delay: 0.44s; }
+    .site-sound-dock.is-music-on .site-sound-dock-bar:nth-child(4) { animation-delay: 0.15s; }
+    @keyframes soundDockWave {
+      0%, 100% { height: 4px; }
+      50% { height: 13px; }
+    }
+    .site-sound-dock-label-short {
+      display: none;
+    }
+    @media (max-width: 640px) {
+      .site-sound-dock {
+        right: 12px;
+        bottom: 14px;
+        padding: 8px 13px 8px 10px;
+        gap: 7px;
+        font-size: 11.5px;
+      }
+      .site-sound-dock-label-full {
+        display: none;
+      }
+      .site-sound-dock-label-short {
+        display: inline;
       }
     }
 
@@ -5497,7 +5623,18 @@
 
     function renderLettersAtProgress(progress) {
       if (prefersReducedMotionIntro || !introHeadlineRows.length) return;
+      const vwNow = window.innerWidth || 1280;
+      const isSimMobNow = document.getElementById('siteViewport') &&
+        document.getElementById('siteViewport').classList.contains('is-mobile-sim');
+      // On real mobile screens, let native 60fps momentum scroll work with zero sticky/transform interference
+      if (vwNow <= 768 && !isSimMobNow) {
+        return;
+      }
+      const stmtBlock = document.getElementById('introStatementBlock');
       const p = Math.min(1, Math.max(0, progress || 0));
+      if (stmtBlock) {
+        stmtBlock.classList.toggle('is-scrolling-parallax', p > 0.002);
+      }
 
       if (p <= 0.001) {
         for (let i = 0; i < introHeadlineRows.length; i++) {
@@ -5642,26 +5779,39 @@
       updateIntroOnScroll();
     }, { passive: true });
 
-    // Force Chrome/Safari GPU compositor to rasterize outline strokes cleanly after Playfair Display loads
+    // Force Chrome/Safari GPU compositor to rasterize outline strokes cleanly after Playfair Display loads over HTTPS
     function forceIntroOutlineRepaint() {
       var block = document.getElementById('introStatementBlock');
       if (!block) return;
       var outlineNodes = block.querySelectorAll('.intro-outline-inv');
       for (var k = 0; k < outlineNodes.length; k++) {
+        outlineNodes[k].style.webkitTextFillColor = 'rgba(248, 243, 236, 0.03)';
+        outlineNodes[k].style.color = 'rgba(248, 243, 236, 0.03)';
         outlineNodes[k].style.webkitTextStrokeColor = '#2B1C22';
-        outlineNodes[k].style.webkitTextStrokeWidth = '1.26px';
+        outlineNodes[k].style.webkitTextStrokeWidth = '1.27px';
+        outlineNodes[k].style.paintOrder = 'stroke fill';
       }
-      void block.offsetHeight;
+      void block.offsetWidth;
       requestAnimationFrame(function() {
         for (var k = 0; k < outlineNodes.length; k++) {
-          outlineNodes[k].style.webkitTextStrokeWidth = '1.24px';
+          outlineNodes[k].style.webkitTextFillColor = 'rgba(248, 243, 236, 0.025)';
+          outlineNodes[k].style.webkitTextStrokeWidth = '1.25px';
         }
       });
     }
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(forceIntroOutlineRepaint);
+    if (document.fonts) {
+      if (document.fonts.load) {
+        document.fonts.load('400 72px "Playfair Display"').then(forceIntroOutlineRepaint).catch(function(){});
+      }
+      if (document.fonts.ready) {
+        document.fonts.ready.then(forceIntroOutlineRepaint);
+      }
     }
-    window.addEventListener('load', forceIntroOutlineRepaint);
+    window.addEventListener('load', function() {
+      forceIntroOutlineRepaint();
+      setTimeout(forceIntroOutlineRepaint, 250);
+      setTimeout(forceIntroOutlineRepaint, 900);
+    });
 
     window.addEventListener('scroll', function() {
       updateIntroOnScroll(window.scrollY || window.pageYOffset || 0);
@@ -7343,30 +7493,84 @@
       }, 640);
     }
 
+    // Independent Site-Wide Ambient Music State
+    let userEnabledSiteMusic = false;
+    const siteSoundDock = document.getElementById('siteSoundDock');
+    const soundDockLabelFull = document.getElementById('soundDockLabelFull');
+    const soundDockLabelShort = document.getElementById('soundDockLabelShort');
+
+    function updateSoundDockUI(isOn) {
+      if (!siteSoundDock) return;
+      siteSoundDock.classList.toggle('is-music-on', Boolean(isOn));
+      siteSoundDock.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+      if (soundDockLabelFull) {
+        soundDockLabelFull.textContent = isOn ? 'Атмосфера сайта · Вкл' : 'Активировать звук сайта';
+      }
+      if (soundDockLabelShort) {
+        soundDockLabelShort.textContent = isOn ? 'Звук · Вкл' : 'Звук';
+      }
+    }
+
+    function toggleIndependentSiteMusic(e) {
+      if (e) e.stopPropagation();
+      if (!siteAmbientMusic) return;
+      if (userEnabledSiteMusic && !siteAmbientMusic.paused) {
+        userEnabledSiteMusic = false;
+        fadeAmbientVolumeTo(0.0, 320);
+        setTimeout(function() {
+          if (!userEnabledSiteMusic) pauseAmbientBed();
+        }, 340);
+        updateSoundDockUI(false);
+      } else {
+        userEnabledSiteMusic = true;
+        const voiceSpeaking = nadRealVoiceAudio && !nadRealVoiceAudio.paused;
+        startAmbientBed(voiceSpeaking ? 0.18 : 0.44);
+        updateSoundDockUI(true);
+      }
+    }
+
+    if (siteSoundDock) {
+      siteSoundDock.addEventListener('click', toggleIndependentSiteMusic);
+    }
+
+    if (nadRealVoiceAudio) {
+      nadRealVoiceAudio.addEventListener('ended', function() {
+        updateAutoVoiceUI(false);
+        if (userEnabledSiteMusic && siteAmbientMusic && !siteAmbientMusic.paused) {
+          fadeAmbientVolumeTo(0.44, 850);
+        }
+      });
+    }
+
     function toggleVoicePlaybackManual(e) {
       if (e) e.stopPropagation();
       if (!nadRealVoiceAudio) return;
-      const anyPlaying = !nadRealVoiceAudio.paused || (siteAmbientMusic && !siteAmbientMusic.paused);
-      if (anyPlaying) {
+      const isVoicePlaying = !nadRealVoiceAudio.paused;
+      if (isVoicePlaying) {
         userManuallyPausedVoice = true;
         nadRealVoiceAudio.pause();
-        pauseAmbientBed();
+        // Keep site music playing smoothly if user enabled it!
+        if (userEnabledSiteMusic && siteAmbientMusic && !siteAmbientMusic.paused) {
+          fadeAmbientVolumeTo(0.44, 650);
+        }
         updateAutoVoiceUI(false);
       } else {
         userManuallyPausedVoice = false;
         autoVoiceStartedOnce = true;
         nadRealVoiceAudio.muted = false;
         nadRealVoiceAudio.volume = 1.0;
-        startAmbientBed(0.22);
+        // Duck site music gently underneath Nadezhda's voice (or start it subtly if desired)
+        if (userEnabledSiteMusic) {
+          startAmbientBed(0.18);
+        } else {
+          userEnabledSiteMusic = true;
+          startAmbientBed(0.18);
+          updateSoundDockUI(true);
+        }
         nadRealVoiceAudio.play().then(function() {
           updateAutoVoiceUI(true);
         }).catch(function() {
-          if (siteAmbientMusic && !siteAmbientMusic.paused) {
-            fadeAmbientVolumeTo(0.42, 600);
-            updateAutoVoiceUI(true);
-          } else {
-            updateAutoVoiceUI(false);
-          }
+          updateAutoVoiceUI(false);
         });
       }
     }
@@ -8159,6 +8363,19 @@
       ✕
     </button>
   </div>
+
+
+  <!-- Global Floating Site Atmosphere Sound Control (Works independently across all sections) -->
+  <button type="button" id="siteSoundDock" class="site-sound-dock" aria-pressed="false" aria-label="Активировать или выключить фоновую музыку сайта" title="Фоновая музыка сайта (работает на всех экранах)">
+    <span class="site-sound-dock-eq" aria-hidden="true">
+      <span class="site-sound-dock-bar"></span>
+      <span class="site-sound-dock-bar"></span>
+      <span class="site-sound-dock-bar"></span>
+      <span class="site-sound-dock-bar"></span>
+    </span>
+    <span class="site-sound-dock-label-full" id="soundDockLabelFull">Активировать звук сайта</span>
+    <span class="site-sound-dock-label-short" id="soundDockLabelShort">Звук</span>
+  </button>
 
 </body>
 </html>
