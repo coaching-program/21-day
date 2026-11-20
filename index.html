@@ -130,10 +130,8 @@
       align-items: center;
       transform: scaleX(0.864);
       transform-origin: center center;
-      transform-style: preserve-3d;
     }
     #introStatementBlock .headline-row {
-      transform-style: preserve-3d;
       transform-origin: 50% 50%;
       will-change: transform, opacity;
     }
@@ -168,14 +166,14 @@
       }
     }
 
-    /* Контурный стиль: благородный тёплый эспрессо-графит с тонкой линией 1.24px */
+    /* Контурный стиль: благородный тёплый эспрессо-графит (без GPU-бага обрезки stroke в Chrome) */
     .intro-outline-inv {
       font-family: 'Playfair Display', serif;
-      color: rgba(43, 28, 34, 0.004);
-      -webkit-text-fill-color: rgba(43, 28, 34, 0.004);
+      color: transparent;
+      -webkit-text-fill-color: transparent;
       -webkit-text-stroke: 1.24px #2B1C22;
-      paint-order: stroke fill;
       font-weight: 400;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* Значимые слова: фирменный глубокий бордо (#6E1430) в палитре сайта */
@@ -1814,18 +1812,12 @@
        ========================================================================= */
     @keyframes refLineMaskRise {
       0% {
-        transform: translate3d(0, 108%, 0) scale(0.985);
+        transform: translate3d(0, 104%, 0);
         opacity: 0;
-        filter: blur(4px);
-      }
-      55% {
-        opacity: 0.92;
-        filter: blur(0.4px);
       }
       100% {
-        transform: translate3d(0, 0%, 0) scale(1);
+        transform: translate3d(0, 0%, 0);
         opacity: 1;
-        filter: none;
       }
     }
     @keyframes refEyebrowReveal {
@@ -1905,11 +1897,9 @@
       display: inline-flex;
       align-items: baseline;
       justify-content: center;
-      transform: translate3d(0, 108%, 0) scale(0.985);
+      transform: translate3d(0, 104%, 0);
       opacity: 0;
-      filter: blur(4px);
-      animation: refLineMaskRise 1.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      will-change: transform, opacity;
+      animation: refLineMaskRise 1.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     #introStatementBlock .intro-word-sig {
       font-family: 'Playfair Display', serif;
@@ -1932,8 +1922,8 @@
     }
     #introStatementBlock .intro-final-dot {
       display: inline-block;
-      color: rgba(110, 20, 48, 0.004);
-      -webkit-text-fill-color: rgba(110, 20, 48, 0.004);
+      color: transparent;
+      -webkit-text-fill-color: transparent;
       -webkit-text-stroke: 1.24px #6E1430;
       paint-order: stroke fill;
       transform: translate3d(0, 108%, 0);
@@ -2693,6 +2683,7 @@
 <div id="introScrollRunway">
 <!-- Studio Close-Mic Mastered Voice of Nadezhda Burleva (from голос-референс.m4a) -->
 <audio id="nadRealVoiceAudio" playsinline="" preload="metadata" src="assets/audio/nadezhda-voice.mp3"></audio>
+<audio id="siteAmbientMusic" loop="" playsinline="" preload="metadata" src="assets/audio/ambient-music.mp3"></audio>
 <section class="flex flex-col justify-between px-5 sm:px-12 py-5 sm:py-7 select-none relative" id="introSplash">
 <!-- Top Navigation Row (1-in-1 Reference) -->
 <div class="relative z-10 flex items-center justify-between border-b border-[#6E1430]/[0.05] pb-4 shrink-0">
@@ -5512,6 +5503,7 @@
         for (let i = 0; i < introHeadlineRows.length; i++) {
           const row = introHeadlineRows[i];
           row.style.transform = '';
+          row.style.letterSpacing = '';
           row.style.opacity = '';
           row.style.filter = '';
         }
@@ -5531,48 +5523,62 @@
         document.getElementById('siteViewport').classList.contains('is-mobile-sim');
       const isCompact = vw < 768 || isSimMobile;
 
-      // Mobile-only expressive 3D Depth Curtain choreography (Desktop stays 100% untouched!)
-      const MOBILE_DEPTH_CURTAIN_LAYERS = [
-        // Row 1: АВТОРСКАЯ — sweeps boldly UP & LEFT toward viewer
-        { y: -148, x: -62, z: 145, rx: 11.5, ry: -5.2, scale: 0.13,  fadeStart: 0.34, fadeEnd: 0.86 },
-        // Row 2: ПРОГРАММА ПО — glides UP & RIGHT in foreground
-        { y: -76,  x: 56,  z: 88,  rx: 6.2,  ry: 4.5,  scale: 0.08,  fadeStart: 0.38, fadeEnd: 0.90 },
-        // Row 3: ОТНОШЕНИЯМ · 21 — recedes gracefully into center depth
-        { y: -4,   x: 0,   z: -155, rx: -2.2, ry: 0.0, scale: -0.15, fadeStart: 0.42, fadeEnd: 0.92 },
-        // Row 4: КОУЧ-СЕССИЯ С — drifts DOWN & LEFT into mid-depth
-        { y: 74,   x: -54, z: -115, rx: -7.2, ry: -4.2, scale: -0.10, fadeStart: 0.38, fadeEnd: 0.88 },
-        // Row 5: НАДЕЖДОЙ. — sweeps dramatically DOWN & RIGHT toward viewer
-        { y: 152,  x: 60,  z: 160, rx: -11.5, ry: 5.2, scale: 0.14,  fadeStart: 0.44, fadeEnd: 0.94 }
+      // Mobile-only delicate Couture Silk Veil choreography (Desktop stays 100% untouched!)
+      // Gentle harmonious vertical float + subtle editorial letter-spacing breath + velvet staggered dissolve
+      const MOBILE_SILK_VEIL_LAYERS = [
+        // Row 1: АВТОРСКАЯ — glides softly upward first
+        { y: -38, tracking: 0.055, scale: -0.025, fadeStart: 0.14, fadeEnd: 0.62 },
+        // Row 2: ПРОГРАММА ПО — follows in calm cadence
+        { y: -28, tracking: 0.048, scale: -0.020, fadeStart: 0.20, fadeEnd: 0.68 },
+        // Row 3: ОТНОШЕНИЯМ · 21 — soft center anchor breath
+        { y: -18, tracking: 0.042, scale: -0.015, fadeStart: 0.26, fadeEnd: 0.74 },
+        // Row 4: КОУЧ-СЕССИЯ С — gentle trailing glide
+        { y: -10, tracking: 0.036, scale: -0.012, fadeStart: 0.32, fadeEnd: 0.80 },
+        // Row 5: НАДЕЖДОЙ. — lingers longest as a quiet couture signature
+        { y: -2,  tracking: 0.030, scale: -0.008, fadeStart: 0.40, fadeEnd: 0.90 }
       ];
 
-      const moveP = isCompact ? easeOutCubic(Math.min(1, p * 1.18)) : easeInOutQuad(p);
+      const moveP = isCompact ? easeInOutQuad(Math.min(1, p * 1.08)) : easeInOutQuad(p);
 
       for (let i = 0; i < introHeadlineRows.length; i++) {
         const row = introHeadlineRows[i];
-        const cfg = isCompact
-          ? (MOBILE_DEPTH_CURTAIN_LAYERS[i] || MOBILE_DEPTH_CURTAIN_LAYERS[2])
-          : (DEPTH_CURTAIN_LAYERS[i] || DEPTH_CURTAIN_LAYERS[2]);
 
-        const tx = cfg.x * moveP;
-        const ty = cfg.y * moveP;
-        const tz = cfg.z * moveP;
-        const rx = cfg.rx * moveP;
-        const ry = cfg.ry * moveP;
-        const sc = 1 + cfg.scale * moveP;
+        if (isCompact) {
+          const mcfg = MOBILE_SILK_VEIL_LAYERS[i] || MOBILE_SILK_VEIL_LAYERS[2];
+          const ty = mcfg.y * moveP;
+          const sc = 1 + mcfg.scale * moveP;
+          const tr = mcfg.tracking * moveP;
+          const fadeNorm = Math.min(1, Math.max(0, (p - mcfg.fadeStart) / Math.max(0.01, mcfg.fadeEnd - mcfg.fadeStart)));
+          const opacity = 1 - easeInOutQuad(fadeNorm);
 
-        const fadeNorm = Math.min(1, Math.max(0, (p - cfg.fadeStart) / Math.max(0.01, cfg.fadeEnd - cfg.fadeStart)));
-        const opacity = 1 - easeInQuad(fadeNorm);
-
-        row.style.transform =
-          'translate3d(' + tx.toFixed(1) + 'px, ' + ty.toFixed(1) + 'px, ' + tz.toFixed(1) + 'px) ' +
-          'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
-        row.style.opacity = opacity.toFixed(3);
-
-        if (!isCompact && cfg.blur > 0) {
-          const blurPx = cfg.blur * easeInQuad(moveP);
-          row.style.filter = blurPx > 0.05 ? ('blur(' + blurPx.toFixed(2) + 'px)') : '';
-        } else {
+          row.style.transform = 'translate3d(0px, ' + ty.toFixed(1) + 'px, 0px) scale(' + sc.toFixed(4) + ')';
+          row.style.letterSpacing = tr > 0.001 ? (tr.toFixed(4) + 'em') : '';
+          row.style.opacity = opacity.toFixed(3);
           row.style.filter = '';
+        } else {
+          const cfg = DEPTH_CURTAIN_LAYERS[i] || DEPTH_CURTAIN_LAYERS[2];
+          const tx = cfg.x * moveP;
+          const ty = cfg.y * moveP;
+          const tz = cfg.z * moveP;
+          const rx = cfg.rx * moveP;
+          const ry = cfg.ry * moveP;
+          const sc = 1 + cfg.scale * moveP;
+
+          const fadeNorm = Math.min(1, Math.max(0, (p - cfg.fadeStart) / Math.max(0.01, cfg.fadeEnd - cfg.fadeStart)));
+          const opacity = 1 - easeInQuad(fadeNorm);
+
+          row.style.transform =
+            'translate3d(' + tx.toFixed(1) + 'px, ' + ty.toFixed(1) + 'px, ' + tz.toFixed(1) + 'px) ' +
+            'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
+          row.style.letterSpacing = '';
+          row.style.opacity = opacity.toFixed(3);
+
+          if (cfg.blur > 0) {
+            const blurPx = cfg.blur * easeInQuad(moveP);
+            row.style.filter = blurPx > 0.05 ? ('blur(' + blurPx.toFixed(2) + 'px)') : '';
+          } else {
+            row.style.filter = '';
+          }
         }
       }
 
@@ -5637,19 +5643,25 @@
     }, { passive: true });
 
     // Force Chrome/Safari GPU compositor to rasterize outline strokes cleanly after Playfair Display loads
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(function() {
-        var outlineNodes = document.querySelectorAll('#introStatementBlock .intro-outline-inv');
+    function forceIntroOutlineRepaint() {
+      var block = document.getElementById('introStatementBlock');
+      if (!block) return;
+      var outlineNodes = block.querySelectorAll('.intro-outline-inv');
+      for (var k = 0; k < outlineNodes.length; k++) {
+        outlineNodes[k].style.webkitTextStrokeColor = '#2B1C22';
+        outlineNodes[k].style.webkitTextStrokeWidth = '1.26px';
+      }
+      void block.offsetHeight;
+      requestAnimationFrame(function() {
         for (var k = 0; k < outlineNodes.length; k++) {
-          outlineNodes[k].style.webkitTextStrokeWidth = '1.25px';
+          outlineNodes[k].style.webkitTextStrokeWidth = '1.24px';
         }
-        requestAnimationFrame(function() {
-          for (var k = 0; k < outlineNodes.length; k++) {
-            outlineNodes[k].style.webkitTextStrokeWidth = '';
-          }
-        });
       });
     }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(forceIntroOutlineRepaint);
+    }
+    window.addEventListener('load', forceIntroOutlineRepaint);
 
     window.addEventListener('scroll', function() {
       updateIntroOnScroll(window.scrollY || window.pageYOffset || 0);
@@ -7176,6 +7188,39 @@
     // - Re-clicking the prompt or bottom toggle pauses/resumes voice playback
     // =========================================================================
     const nadRealVoiceAudio = document.getElementById('nadRealVoiceAudio');
+    const siteAmbientMusic = document.getElementById('siteAmbientMusic');
+    let ambientFadeRaf = null;
+    function fadeAmbientVolumeTo(targetVol, durationMs) {
+      if (!siteAmbientMusic) return;
+      if (ambientFadeRaf) cancelAnimationFrame(ambientFadeRaf);
+      const startVol = siteAmbientMusic.volume;
+      const startTs = performance.now();
+      const dur = Math.max(80, durationMs || 650);
+      function tick(now) {
+        const t = Math.min(1, (now - startTs) / dur);
+        siteAmbientMusic.volume = Math.max(0, Math.min(1, startVol + (targetVol - startVol) * t));
+        if (t < 1) ambientFadeRaf = requestAnimationFrame(tick);
+        else ambientFadeRaf = null;
+      }
+      ambientFadeRaf = requestAnimationFrame(tick);
+    }
+    function startAmbientBed(vol) {
+      if (!siteAmbientMusic) return;
+      siteAmbientMusic.muted = false;
+      if (siteAmbientMusic.paused) {
+        siteAmbientMusic.volume = 0.02;
+        const p = siteAmbientMusic.play();
+        if (p && p.then) {
+          p.then(function() { fadeAmbientVolumeTo(vol, 800); }).catch(function() {});
+        }
+      } else {
+        fadeAmbientVolumeTo(vol, 650);
+      }
+    }
+    function pauseAmbientBed() {
+      if (!siteAmbientMusic || siteAmbientMusic.paused) return;
+      siteAmbientMusic.pause();
+    }
     const btnToggleAutoVoice = document.getElementById('btnToggleAutoVoice');
     const heroAutoVoiceBanner = document.getElementById('heroAutoVoiceBanner');
     const heroSoundPromptLeft = document.getElementById('heroSoundPromptLeft');
@@ -7301,19 +7346,27 @@
     function toggleVoicePlaybackManual(e) {
       if (e) e.stopPropagation();
       if (!nadRealVoiceAudio) return;
-      if (!nadRealVoiceAudio.paused) {
+      const anyPlaying = !nadRealVoiceAudio.paused || (siteAmbientMusic && !siteAmbientMusic.paused);
+      if (anyPlaying) {
         userManuallyPausedVoice = true;
         nadRealVoiceAudio.pause();
+        pauseAmbientBed();
         updateAutoVoiceUI(false);
       } else {
         userManuallyPausedVoice = false;
         autoVoiceStartedOnce = true;
         nadRealVoiceAudio.muted = false;
         nadRealVoiceAudio.volume = 1.0;
+        startAmbientBed(0.22);
         nadRealVoiceAudio.play().then(function() {
           updateAutoVoiceUI(true);
         }).catch(function() {
-          updateAutoVoiceUI(false);
+          if (siteAmbientMusic && !siteAmbientMusic.paused) {
+            fadeAmbientVolumeTo(0.42, 600);
+            updateAutoVoiceUI(true);
+          } else {
+            updateAutoVoiceUI(false);
+          }
         });
       }
     }
@@ -7359,6 +7412,8 @@
       let targetX = -100, targetY = -100;
       let curX = -100, curY = -100;
       let curScale = 1, targetScale = 1;
+      let curStretch = 0, stretchVel = 0;
+      let curAngle = 0;
       let isHovering = false, isPressed = false;
       let cursorActive = false;
       let lastTs = 0;
@@ -7372,11 +7427,12 @@
       function animateCursor(ts) {
         if (!lastTs) lastTs = ts;
         const dt = Math.min(48, Math.max(4, ts - lastTs));
+        const step = dt / 16.667;
         lastTs = ts;
 
-        // Silky Chiara Luzzana trailing inertia (~0.088 at 60fps, frame-rate independent)
-        const posEase = 1 - Math.pow(1 - 0.088, dt / 16.667);
-        const scaleEase = 1 - Math.pow(1 - 0.16, dt / 16.667);
+        // Silky Chiara Luzzana trailing inertia + elastic directional deformation toward cursor
+        const posEase = 1 - Math.pow(1 - 0.115, step);
+        const scaleEase = 1 - Math.pow(1 - 0.16, step);
 
         const prevX = curX;
         const prevY = curY;
@@ -7384,18 +7440,41 @@
         curY += (targetY - curY) * posEase;
         curScale += (targetScale - curScale) * scaleEase;
 
-        const vx = curX - prevX;
-        const vy = curY - prevY;
+        // Pull vector from trailing circle toward actual cursor position
+        const dx = targetX - curX;
+        const dy = targetY - curY;
+        const pullDist = Math.hypot(dx, dy);
+        const vx = (curX - prevX) / Math.max(0.25, step);
+        const vy = (curY - prevY) / Math.max(0.25, step);
         const speed = Math.hypot(vx, vy);
-        const squeeze = Math.min(0.13, speed * 0.0045);
-        const angle = speed > 0.35 ? (Math.atan2(vy, vx) * 180 / Math.PI) : 0;
 
-        const sx = curScale * (1 + squeeze);
-        const sy = curScale * (1 - squeeze * 0.65);
+        // Smoothly orient along the pull vector without snapping back to 0° on stop
+        if (pullDist > 1.2) {
+          const targetAngle = Math.atan2(dy, dx) * 180 / Math.PI;
+          let diff = targetAngle - curAngle;
+          while (diff > 180) diff -= 360;
+          while (diff < -180) diff += 360;
+          curAngle += diff * Math.min(1, 0.34 * step);
+        }
+
+        // Damped spring stretch: visibly elongates toward cursor when moving, elastically recovers to circle on stop
+        const targetStretch = Math.min(0.42, pullDist * 0.0046 + speed * 0.012);
+        const stiffness = 0.22 * step;
+        const damping = Math.pow(0.72, step);
+        stretchVel = (stretchVel + (targetStretch - curStretch) * stiffness) * damping;
+        curStretch += stretchVel;
+        if (Math.abs(curStretch) < 0.001 && Math.abs(stretchVel) < 0.001 && targetStretch < 0.001) {
+          curStretch = 0;
+          stretchVel = 0;
+        }
+
+        // Area-preserving liquid oval deformation
+        const sx = curScale * (1 + curStretch);
+        const sy = curScale / (1 + curStretch * 0.58);
 
         ring.style.transform =
           'translate3d(' + curX.toFixed(2) + 'px, ' + curY.toFixed(2) + 'px, 0) ' +
-          'rotate(' + angle.toFixed(2) + 'deg) ' +
+          'rotate(' + curAngle.toFixed(2) + 'deg) ' +
           'scale(' + sx.toFixed(3) + ', ' + sy.toFixed(3) + ')';
 
         if (cursorActive) {
@@ -7452,14 +7531,23 @@
 
     if (nadRealVoiceAudio) {
       nadRealVoiceAudio.addEventListener('play', function() {
+        startAmbientBed(0.22);
         updateAutoVoiceUI(true);
       });
       nadRealVoiceAudio.addEventListener('pause', function() {
-        updateAutoVoiceUI(false);
+        if (!siteAmbientMusic || siteAmbientMusic.paused) {
+          updateAutoVoiceUI(false);
+        }
       });
       nadRealVoiceAudio.addEventListener('ended', function() {
         nadRealVoiceAudio.currentTime = 0;
-        updateAutoVoiceUI(false);
+        if (siteAmbientMusic && !siteAmbientMusic.paused) {
+          // Keep the ambient music playing softly on loop after Nadezhda finishes speaking
+          fadeAmbientVolumeTo(0.42, 900);
+          updateAutoVoiceUI(true);
+        } else {
+          updateAutoVoiceUI(false);
+        }
       });
     }
 
