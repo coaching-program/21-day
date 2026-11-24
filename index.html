@@ -120,7 +120,7 @@
     /* Headline Typography 1-in-1 from Образец шрифтов.html */
     /* Depth Parallax Curtain (Page 1 Cinematic 3D Scroll Spread) */
     #introSplash .intro-center-wrap {
-      perspective: 2200px;
+      perspective: 1180px;
       perspective-origin: 50% 48%;
       overflow: visible !important;
     }
@@ -131,13 +131,12 @@
       transform: scaleX(0.864);
       transform-origin: center center;
       transform-style: preserve-3d;
-      -webkit-transform-style: preserve-3d;
     }
     #introStatementBlock .headline-row {
+      transform-style: preserve-3d;
       transform-origin: 50% 50%;
-    }
-    #introStatementBlock.is-scrolling-parallax .headline-row {
       will-change: transform, opacity;
+      backface-visibility: hidden;
     }
     #introSplash .intro-bottom-bar,
     #introSplash .intro-voice-parallax-wrap {
@@ -1011,8 +1010,8 @@
     @media (max-width: 767px) {
       #introScrollRunway {
         position: relative !important;
-        height: calc(100vh + 340px) !important;
-        height: calc(100dvh + 340px) !important;
+        height: calc(100vh + 200px) !important;
+        height: calc(100dvh + 200px) !important;
         margin-bottom: 0 !important;
       }
       #introSplash {
@@ -1233,8 +1232,8 @@
     /* Page 1 Monumental 5-Line Statement in Mobile Simulator: Full-screen sticky 1-in-1 with desktop */
     #siteViewport.is-mobile-sim #introScrollRunway {
       position: relative !important;
-      height: calc(100vh + 340px) !important;
-      height: calc(100dvh + 340px) !important;
+      height: calc(100vh + 200px) !important;
+      height: calc(100dvh + 200px) !important;
       margin-bottom: 0 !important;
     }
     #siteViewport.is-mobile-sim #introSplash {
@@ -2555,7 +2554,7 @@
        ========================================================================= */
     @media (max-width: 768px) {
       #introScrollRunway {
-        height: calc(100svh + 280px) !important;
+        height: calc(100svh + 200px) !important;
       }
       #introSplash {
         position: sticky !important;
@@ -2566,7 +2565,7 @@
         overflow: hidden !important;
       }
       #introSplash .intro-center-wrap {
-        perspective: 920px !important;
+        perspective: 1180px !important;
         perspective-origin: 50% 48% !important;
         transform-style: preserve-3d;
         -webkit-transform-style: preserve-3d;
@@ -2602,7 +2601,7 @@
     /* Allow dramatic desktop word dispersion to breathe freely without clipping */
     #introSplash .intro-center-wrap {
       overflow: visible !important;
-      perspective: 1200px;
+      perspective: 1180px;
       perspective-origin: 50% 48%;
     }
     #introStatementBlock.is-scrolling-parallax,
@@ -2822,8 +2821,8 @@
            + OUR SIGNATURE SCROLL FILL & CURTAIN LIFT ANIMATION
            =================================================================== -->
 <div id="introScrollRunway">
-<!-- Studio Mastered Voice of Nadezhda Burleva (studio_voice_mix.mp3) -->
-<audio id="nadRealVoiceAudio" playsinline="" preload="metadata" src="assets/audio/nadezhda-voice.mp3?v=3"></audio>
+<!-- Studio Mastered Voice of Nadezhda Burleva (studio_voice_final_adobe.mp3) -->
+<audio id="nadRealVoiceAudio" playsinline="" preload="metadata" src="assets/audio/nadezhda-voice.mp3?v=4"></audio>
 <section class="flex flex-col justify-between px-5 sm:px-12 py-5 sm:py-7 select-none relative" id="introSplash">
 <!-- Top Navigation Row (1-in-1 Reference) -->
 <div class="relative z-10 flex items-center justify-between border-b border-[#6E1430]/[0.05] pb-4 shrink-0">
@@ -5625,20 +5624,19 @@
     const totalSigChars = sigCharNodes.length || 1;
     const prefersReducedMotionIntro = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Restrained Editorial Silk Curtain profiles — whisper-quiet vertical breathing & ultra-subtle depth
-    // Zero harsh scatter, zero tilt gimmick: crisp luxury typography softly parting as Page 2 rises.
-    // Sculptural Luxury Silk Dispersion (Desktop): unmistakably expressive, fluid, pure-GPU 3D parting
+    // 5-layer Depth Parallax Curtain profiles — words stay richly visible while sticky,
+    // parting gracefully in 3D and dissolving only as Page 2 actually glides into view (zero blank gap!)
     const DEPTH_CURTAIN_LAYERS = [
-      // Row 1: АВТОРСКАЯ — majestic upper-left glide forward in depth
-      { y: -138, x: -125, z: 105, rx: 4.8,  ry: -2.6, scale: 0.092,  blur: 0.0, fadeStart: 0.46, fadeEnd: 0.97 },
-      // Row 2: ПРОГРАММА ПО — luminous upper-right parting
-      { y: -68,  x: 140,  z: 58,  rx: 2.5,  ry: 2.4,  scale: 0.048,  blur: 0.0, fadeStart: 0.50, fadeEnd: 0.99 },
-      // Row 3: ОТНОШЕНИЯМ · 21 — deep poised center receding softly
-      { y: 0,    x: -28,  z: -68, rx: 0.0,  ry: -1.0, scale: -0.064, blur: 0.0, fadeStart: 0.56, fadeEnd: 1.00 },
-      // Row 4: КОУЧ-СЕССИЯ С — graceful lower-left counter-drift
-      { y: 74,   x: -132, z: -82, rx: -2.7, ry: -2.2, scale: -0.070, blur: 0.0, fadeStart: 0.48, fadeEnd: 0.98 },
-      // Row 5: НАДЕЖДОЙ. — expansive lower-right silk bloom
-      { y: 142,  x: 118,  z: 94,  rx: -4.4, ry: 2.5,  scale: 0.082,  blur: 0.0, fadeStart: 0.52, fadeEnd: 1.00 }
+      // Row 1: АВТОРСКАЯ — foreground upper-left lift
+      { y: -110, x: -34, z: 120, rx: 8.5,  ry: -2.0, scale: 0.065, blur: 0.0, fadeStart: 0.44, fadeEnd: 0.98 },
+      // Row 2: ПРОГРАММА ПО — mid-foreground upper-right glide
+      { y: -52,  x: 28,  z: 58,  rx: 4.4,  ry: 1.6,  scale: 0.030, blur: 0.0, fadeStart: 0.48, fadeEnd: 1.00 },
+      // Row 3: ОТНОШЕНИЯМ · 21 — focal center subtle recession
+      { y: -6,   x: 0,   z: -95, rx: -1.6, ry: 0.0,  scale: -0.075, blur: 1.1, fadeStart: 0.54, fadeEnd: 1.00 },
+      // Row 4: КОУЧ-СЕССИЯ С — lower-left graceful drift
+      { y: 48,   x: -26, z: -145, rx: -5.8, ry: -1.5, scale: -0.110, blur: 1.6, fadeStart: 0.46, fadeEnd: 0.96 },
+      // Row 5: НАДЕЖДОЙ. — foreground signature lower-right sweep
+      { y: 98,   x: 32,  z: 135, rx: -8.8, ry: 1.8,  scale: 0.080, blur: 0.0, fadeStart: 0.50, fadeEnd: 1.00 }
     ];
 
     let targetFillP = 0;
@@ -5657,47 +5655,9 @@
       return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
     }
 
-    // Cached layout geometry so scroll RAF NEVER triggers synchronous layout reflow on mobile
-    let cachedIntroVw = window.innerWidth || 1280;
-    let cachedIntroVh = window.innerHeight || 800;
-    let cachedRunwayExtra = 220;
-
-    function recalcIntroMetrics() {
-      cachedIntroVw = window.innerWidth || 1280;
-      cachedIntroVh = window.innerHeight || 800;
-      if (introRunwayEl && introSplash) {
-        const extra = introRunwayEl.offsetHeight - introSplash.offsetHeight;
-        cachedRunwayExtra = Math.max(160, extra || 220);
-      } else {
-        cachedRunwayExtra = 220;
-      }
-    }
-    recalcIntroMetrics();
-
-    // Mobile Cinematic 3D Depth Parallax Curtain (5-layer GPU-composited depth dispersion)
-    // Five headline rows part smoothly at distinct Z-depths with subtle 3D tilt & gentle dissolve,
-    // opening Page 2 like a cinema scene transition (zero layout reflow, zero blur lag).
-    // Refined Mobile Silk Dispersion: noticeably more restrained than desktop, yet clearly visible & luxurious
-    const MOBILE_DEPTH_CURTAIN_LAYERS = [
-      // Row 1: АВТОРСКАЯ — poised upper-left parting
-      { y: -52, x: -24, z: 36,  rx: 2.2,  ry: -0.9, scale: 0.036,  fadeStart: 0.44, fadeEnd: 0.97 },
-      // Row 2: ПРОГРАММА ПО — refined upper-right glide
-      { y: -26, x: 26,  z: 20,  rx: 1.1,  ry: 0.9,  scale: 0.020,  fadeStart: 0.48, fadeEnd: 0.99 },
-      // Row 3: ОТНОШЕНИЯМ · 21 — serene focal center receding softly
-      { y: 0,   x: -6,  z: -24, rx: 0.0,  ry: 0.0,  scale: -0.026, fadeStart: 0.54, fadeEnd: 1.00 },
-      // Row 4: КОУЧ-СЕССИЯ С — soft lower-left counter-drift
-      { y: 27,  x: -24, z: -28, rx: -1.1, ry: -0.8, scale: -0.028, fadeStart: 0.46, fadeEnd: 0.98 },
-      // Row 5: НАДЕЖДОЙ. — graceful lower-right parting
-      { y: 52,  x: 22,  z: 32,  rx: -2.0, ry: 0.9,  scale: 0.032,  fadeStart: 0.50, fadeEnd: 1.00 }
-    ];
-
     function renderLettersAtProgress(progress) {
       if (prefersReducedMotionIntro || !introHeadlineRows.length) return;
-      const stmtBlock = document.getElementById('introStatementBlock');
       const p = Math.min(1, Math.max(0, progress || 0));
-      if (stmtBlock) {
-        stmtBlock.classList.toggle('is-scrolling-parallax', p > 0.002);
-      }
 
       if (p <= 0.001) {
         for (let i = 0; i < introHeadlineRows.length; i++) {
@@ -5717,101 +5677,75 @@
         return;
       }
 
+      const vw = window.innerWidth || 1280;
       const isSimMobile = document.getElementById('siteViewport') &&
         document.getElementById('siteViewport').classList.contains('is-mobile-sim');
-      const isCompact = cachedIntroVw <= 768 || isSimMobile;
+      const isCompact = vw < 768 || isSimMobile;
+      const motionScale = isCompact ? 0.54 : 1.0;
       const moveP = easeInOutQuad(p);
 
       for (let i = 0; i < introHeadlineRows.length; i++) {
         const row = introHeadlineRows[i];
+        const cfg = DEPTH_CURTAIN_LAYERS[i] || DEPTH_CURTAIN_LAYERS[2];
 
-        if (isCompact) {
-          const mcfg = MOBILE_DEPTH_CURTAIN_LAYERS[i] || MOBILE_DEPTH_CURTAIN_LAYERS[2];
-          const tx = mcfg.x * moveP;
-          const ty = mcfg.y * moveP;
-          const tz = mcfg.z * moveP;
-          const rx = mcfg.rx * moveP;
-          const ry = mcfg.ry * moveP;
-          const sc = 1 + mcfg.scale * moveP;
-          const fadeNorm = Math.min(1, Math.max(0, (p - mcfg.fadeStart) / Math.max(0.01, mcfg.fadeEnd - mcfg.fadeStart)));
-          const opacity = 1 - easeInQuad(fadeNorm);
+        const tx = cfg.x * moveP * motionScale;
+        const ty = cfg.y * moveP * motionScale;
+        const tz = cfg.z * moveP * (isCompact ? 0.65 : 1.0);
+        const rx = cfg.rx * moveP * (isCompact ? 0.72 : 1.0);
+        const ry = cfg.ry * moveP * (isCompact ? 0.65 : 1.0);
+        const sc = 1 + cfg.scale * moveP * (isCompact ? 0.75 : 1.0);
 
-          row.style.transform =
-            'translate3d(' + tx.toFixed(1) + 'px, ' + ty.toFixed(1) + 'px, ' + tz.toFixed(1) + 'px) ' +
-            'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) scale3d(' + sc.toFixed(4) + ', ' + sc.toFixed(4) + ', 1)';
-          row.style.opacity = opacity.toFixed(3);
-          row.style.filter = '';
+        // Late-onset quadratic fade: rows stay crisp while sticky and dissolve only as Section 2 enters
+        const fadeNorm = Math.min(1, Math.max(0, (p - cfg.fadeStart) / Math.max(0.01, cfg.fadeEnd - cfg.fadeStart)));
+        const opacity = 1 - easeInQuad(fadeNorm);
+
+        row.style.transform =
+          'translate3d(' + tx.toFixed(1) + 'px, ' + ty.toFixed(1) + 'px, ' + tz.toFixed(1) + 'px) ' +
+          'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
+        row.style.opacity = opacity.toFixed(3);
+
+        if (!isCompact && cfg.blur > 0) {
+          const blurPx = cfg.blur * easeInQuad(moveP);
+          row.style.filter = blurPx > 0.05 ? ('blur(' + blurPx.toFixed(2) + 'px)') : '';
         } else {
-          const cfg = DEPTH_CURTAIN_LAYERS[i] || DEPTH_CURTAIN_LAYERS[2];
-          const tx = cfg.x * moveP;
-          const ty = cfg.y * moveP;
-          const tz = cfg.z * moveP;
-          const rx = cfg.rx * moveP;
-          const ry = cfg.ry * moveP;
-          const sc = 1 + cfg.scale * moveP;
-
-          const fadeNorm = Math.min(1, Math.max(0, (p - cfg.fadeStart) / Math.max(0.01, cfg.fadeEnd - cfg.fadeStart)));
-          const opacity = 1 - easeInQuad(fadeNorm);
-
-          row.style.transform =
-            'translate3d(' + tx.toFixed(1) + 'px, ' + ty.toFixed(1) + 'px, ' + tz.toFixed(1) + 'px) ' +
-            'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) scale(' + sc.toFixed(3) + ')';
-          row.style.opacity = opacity.toFixed(3);
-
-          if (cfg.blur > 0) {
-            const blurPx = cfg.blur * easeInQuad(moveP);
-            row.style.filter = blurPx > 0.05 ? ('blur(' + blurPx.toFixed(2) + 'px)') : '';
-          } else {
-            row.style.filter = '';
-          }
+          row.style.filter = '';
         }
       }
 
+      // Gently recede voice prompt & bottom scroll indicator as Page 2 approaches
       if (introVoiceBannerEl) {
         const vp = Math.min(1, Math.max(0, (p - 0.18) / 0.52));
         const ve = easeInOutQuad(vp);
-        introVoiceBannerEl.style.transform = 'translate3d(0, ' + (8 * ve).toFixed(1) + 'px, 0)';
+        introVoiceBannerEl.style.transform = 'translate3d(0, ' + (18 * ve).toFixed(1) + 'px, ' + (-35 * ve).toFixed(1) + 'px)';
         introVoiceBannerEl.style.opacity = (1 - ve).toFixed(3);
       }
       if (introBottomBarEl) {
         const bp = Math.min(1, Math.max(0, (p - 0.22) / 0.55));
         const be = easeInOutQuad(bp);
-        introBottomBarEl.style.transform = 'translate3d(0, ' + (6 * be).toFixed(1) + 'px, 0)';
+        introBottomBarEl.style.transform = 'translate3d(0, ' + (14 * be).toFixed(1) + 'px, 0)';
         introBottomBarEl.style.opacity = (1 - be).toFixed(3);
       }
     }
 
     function stepSmoothLetters() {
       const sy = window.scrollY || window.pageYOffset || 0;
-      const isSimMobSpan = document.getElementById('siteViewport') &&
-        document.getElementById('siteViewport').classList.contains('is-mobile-sim');
-      const isCompactSpan = cachedIntroVw <= 768 || isSimMobSpan;
-      const spreadSpan = cachedRunwayExtra + cachedIntroVh * (isCompactSpan ? 0.46 : 0.62);
+      const vh = window.innerHeight || 800;
+      const runwayExtra = (introRunwayEl && introSplash)
+        ? Math.max(160, introRunwayEl.offsetHeight - introSplash.offsetHeight)
+        : 260;
+      // Span across sticky runway PLUS 62% of viewport lift-off so words never vanish while Page 1 is still full-screen
+      const spreadSpan = runwayExtra + vh * 0.62;
       targetFillP = Math.min(1, Math.max(0, sy / spreadSpan));
 
-      const isSafariUA = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent || '');
-      if (isCompactSpan || isSafariUA) {
-        // Direct 1:1 hardware-synced scroll tracking on Mobile & macOS Safari (120Hz ProMotion native inertia!)
-        smoothFillP = targetFillP;
-        renderLettersAtProgress(smoothFillP);
-        if (!isCompactSpan && introSplash) {
-          const liftStartS = Math.max(120, cachedRunwayExtra * 0.65);
-          const liftPS = Math.min(1, Math.max(0, (sy - liftStartS) / (cachedIntroVh * 0.85)));
-          introSplash.style.setProperty('--arch-scale', Math.sin(liftPS * Math.PI).toFixed(3));
-        }
-        rafRunning = false;
-        return;
-      }
-
-      smoothFillP += (targetFillP - smoothFillP) * 0.22;
+      smoothFillP += (targetFillP - smoothFillP) * 0.18;
       if (Math.abs(targetFillP - smoothFillP) < 0.0015) {
         smoothFillP = targetFillP;
       }
 
       renderLettersAtProgress(smoothFillP);
 
-      const liftStart = Math.max(120, cachedRunwayExtra * 0.65);
-      const liftP = Math.min(1, Math.max(0, (sy - liftStart) / (cachedIntroVh * 0.85)));
+      const liftStart = Math.max(120, runwayExtra * 0.65);
+      const liftP = Math.min(1, Math.max(0, (sy - liftStart) / (vh * 0.85)));
       const archScale = Math.sin(liftP * Math.PI);
       if (introSplash) {
         introSplash.style.setProperty('--arch-scale', archScale.toFixed(3));
@@ -5830,6 +5764,8 @@
         requestAnimationFrame(stepSmoothLetters);
       }
     }
+
+    function recalcIntroMetrics() {}
 
     let lastResizeWidth = window.innerWidth || 1280;
     window.addEventListener('resize', function() {
