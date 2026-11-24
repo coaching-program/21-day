@@ -2805,6 +2805,84 @@
       height: 10px !important;
     }
 
+  
+    /* =========================================================================
+       EDITORIAL TEXT FLOW, RUSSIAN HYPHENATION & PROPORTIONAL METHOD CARDS
+       ========================================================================= */
+    .method-prose {
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+      hyphenate-limit-chars: 6 3 2;
+      text-align: justify;
+      text-justify: inter-word;
+      overflow-wrap: break-word;
+      text-wrap: pretty;
+      font-size: 14.5px;
+      line-height: 1.56;
+    }
+    .method-prose-sub {
+      hyphens: auto;
+      -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+      hyphenate-limit-chars: 6 3 2;
+      text-align: justify;
+      text-justify: inter-word;
+      overflow-wrap: break-word;
+      text-wrap: pretty;
+      font-size: 13.5px;
+      line-height: 1.52;
+    }
+    .method-card-title {
+      text-wrap: balance;
+      hyphens: none;
+      -webkit-hyphens: none;
+    }
+    @media (min-width: 1024px) {
+      .method-prose {
+        font-size: 15px;
+        line-height: 1.58;
+      }
+      .method-prose-sub {
+        font-size: 14px;
+        line-height: 1.54;
+      }
+    }
+    @media (max-width: 640px) {
+      #sectionMethods {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+      }
+      #sectionMethods > div {
+        padding: 1.35rem 0.9rem !important;
+        border-radius: 26px !important;
+      }
+      #sectionMethods .method-editorial-card {
+        padding: 1.25rem 1.15rem !important;
+        border-radius: 22px !important;
+      }
+      #sectionReviews > div {
+        padding: 1.35rem 1rem !important;
+        border-radius: 28px !important;
+      }
+    }
+    #siteViewport.is-mobile-sim #sectionMethods {
+      padding-left: 10px !important;
+      padding-right: 10px !important;
+    }
+    #siteViewport.is-mobile-sim #sectionMethods > div {
+      padding: 1.35rem 0.9rem !important;
+      border-radius: 26px !important;
+    }
+    #siteViewport.is-mobile-sim #sectionMethods .method-editorial-card {
+      padding: 1.25rem 1.15rem !important;
+      border-radius: 22px !important;
+    }
+    #siteViewport.is-mobile-sim #sectionReviews > div {
+      padding: 1.35rem 1rem !important;
+      border-radius: 28px !important;
+    }
+
   </style>
 <script>
     (function() {
@@ -3980,13 +4058,13 @@
 <!-- ===================================================================
            SECTION II / ОСНОВАНИЯ МЕТОДА: 5:1 / EFT / CBT
            =================================================================== -->
-<section class="py-16 sm:py-24 px-4 sm:px-10 bg-[#FAF7F2] border-b border-rose-200/80" id="sectionMethods">
-<div class="max-w-7xl mx-auto rounded-[40px] sm:rounded-[48px] p-7 sm:p-14 bg-white border border-rose-200/85 shadow-[0_24px_65px_rgba(110,20,48,0.05)] reveal-on-scroll">
-<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-4 text-[11px] sm:text-sm font-semibold uppercase tracking-[0.12em] sm:tracking-[0.14em] text-[#4B5563] border-b border-slate-200 pb-4 mb-12 sm:mb-16">
+<section class="py-14 sm:py-22 px-3 sm:px-6 lg:px-8 bg-[#FAF7F2] border-b border-rose-200/80 mob-pad mob-py" id="sectionMethods">
+<div class="max-w-7xl mx-auto rounded-[28px] sm:rounded-[40px] lg:rounded-[48px] px-4 py-7 sm:p-8 lg:p-11 bg-white border border-rose-200/85 shadow-[0_24px_65px_rgba(110,20,48,0.05)] reveal-on-scroll">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-4 text-[11px] sm:text-sm font-semibold uppercase tracking-[0.12em] sm:tracking-[0.14em] text-[#4B5563] border-b border-slate-200 pb-4 mb-10 sm:mb-12">
 <span>04 / НАУЧНАЯ БАЗА И ДОКАЗАННАЯ ЭФФЕКТИВНОСТЬ</span>
 <span>МИРОВАЯ СТАТИСТИКА: ICEEFT · BECK INSTITUTE · GOTTMAN INSTITUTE</span>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end mb-14 mob-stack text-left">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end mb-10 sm:mb-12 mob-stack text-left">
 <div class="lg:col-span-6 space-y-4 text-left">
 <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F9EBEF] border border-rose-200 text-xs font-bold uppercase tracking-[0.15em] text-[#6E1430]">
 <span>✦</span> ДОКАЗАТЕЛЬНАЯ ПСИХОЛОГИЯ И НЕЙРОБИОЛОГИЯ
@@ -3998,78 +4076,78 @@
 </div>
 <div class="lg:col-span-6 text-left">
 <p class="editorial-lead-copy text-[#3D2E33] leading-relaxed">
-                Каждая духовная и психологическая практика программы (21 сессия) опирается на фундаментальные открытия нейробиологии, проективной психологии, <a class="text-[#6E1430] underline" href="https://beckinstitute.org/about/understanding-cbt/" rel="noopener noreferrer" target="_blank">когнитивно-поведенческого подхода (КПТ)</a>, <a class="text-[#6E1430] underline" href="https://iceeft.com/what-is-eft/" rel="noopener noreferrer" target="_blank">теории привязанности (EFT)</a> и системных исследований пар <a class="text-[#6E1430] underline" href="https://www.gottman.com/blog/the-magic-relationship-ratio-according-science/" rel="noopener noreferrer" target="_blank">Института Готтмана</a>.
+                Каждая духовная и психологическая практика программы (21 сессия) опирается на фундаментальные открытия нейробиологии, проективной психологии, <a class="text-[#6E1430] underline" href="https://beckinstitute.org/about/understanding-cbt/" rel="noopener noreferrer" target="_blank">ког&shy;ни&shy;тив&shy;но-по&shy;ве&shy;ден&shy;чес&shy;кого подхода (КПТ)</a>, <a class="text-[#6E1430] underline" href="https://iceeft.com/what-is-eft/" rel="noopener noreferrer" target="_blank">теории привязанности (EFT)</a> и системных исследований пар <a class="text-[#6E1430] underline" href="https://www.gottman.com/blog/the-magic-relationship-ratio-according-science/" rel="noopener noreferrer" target="_blank">Института Готтмана</a>.
               </p>
 </div>
 </div>
-<div class="sim-carousel grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full">
+<div class="sim-carousel grid grid-cols-1 lg:grid-cols-3 gap-5 xl:gap-6 w-full">
 <!-- 1. МАК + Намерение + Удаление блоков -> Проективная психология и нейропластичность (КПТ) -->
-<div class="w-full max-w-full rounded-3xl p-8 bg-gradient-to-br from-[#F9EBEF] via-[#FAF7F2] to-white border border-rose-200/80 shadow-sm flex flex-col justify-between space-y-6">
-<div class="space-y-3.5">
-<div class="text-xs font-bold uppercase tracking-[0.14em] text-[#6E1430]">ПРОЕКТИВНАЯ ПСИХОЛОГИЯ · НЕЙРОПЛАСТИЧНОСТЬ · КПТ</div>
-<div class="font-serif-ed font-semibold text-5xl sm:text-6xl text-[#8C1D40] leading-none">МАК</div>
-<h3 class="font-serif-ed font-semibold text-2xl sm:text-3xl text-[#111827] leading-tight">
-                  Обход защит сознания.<br/>Перезапись убеждений.
+<div class="method-editorial-card w-full max-w-full rounded-3xl p-5 sm:p-6 xl:p-7 bg-gradient-to-br from-[#F9EBEF] via-[#FAF7F2] to-white border border-rose-200/80 shadow-sm flex flex-col justify-between space-y-5">
+<div class="space-y-3">
+<div class="text-[11px] font-bold uppercase tracking-[0.12em] text-[#6E1430] leading-snug">ПРОЕКТИВНАЯ ПСИХОЛОГИЯ · НЕЙРОПЛАСТИЧНОСТЬ · КПТ</div>
+<div class="font-serif-ed font-semibold text-4xl sm:text-5xl text-[#8C1D40] leading-none pt-0.5">МАК</div>
+<h3 class="method-card-title font-serif-ed font-semibold text-[1.4rem] sm:text-[1.55rem] xl:text-[1.65rem] text-[#111827] leading-[1.18]">
+                  Обход защит сознания. Перезапись убеждений.
                 </h3>
-<p class="text-sm sm:text-base text-[#374151] leading-relaxed">
-<strong>Научный механизм:</strong> Метафорические карты (МАК) работают через феномен психологической проекции - визуальный образ мягко обходит цензуру рационального критика и открывает прямой доступ к вытесненным убеждениям в правом полушарии мозга. А практики <strong>«Трансформирующий Экран»</strong>, <strong>«Образ внутри»</strong> и запуск Намерения через <strong>«ШАР»</strong> задействуют нейропластичность и когнитивную реструктуризацию (<a class="text-[#6E1430] underline" href="https://beckinstitute.org/about/understanding-cbt/" rel="noopener noreferrer" target="_blank">Beck Institute CBT</a>) на тета-ритмах погружения.
+<p class="method-prose text-[#374151]">
+<strong>Научный механизм:</strong> Ме&shy;та&shy;фо&shy;ри&shy;чес&shy;кие карты (МАК) работают через феномен пси&shy;хо&shy;ло&shy;ги&shy;чес&shy;кой проекции — визуальный образ мягко обходит цензуру ра&shy;ци&shy;о&shy;наль&shy;ного критика и открывает прямой доступ к вытесненным убеждениям в правом полушарии мозга. А практики <strong>«Транс&shy;фор&shy;ми&shy;ру&shy;ющий Экран»</strong>, <strong>«Образ внутри»</strong> и запуск Намерения через <strong>«ШАР»</strong> задействуют ней&shy;ро&shy;плас&shy;тич&shy;ность и когнитивную ре&shy;струк&shy;ту&shy;ри&shy;за&shy;цию (<a class="text-[#6E1430] underline" href="https://beckinstitute.org/about/understanding-cbt/" rel="noopener noreferrer" target="_blank">Beck Institute CBT</a>) на тета-ритмах погружения.
                 </p>
 </div>
-<div class="space-y-3.5 pt-4 border-t border-rose-200/60">
-<p class="text-sm text-[#4B5563] leading-relaxed">
+<div class="space-y-3 pt-4 border-t border-rose-200/60">
+<p class="method-prose-sub text-[#4B5563]">
                   Диагностика по МАК-картам на 1-й и 21-й сессиях объективно фиксирует сдвиг когнитивных схем и внутренней готовности к счастливому союзу.
                 </p>
-<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-<span class="text-sm font-medium text-[#4B5563]">Проективный метод · КПТ Бека</span>
-<button class="btn-method-info text-sm font-semibold text-[#6E1430] hover:underline" whitespace-nowrap self-start sm:self-auto data-method-modal="gottman" type="button">
+<div class="flex flex-wrap items-center justify-between gap-2 pt-0.5">
+<span class="text-xs sm:text-sm font-medium text-[#4B5563]">Проективный метод · КПТ Бека</span>
+<button class="btn-method-info text-xs sm:text-sm font-semibold text-[#6E1430] hover:underline whitespace-nowrap" data-method-modal="gottman" type="button">
                     Подробнее о базе ↗
                   </button>
 </div>
 </div>
 </div>
 <!-- 2. Внутренний ребенок, Сила Рода и Стол менторов -> Теория привязанности (EFT) и трансгенерационный подход -->
-<div class="w-full max-w-full rounded-3xl p-8 bg-gradient-to-br from-[#F3E8FD] via-[#FAF5FF] to-white border border-violet-200/80 shadow-sm flex flex-col justify-between space-y-6">
-<div class="space-y-3.5">
-<div class="text-xs font-bold uppercase tracking-[0.14em] text-[#7C3AED]">ТЕОРИЯ ПРИВЯЗАННОСТИ (EFT) · СИСТЕМНЫЙ РОДОВОЙ ПОДХОД</div>
-<div class="font-serif-ed font-semibold text-5xl sm:text-6xl text-[#7C3AED] leading-none">РОД</div>
-<h3 class="font-serif-ed font-semibold text-2xl sm:text-3xl text-[#111827] leading-tight">
-                  Исцеление привязанности<br/>и межпоколенческих сценариев.
+<div class="method-editorial-card w-full max-w-full rounded-3xl p-5 sm:p-6 xl:p-7 bg-gradient-to-br from-[#F3E8FD] via-[#FAF5FF] to-white border border-violet-200/80 shadow-sm flex flex-col justify-between space-y-5">
+<div class="space-y-3">
+<div class="text-[11px] font-bold uppercase tracking-[0.12em] text-[#7C3AED] leading-snug">ТЕОРИЯ ПРИВЯЗАННОСТИ (EFT) · СИСТЕМНЫЙ РОДОВОЙ ПОДХОД</div>
+<div class="font-serif-ed font-semibold text-4xl sm:text-5xl text-[#7C3AED] leading-none pt-0.5">РОД</div>
+<h3 class="method-card-title font-serif-ed font-semibold text-[1.4rem] sm:text-[1.55rem] xl:text-[1.65rem] text-[#111827] leading-[1.18]">
+                  Исцеление привязанности и меж&shy;по&shy;ко&shy;лен&shy;чес&shy;ких сценариев.
                 </h3>
-<p class="text-sm sm:text-base text-[#374151] leading-relaxed">
-<strong>Научный механизм:</strong> Согласно клиническим исследованиям <a class="text-[#7C3AED] underline" href="https://iceeft.com/what-is-eft/" rel="noopener noreferrer" target="_blank">эмоционально-фокусированной терапии (ICEEFT)</a>, выбор партнера и страх близости формируются ранним опытом детской привязанности и семейными сценариями поколений. Практики <strong>«Внутренний ребенок»</strong> и <strong>«Ценностный образ себя»</strong> формируют надёжный тип привязанности, а <strong>«Исцеление и связь силы Рода»</strong>, <strong>«Высшее Я»</strong> и <strong>«Стол менторов»</strong> снимают трансгенерационную тревогу и дают глубокую внутреннюю опору.
+<p class="method-prose text-[#374151]">
+<strong>Научный механизм:</strong> Согласно клиническим исследованиям <a class="text-[#7C3AED] underline" href="https://iceeft.com/what-is-eft/" rel="noopener noreferrer" target="_blank">эмо&shy;цио&shy;наль&shy;но-фоку&shy;си&shy;ро&shy;ван&shy;ной терапии (ICEEFT)</a>, выбор партнера и страх близости формируются ранним опытом детской при&shy;вя&shy;зан&shy;нос&shy;ти и семейными сценариями поколений. Практики <strong>«Внутренний ребенок»</strong> и <strong>«Ценностный образ себя»</strong> формируют надёжный тип при&shy;вя&shy;зан&shy;нос&shy;ти, а <strong>«Исцеление и связь силы Рода»</strong>, <strong>«Высшее Я»</strong> и <strong>«Стол менторов»</strong> снимают транс&shy;ге&shy;не&shy;ра&shy;ци&shy;он&shy;ную тревогу и дают глубокую внутреннюю опору.
                 </p>
 </div>
-<div class="space-y-3.5 pt-4 border-t border-violet-200/60">
-<p class="text-sm text-[#4B5563] leading-relaxed">
-<strong>Мировая статистика эффективности:</strong> по данным мета-анализов <a class="text-[#7C3AED] underline" href="https://www.goodtherapy.org/learn-about-therapy/types/emotionally-focused-therapy" rel="noopener noreferrer" target="_blank">GoodTherapy</a> и <a class="text-[#7C3AED] underline" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12506414/" rel="noopener noreferrer" target="_blank">PubMed Central (NIH)</a>, <strong>70–75% пар полностью преодолевают кризис</strong>, а у <strong>90%</strong> фиксируется устойчивое улучшение близости с сохранением результата спустя 2+ года.
+<div class="space-y-3 pt-4 border-t border-violet-200/60">
+<p class="method-prose-sub text-[#4B5563]">
+<strong>Мировая статистика эф&shy;фек&shy;тив&shy;нос&shy;ти:</strong> по данным мета-анализов <a class="text-[#7C3AED] underline" href="https://www.goodtherapy.org/learn-about-therapy/types/emotionally-focused-therapy" rel="noopener noreferrer" target="_blank">GoodTherapy</a> и <a class="text-[#7C3AED] underline" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12506414/" rel="noopener noreferrer" target="_blank">PubMed Central (NIH)</a>, <strong>70–75% пар полностью пре&shy;одо&shy;ле&shy;ва&shy;ют кризис</strong>, а у <strong>90%</strong> фиксируется устойчивое улучшение близости с сохранением результата спустя 2+ года.
                 </p>
-<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-<span class="text-sm font-medium text-[#4B5563]">ICEEFT · Семейные системы</span>
-<button class="btn-method-info text-sm font-semibold text-[#7C3AED] hover:underline" whitespace-nowrap self-start sm:self-auto data-method-modal="eft" type="button">
+<div class="flex flex-wrap items-center justify-between gap-2 pt-0.5">
+<span class="text-xs sm:text-sm font-medium text-[#4B5563]">ICEEFT · Семейные системы</span>
+<button class="btn-method-info text-xs sm:text-sm font-semibold text-[#7C3AED] hover:underline whitespace-nowrap" data-method-modal="eft" type="button">
                     Подробнее о базе ↗
                   </button>
 </div>
 </div>
 </div>
 <!-- 3. Треугольник Карпмана и Колесо супружеского баланса -> Транзактный анализ и Институт Готтмана -->
-<div class="w-full max-w-full rounded-3xl p-8 bg-gradient-to-br from-[#E6F4EA] via-[#F0FDF4] to-white border border-emerald-200/80 shadow-sm flex flex-col justify-between space-y-6">
-<div class="space-y-3.5">
-<div class="text-xs font-bold uppercase tracking-[0.14em] text-emerald-800">ТРАНЗАКТНЫЙ АНАЛИЗ КАРПМАНА · THE GOTTMAN INSTITUTE</div>
-<div class="font-serif-ed font-semibold text-5xl sm:text-6xl text-[#10B981] leading-none">СОЮЗ</div>
-<h3 class="font-serif-ed font-semibold text-2xl sm:text-3xl text-[#111827] leading-tight">
-                  Выход из ролевых игр<br/>и баланс ценностей семьи.
+<div class="method-editorial-card w-full max-w-full rounded-3xl p-5 sm:p-6 xl:p-7 bg-gradient-to-br from-[#E6F4EA] via-[#F0FDF4] to-white border border-emerald-200/80 shadow-sm flex flex-col justify-between space-y-5">
+<div class="space-y-3">
+<div class="text-[11px] font-bold uppercase tracking-[0.12em] text-emerald-800 leading-snug">ТРАНЗАКТНЫЙ АНАЛИЗ КАРПМАНА · THE GOTTMAN INSTITUTE</div>
+<div class="font-serif-ed font-semibold text-4xl sm:text-5xl text-[#10B981] leading-none pt-0.5">СОЮЗ</div>
+<h3 class="method-card-title font-serif-ed font-semibold text-[1.4rem] sm:text-[1.55rem] xl:text-[1.65rem] text-[#111827] leading-[1.18]">
+                  Выход из ролевых игр и баланс ценностей семьи.
                 </h3>
-<p class="text-sm sm:text-base text-[#374151] leading-relaxed">
-<strong>Научный механизм:</strong> Модель драматического треугольника С. Карпмана (Жертва - Спасатель - Преследователь) объясняет, почему пары годами ходят по кругу взаимных претензий. Мы деконструируем эти роли сначала когнитивно (через разум), а затем стираем вторичные выгоды в подсознании. А практика <strong>«Колесо супружеского баланса семьи»</strong> и <strong>«Прощение»</strong> опираются на исследования <a class="text-emerald-800 underline" href="https://www.gottman.com/blog/the-magic-relationship-ratio-according-science/" rel="noopener noreferrer" target="_blank">Института Готтмана</a> о балансе общих смыслов и эмоционального вклада.
+<p class="method-prose text-[#374151]">
+<strong>Научный механизм:</strong> Модель дра&shy;ма&shy;ти&shy;чес&shy;кого треугольника С. Карпмана (Жертва — Спасатель — Пре&shy;сле&shy;до&shy;ва&shy;тель) объясняет, почему пары годами ходят по кругу взаимных претензий. Мы де&shy;кон&shy;стру&shy;и&shy;ру&shy;ем эти роли сначала когнитивно (через разум), а затем стираем вторичные выгоды в подсознании. А практика <strong>«Колесо суп&shy;ру&shy;жес&shy;кого баланса семьи»</strong> и <strong>«Прощение»</strong> опираются на исследования <a class="text-emerald-800 underline" href="https://www.gottman.com/blog/the-magic-relationship-ratio-according-science/" rel="noopener noreferrer" target="_blank">Института Готтмана</a> о балансе общих смыслов и эмо&shy;цио&shy;наль&shy;ного вклада.
                 </p>
 </div>
-<div class="space-y-3.5 pt-4 border-t border-emerald-200/60">
-<p class="text-sm text-[#4B5563] leading-relaxed">
-<strong>Мировая статистика эффективности:</strong> клиническое применение принципов Готтмана (включая <a class="text-emerald-800 underline" href="https://www.gottman.com/blog/the-magic-relationship-ratio-according-science/" rel="noopener noreferrer" target="_blank">пропорцию 5:1</a>) и деконструкция ролей Карпмана помогают сохранить и обновить союз даже после глубоких кризисов в <strong>73% случаев</strong> (<a class="text-emerald-800 underline" href="https://flourishing-lives.com/dr-john-gottmans-marriage-research-statistics/" rel="noopener noreferrer" target="_blank">данные исследований</a>).
+<div class="space-y-3 pt-4 border-t border-emerald-200/60">
+<p class="method-prose-sub text-[#4B5563]">
+<strong>Мировая статистика эф&shy;фек&shy;тив&shy;нос&shy;ти:</strong> клиническое применение принципов Готтмана (включая <a class="text-emerald-800 underline" href="https://www.gottman.com/blog/the-magic-relationship-ratio-according-science/" rel="noopener noreferrer" target="_blank">пропорцию 5:1</a>) и де&shy;кон&shy;струк&shy;ция ролей Карпмана помогают сохранить и обновить союз даже после глубоких кризисов в <strong>73% случаев</strong> (<a class="text-emerald-800 underline" href="https://flourishing-lives.com/dr-john-gottmans-marriage-research-statistics/" rel="noopener noreferrer" target="_blank">данные исследований</a>).
                 </p>
-<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-<span class="text-sm font-medium text-[#4B5563]">Метод Готтмана · С. Карпман</span>
-<button class="btn-method-info text-sm font-semibold text-emerald-800 hover:underline" whitespace-nowrap self-start sm:self-auto data-method-modal="cbt" type="button">
+<div class="flex flex-wrap items-center justify-between gap-2 pt-0.5">
+<span class="text-xs sm:text-sm font-medium text-[#4B5563]">Метод Готтмана · С. Карпман</span>
+<button class="btn-method-info text-xs sm:text-sm font-semibold text-emerald-800 hover:underline whitespace-nowrap" data-method-modal="cbt" type="button">
                     Подробнее о базе ↗
                   </button>
 </div>
