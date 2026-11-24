@@ -2704,6 +2704,107 @@
       transform: translate3d(0, 4px, 0) !important;
     }
 
+  
+    /* =========================================================================
+       MOBILE REFINEMENTS: PAGE 1 CENTERING + AUTHOR HEADING & TELEGRAM BADGE
+       ========================================================================= */
+    @media (max-width: 767px) {
+      /* 1. Page 1 (#introSplash): eliminate right-shift caused by flexbox mx-auto + scaleX overflow */
+      #introSplash .intro-center-wrap {
+        width: 100% !important;
+        max-width: 100% !important;
+        align-items: center !important;
+      }
+      #introSplash .headline-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        align-items: center !important;
+        transform: scaleX(0.864) !important;
+        transform-origin: 50% 50% !important;
+      }
+      #introSplash .headline-row {
+        width: auto !important;
+        max-width: none !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        justify-content: center !important;
+        font-size: clamp(31px, min(9.8vw, 6.2vh), 46px) !important;
+        line-height: 1.02 !important;
+      }
+
+      /* 2. Author section (#sectionAuthor): slightly larger, more harmonious "НАДЕЖДА БУРЛЕВА" in mobile ONLY */
+      #sectionAuthor .author-title-wrap {
+        padding-top: 0.35rem !important;
+        padding-bottom: 0.5rem !important;
+      }
+      #sectionAuthor .author-title-wrap h2 {
+        font-size: clamp(2.08rem, 8.6vw, 2.55rem) !important;
+        line-height: 1.02 !important;
+        letter-spacing: -0.015em !important;
+      }
+
+      /* 3. Telegram online badge under photo: slightly smaller text + slightly larger live green dot in mobile */
+      #nadTelegramBadgeRow {
+        margin-top: 0.55rem !important;
+      }
+      #nadTelegramStatusBadge {
+        font-size: 10px !important;
+        line-height: 1.2 !important;
+        padding: 0.3rem 0.78rem !important;
+        gap: 0.45rem !important;
+      }
+      #nadTelegramStatusBadge .nad-live-dot-wrap,
+      #nadTelegramStatusBadge .nad-live-dot-core {
+        width: 10px !important;
+        height: 10px !important;
+      }
+    }
+
+    /* Keep desktop simulator (.is-mobile-sim) in 1-in-1 sync with mobile media query */
+    #siteViewport.is-mobile-sim #introSplash .intro-center-wrap {
+      width: 100% !important;
+      max-width: 100% !important;
+      align-items: center !important;
+    }
+    #siteViewport.is-mobile-sim #introSplash .headline-container {
+      width: 100% !important;
+      max-width: 100% !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      align-items: center !important;
+      transform: scaleX(0.864) !important;
+      transform-origin: 50% 50% !important;
+    }
+    #siteViewport.is-mobile-sim #introSplash .headline-row {
+      width: auto !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      justify-content: center !important;
+      font-size: 2.38rem !important;
+      line-height: 1.02 !important;
+    }
+    #siteViewport.is-mobile-sim #sectionAuthor .author-title-wrap h2 {
+      font-size: 2.2rem !important;
+      line-height: 1.02 !important;
+      letter-spacing: -0.015em !important;
+    }
+    #siteViewport.is-mobile-sim #nadTelegramBadgeRow {
+      margin-top: 0.55rem !important;
+    }
+    #siteViewport.is-mobile-sim #nadTelegramStatusBadge {
+      font-size: 10px !important;
+      line-height: 1.2 !important;
+      padding: 0.3rem 0.78rem !important;
+      gap: 0.45rem !important;
+    }
+    #siteViewport.is-mobile-sim #nadTelegramStatusBadge .nad-live-dot-wrap,
+    #siteViewport.is-mobile-sim #nadTelegramStatusBadge .nad-live-dot-core {
+      width: 10px !important;
+      height: 10px !important;
+    }
+
   </style>
 <script>
     (function() {
@@ -3991,14 +4092,7 @@
 <h2 class="font-serif-ed uppercase text-5xl sm:text-7xl lg:text-[6.8rem] leading-[0.9] tracking-[-0.02em] text-[#111827] mob-h2 gsap-clip-reveal">
               НАДЕЖДА <br class="hidden sm:inline"/>БУРЛЕВА
             </h2>
-<a class="mt-2.5 sm:mt-5 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50/95 hover:bg-emerald-100/95 border border-emerald-200/90 text-[11px] sm:text-xs font-semibold text-emerald-900 shadow-2xs transition" href="https://t.me/nadezhda_burleva" id="nadTelegramStatusBadge" rel="noopener noreferrer" target="_blank">
-<span class="relative flex h-2 w-2 shrink-0">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-</span>
-<span>На связи лично в Telegram</span>
-<span class="text-emerald-700/80 font-bold">↗</span>
-</a>
+
 </div>
 <div class="author-main-grid grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start pt-12">
 <!-- Left Column: Larger Real Portrait of Nadezhda + Handwritten Animated Philosophical Quote & Signature -->
@@ -4007,7 +4101,16 @@
 <div class="rounded-[28px] overflow-hidden border-4 border-white shadow-[0_22px_54px_rgba(15,23,42,0.14)] aspect-[4/5] bg-slate-900" id="nadPhotoFrame" data-parallax-wrap="true">
 <img alt="Надежда Бурлева - автор и ведущая программы Архитектура отношений" class="gpu-parallax-img w-full h-full object-cover object-top" decoding="async" loading="lazy" src="assets/img/img-11.webp"/>
 </div>
-
+</div>
+<div class="w-full max-w-[350px] sm:max-w-[380px] mt-3 sm:mt-3.5 flex justify-center" id="nadTelegramBadgeRow">
+<a class="nad-tg-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50/95 hover:bg-emerald-100/95 border border-emerald-200/90 text-[11px] sm:text-xs font-semibold text-emerald-900 shadow-2xs transition whitespace-nowrap" href="https://t.me/nadezhda_burleva" id="nadTelegramStatusBadge" rel="noopener noreferrer" target="_blank">
+<span class="nad-live-dot-wrap relative flex h-2 w-2 shrink-0">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-80"></span>
+<span class="nad-live-dot-core relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+</span>
+<span>На связи лично в Telegram</span>
+<span class="text-emerald-700/80 font-bold">↗</span>
+</a>
 </div>
 <!-- Handwritten Animated Quote & Personal Signature under Photo -->
 <div class="w-full max-w-[350px] sm:max-w-[380px] mt-5 rounded-3xl p-5 sm:p-6 bg-white/95 border border-violet-200/80 shadow-sm relative" id="nadQuoteBox">
