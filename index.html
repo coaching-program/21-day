@@ -33,7 +33,7 @@
       box-sizing: border-box;
     }
     html {
-      scroll-behavior: smooth;
+      scroll-behavior: auto;
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -2401,20 +2401,18 @@
     }
     #fwStageContent {
       transition:
-        opacity 0.52s cubic-bezier(0.4, 0, 0.2, 1),
-        transform 0.58s cubic-bezier(0.4, 0, 0.2, 1),
-        filter 0.52s ease;
-      will-change: opacity, transform, filter;
+        opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.52s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: opacity, transform;
     }
     #fwStageContent.fw-stage-leaving {
       opacity: 0;
-      transform: translateY(8px);
-      filter: blur(4px);
+      transform: translate3d(0, 8px, 0);
       pointer-events: none;
     }
     @keyframes stageFadeRise {
-      0% { opacity: 0; transform: translateY(16px); filter: blur(4px); }
-      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+      0% { opacity: 0; transform: translate3d(0, 14px, 0); }
+      100% { opacity: 1; transform: translate3d(0, 0, 0); }
     }
     @keyframes fwChipSilkBloom {
       0% { opacity: 0; transform: translateY(10px) scale(0.97); }
@@ -2587,6 +2585,106 @@
       }
     }
 
+
+    /* =========================================================================
+       SAFARI GPU COMPOSITING & LUXURY MAK RITUAL CHOREOGRAPHY
+       ========================================================================= */
+    #sectionMakPractice {
+      contain: layout style paint;
+      transform: translateZ(0);
+    }
+    #luxuryScrollThread {
+      width: 100% !important;
+      transform-origin: left center;
+      transform: scaleX(0);
+      will-change: transform;
+    }
+    /* Allow dramatic desktop word dispersion to breathe freely without clipping */
+    #introSplash .intro-center-wrap {
+      overflow: visible !important;
+      perspective: 1200px;
+      perspective-origin: 50% 48%;
+    }
+    #introStatementBlock.is-scrolling-parallax,
+    #introStatementBlock.is-scrolling-parallax .intro-line-mask {
+      overflow: visible !important;
+    }
+    #introStatementBlock .headline-row {
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    /* Luxury MAK 3D Card Opening & Silk Sheen */
+    .mak-big-stage {
+      perspective: 1500px;
+      transform: translateZ(0);
+    }
+    .mak-big-card-inner {
+      transition: transform 0.86s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.65s ease !important;
+      will-change: transform;
+    }
+    .mak-big-card-inner.is-folding {
+      transition: transform 0.36s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.36s ease !important;
+      transform: rotateY(0deg) scale(0.955) !important;
+      box-shadow: 0 14px 36px rgba(10, 2, 6, 0.38) !important;
+    }
+    .mak-big-card-inner.is-flipped {
+      transform: rotateY(180deg) scale(1);
+    }
+    .mak-big-front::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 22%, rgba(243, 213, 165, 0.28) 48%, rgba(255, 255, 255, 0.42) 52%, transparent 76%);
+      transform: translateX(-135%);
+      pointer-events: none;
+      z-index: 5;
+    }
+    .mak-big-card-inner.is-sheen-active .mak-big-front::after {
+      animation: makGoldSheenSweep 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    @keyframes makGoldSheenSweep {
+      0% { transform: translateX(-135%); opacity: 0.9; }
+      100% { transform: translateX(135%); opacity: 0; }
+    }
+    #makCardArtViewport img.mak-art-img {
+      transition: opacity 0.62s cubic-bezier(0.22, 1, 0.36, 1), transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    #makCardArtViewport img.mak-art-img.is-entering {
+      opacity: 0;
+      transform: scale(1.06);
+    }
+    #makCardArtViewport img.mak-art-img.is-settled {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Silky Staggered Editorial Reveal for MAK Questions ("1. Первое впечатление:" etc.) */
+    .mak-prompt-row {
+      transition: opacity 0.56s cubic-bezier(0.22, 1, 0.36, 1), transform 0.64s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .mak-prompt-row.is-mak-leaving {
+      opacity: 0;
+      transform: translate3d(0, -7px, 0);
+      transition-duration: 0.26s;
+    }
+    .mak-prompt-row.is-mak-entering {
+      opacity: 0;
+      transform: translate3d(0, 11px, 0);
+      transition: none;
+    }
+    #makCardNumberBadge,
+    #makDeckStatusText {
+      transition: opacity 0.38s ease, transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .is-mak-meta-fade {
+      opacity: 0 !important;
+      transform: translate3d(0, 4px, 0) !important;
+    }
+
   </style>
 <script>
     (function() {
@@ -2725,7 +2823,7 @@
            =================================================================== -->
 <div id="introScrollRunway">
 <!-- Studio Mastered Voice of Nadezhda Burleva (studio_voice_mix.mp3) -->
-<audio id="nadRealVoiceAudio" playsinline="" preload="metadata" src="assets/audio/nadezhda-voice.mp3?v=2"></audio>
+<audio id="nadRealVoiceAudio" playsinline="" preload="metadata" src="assets/audio/nadezhda-voice.mp3?v=3"></audio>
 <section class="flex flex-col justify-between px-5 sm:px-12 py-5 sm:py-7 select-none relative" id="introSplash">
 <!-- Top Navigation Row (1-in-1 Reference) -->
 <div class="relative z-10 flex items-center justify-between border-b border-[#6E1430]/[0.05] pb-4 shrink-0">
@@ -2819,7 +2917,7 @@
            STICKY HEADER (1-in-1 with Main Start Page Header: same position,
            same button style & size, same 64px menu circle!)
            =================================================================== -->
-<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/40 px-5 sm:px-12 py-4" id="mainStickyHeader" style="transform: translate3d(0,0,0); backface-visibility: hidden;">
+<header class="sticky top-0 z-40 bg-white/95 border-b border-slate-200/40 px-5 sm:px-12 py-4" id="mainStickyHeader" style="transform: translate3d(0,0,0); backface-visibility: hidden;">
 <div class="flex items-center justify-between">
 <a class="brand-logo-text" href="#sectionWorkspace">
             Архитектура<br/>отношений
@@ -2888,7 +2986,7 @@
           <div class="relative rounded-[30px] overflow-hidden border-[3px] border-white shadow-[0_26px_64px_rgba(110,20,48,0.12)] aspect-[4/3] bg-[#F4EFE6]">
             <img src="assets/img/img-01.webp" alt="Счастливый гармоничный союз — живое тепло, нежность и надежное плечо рядом" class="w-full h-full object-cover object-center transition duration-700 hover:scale-[1.02]" loading="eager" decoding="async" />
             <!-- Soft bottom-left editorial glass caption -->
-            <div class="absolute bottom-3.5 left-3.5 right-3.5 sm:bottom-5 sm:left-5 sm:right-auto inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/88 backdrop-blur-md border border-white/90 shadow-sm">
+            <div class="absolute bottom-3.5 left-3.5 right-3.5 sm:bottom-5 sm:left-5 sm:right-auto inline-flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-white/95 border border-white/90 shadow-sm">
               <span class="w-2 h-2 rounded-full bg-[#1B5E45] shrink-0"></span>
               <span class="text-xs sm:text-[13px] font-medium text-[#1C1417]">Точка Б — спокойное достоинство, нежность и опора в паре</span>
             </div>
@@ -3187,7 +3285,7 @@
 <div>
 <div class="gpu-parallax-wrap relative aspect-[4/3] overflow-hidden bg-slate-100">
 <img alt="Внутренняя опора и освобождение от детских травм" class="gpu-parallax-img w-full h-full object-cover transition duration-700 group-hover:scale-105" src="assets/img/img-03.webp" decoding="async" loading="lazy"/>
-<div class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-bold text-[#6E1430] shadow-sm">
+<div class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-white/95 text-xs font-bold text-[#6E1430] shadow-sm">
                     01 · Потеря себя и страх отвержения
                   </div>
 </div>
@@ -3211,7 +3309,7 @@
 <div>
 <div class="gpu-parallax-wrap relative aspect-[4/3] overflow-hidden bg-slate-100">
 <img alt="Выход из замкнутого круга претензий к близости" class="gpu-parallax-img w-full h-full object-cover transition duration-700 group-hover:scale-105" src="assets/img/img-04.webp" decoding="async" loading="lazy"/>
-<div class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-bold text-[#059669] shadow-sm">
+<div class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-white/95 text-xs font-bold text-[#059669] shadow-sm">
                     02 · Охлаждение и «глухая стена» в паре
                   </div>
 </div>
@@ -3235,7 +3333,7 @@
 <div>
 <div class="gpu-parallax-wrap relative aspect-[4/3] overflow-hidden bg-slate-100">
 <img alt="Снятие подсознательных блоков и родовых сценариев" class="gpu-parallax-img w-full h-full object-cover transition duration-700 group-hover:scale-105" src="assets/img/img-05.webp" decoding="async" loading="lazy"/>
-<div class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md text-xs font-bold text-[#7C3AED] shadow-sm">
+<div class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full bg-white/95 text-xs font-bold text-[#7C3AED] shadow-sm">
                     03 · Повторяющийся негативный сценарий
                   </div>
 </div>
@@ -3297,10 +3395,10 @@
 <div>
 <div class="gpu-parallax-wrap relative aspect-[4/3] overflow-hidden bg-slate-100">
 <img alt="Этап 1 - Ясность и вдохновение после МАК-диагностики и запуска Намерения" class="gpu-parallax-img w-full h-full object-cover transition duration-700 group-hover:scale-105" src="assets/img/img-06.webp" decoding="async" loading="lazy"/>
-<div class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[#6E1430] text-[11px] font-bold uppercase tracking-wider shadow-sm">
+<div class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-white/95 text-[#6E1430] text-[11px] font-bold uppercase tracking-wider shadow-sm">
                     Этап I · Сессии 1–3
                   </div>
-<div class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/95 backdrop-blur-md text-[#6E1430] font-serif-ed text-xl font-bold flex items-center justify-center shadow-sm">
+<div class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/95 text-[#6E1430] font-serif-ed text-xl font-bold flex items-center justify-center shadow-sm">
                     01
                   </div>
 </div>
@@ -3323,10 +3421,10 @@
 <div>
 <div class="gpu-parallax-wrap relative aspect-[4/3] overflow-hidden bg-slate-100">
 <img alt="Этап 2 - Внутренняя свобода и легкость после снятия блоков и страхов" class="gpu-parallax-img w-full h-full object-cover transition duration-700 group-hover:scale-105" src="assets/img/img-07.webp" decoding="async"/>
-<div class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[#7C3AED] text-[11px] font-bold uppercase tracking-wider shadow-sm">
+<div class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-white/95 text-[#7C3AED] text-[11px] font-bold uppercase tracking-wider shadow-sm">
                     Этап II · Сессии 4–7
                   </div>
-<div class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/95 backdrop-blur-md text-[#7C3AED] font-serif-ed text-xl font-bold flex items-center justify-center shadow-sm">
+<div class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/95 text-[#7C3AED] font-serif-ed text-xl font-bold flex items-center justify-center shadow-sm">
                     02
                   </div>
 </div>
@@ -3349,10 +3447,10 @@
 <div>
 <div class="gpu-parallax-wrap relative aspect-[4/3] overflow-hidden bg-slate-100">
 <img alt="Этап 3 - Тепло, доверие и радость близости после исцеления Внутреннего ребенка" class="gpu-parallax-img w-full h-full object-cover transition duration-700 group-hover:scale-105" src="assets/img/img-08.webp" decoding="async" loading="lazy"/>
-<div class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-emerald-800 text-[11px] font-bold uppercase tracking-wider shadow-sm">
+<div class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-white/95 text-emerald-800 text-[11px] font-bold uppercase tracking-wider shadow-sm">
                     Этап III · Сессии 8–11
                   </div>
-<div class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/95 backdrop-blur-md text-[#0D9488] font-serif-ed text-xl font-bold flex items-center justify-center shadow-sm">
+<div class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/95 text-[#0D9488] font-serif-ed text-xl font-bold flex items-center justify-center shadow-sm">
                     03
                   </div>
 </div>
@@ -3375,10 +3473,10 @@
 <div>
 <div class="gpu-parallax-wrap relative aspect-[4/3] overflow-hidden bg-slate-100">
 <img alt="Этап 4 - Гармония и поддержка Рода, выход из Треугольника Карпмана" class="gpu-parallax-img w-full h-full object-cover transition duration-700 group-hover:scale-105" src="assets/img/img-09.webp" decoding="async" loading="lazy"/>
-<div class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-amber-900 text-[11px] font-bold uppercase tracking-wider shadow-sm">
+<div class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-white/95 text-amber-900 text-[11px] font-bold uppercase tracking-wider shadow-sm">
                     Этап IV · Сессии 12–16
                   </div>
-<div class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/95 backdrop-blur-md text-[#D97706] font-serif-ed text-xl font-bold flex items-center justify-center shadow-sm">
+<div class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/95 text-[#D97706] font-serif-ed text-xl font-bold flex items-center justify-center shadow-sm">
                     04
                   </div>
 </div>
@@ -3401,10 +3499,10 @@
 <div>
 <div class="gpu-parallax-wrap relative aspect-[4/3] overflow-hidden bg-slate-100">
 <img alt="Этап 5 - Счастливый союз, взаимное притяжение и баланс семьи" class="gpu-parallax-img w-full h-full object-cover transition duration-700 group-hover:scale-105" src="assets/img/img-10.webp" decoding="async" loading="lazy"/>
-<div class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[#E11D48] text-[11px] font-bold uppercase tracking-wider shadow-sm">
+<div class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-white/95 text-[#E11D48] text-[11px] font-bold uppercase tracking-wider shadow-sm">
                     Этап V · Сессии 17–21
                   </div>
-<div class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/95 backdrop-blur-md text-[#E11D48] font-serif-ed text-xl font-bold flex items-center justify-center shadow-sm">
+<div class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/95 text-[#E11D48] font-serif-ed text-xl font-bold flex items-center justify-center shadow-sm">
                     05
                   </div>
 </div>
@@ -3502,14 +3600,14 @@
            SECTION 03B (ГРАНИЧНАЯ СТРАНИЦА · КОМПАКТНЫЙ ЖУРНАЛЬНЫЙ РАЗВОРОТ НА 1 ЭКРАН ДЕСКТОПА):
            «ПРИКОСНИТЕСЬ К МЕТОДУ МАК» (21 АВТОРСКАЯ КАРТА)
            =============================================================== -->
-<section class="py-16 sm:py-24 px-5 sm:px-12 border-b border-[#D4AF37]/25 mob-pad mob-py relative overflow-hidden" id="sectionMakPractice" style="background: radial-gradient(circle at 18% 15%, rgba(140, 29, 64, 0.36), transparent 52%), radial-gradient(circle at 84% 85%, rgba(212, 175, 55, 0.14), transparent 48%), #2A0C16;">
+<section class="py-16 sm:py-24 px-5 sm:px-12 border-b border-[#D4AF37]/25 mob-pad mob-py relative overflow-hidden" id="sectionMakPractice" data-safari-contain="true" style="background: radial-gradient(circle at 18% 15%, rgba(140, 29, 64, 0.36), transparent 52%), radial-gradient(circle at 84% 85%, rgba(212, 175, 55, 0.14), transparent 48%), #2A0C16;">
 <div class="max-w-7xl mx-auto reveal-on-scroll relative z-10">
 <!-- Section Meta Row -->
 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1 sm:gap-4 text-[11px] sm:text-sm font-semibold uppercase tracking-[0.12em] sm:tracking-[0.14em] text-[#E6C79C]/85 border-b border-[#D4AF37]/25 pb-3.5 mb-7 sm:mb-9">
 <span>03.2 / ПРОЕКТИВНАЯ ПРАКТИКА · МЕТАФОРИЧЕСКИЕ КАРТЫ (МАК)</span>
 <span>АВТОРСКАЯ КОЛОДА НАДЕЖДЫ БУРЛЕВОЙ · 21 ОБРАЗ</span>
 </div>
-<div class="rounded-[32px] sm:rounded-[40px] p-5 sm:p-8 lg:p-10 bg-[#1D0710]/85 border border-[#D4AF37]/35 shadow-[0_32px_90px_rgba(0,0,0,0.45)] space-y-6 sm:space-y-7 backdrop-blur-sm" id="makGeneratorSection">
+<div class="rounded-[32px] sm:rounded-[40px] p-5 sm:p-8 lg:p-10 bg-[#1D0710] border border-[#D4AF37]/35 shadow-[0_18px_42px_rgba(0,0,0,0.34)] space-y-6 sm:space-y-7" id="makGeneratorSection">
 <!-- EDITORIAL HEADER BAR -->
 <div class="border-b border-[#D4AF37]/25 pb-6 sm:pb-7 space-y-5">
   <div class="space-y-3">
@@ -3882,13 +3980,13 @@
 <div class="rounded-[28px] overflow-hidden border-4 border-white shadow-[0_22px_54px_rgba(15,23,42,0.14)] aspect-[4/5] bg-slate-900" id="nadPhotoFrame" data-parallax-wrap="true">
 <img alt="Надежда Бурлева - автор и ведущая программы Архитектура отношений" class="gpu-parallax-img w-full h-full object-cover object-top" decoding="async" loading="lazy" src="assets/img/img-11.webp"/>
 </div>
-<div class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md border border-emerald-200 text-xs font-bold text-emerald-800 shadow-md" id="nadPhotoBadge">
+<div class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 border border-emerald-200 text-xs font-bold text-emerald-800 shadow-md" id="nadPhotoBadge">
 <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
 <span>На связи лично в Telegram</span>
 </div>
 </div>
 <!-- Handwritten Animated Quote & Personal Signature under Photo -->
-<div class="w-full max-w-[350px] sm:max-w-[380px] mt-5 rounded-3xl p-5 sm:p-6 bg-white/90 backdrop-blur-md border border-violet-200/80 shadow-sm relative" id="nadQuoteBox">
+<div class="w-full max-w-[350px] sm:max-w-[380px] mt-5 rounded-3xl p-5 sm:p-6 bg-white/95 border border-violet-200/80 shadow-sm relative" id="nadQuoteBox">
 <p class="font-handwriting text-[23px] sm:text-[26px] leading-[1.24] text-[#1E293B] min-h-[96px]" data-quote="«Близость не исчезает в один день - она тихо ждёт, когда двое перестанут защищаться и снова начнут слышать друг друга.»" id="nadHandwrittenQuote">
                   «Близость не исчезает в один день - она тихо ждёт, когда двое перестанут защищаться и снова начнут слышать друг друга.»
                 </p>
@@ -4355,7 +4453,7 @@
 <div class="workspace-unified-canvas p-6 sm:p-10 lg:p-14">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
 <!-- Left 5 Columns: Harmonious Live Wheel Radar Pedestal + 6 Sphere Score Pills -->
-<div class="lg:col-span-5 flex flex-col justify-between rounded-[32px] p-6 sm:p-8 bg-white/92 backdrop-blur-md border border-white shadow-[0_18px_45px_rgba(15,23,42,0.05)] space-y-5">
+<div class="lg:col-span-5 flex flex-col justify-between rounded-[32px] p-6 sm:p-8 bg-white/95 border border-white shadow-[0_18px_45px_rgba(15,23,42,0.05)] space-y-5">
 <div class="flex items-center justify-between border-b border-slate-100 pb-4">
 <div>
 <div class="text-[11px] font-bold uppercase tracking-[0.14em] text-[#6E1430]">Живая диаграмма союза</div>
@@ -4376,7 +4474,7 @@
 </div>
 <!-- Right 7 Columns: Interactive 12-Question Test & Digitized Result Card -->
 <div class="lg:col-span-7 flex flex-col">
-<div class="flex-1 flex flex-col justify-between rounded-[32px] p-7 sm:p-10 bg-white/95 backdrop-blur-md border border-white shadow-[0_18px_45px_rgba(15,23,42,0.05)]" id="wheelQuizContainer">
+<div class="flex-1 flex flex-col justify-between rounded-[32px] p-7 sm:p-10 bg-white/95 border border-white shadow-[0_18px_45px_rgba(15,23,42,0.05)]" id="wheelQuizContainer">
 <!-- 1. START SCREEN -->
 <div class="my-auto space-y-6 py-2" id="wheelStartScreen">
 <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
@@ -4889,7 +4987,7 @@
          ===================================================================== -->
 <div class="hidden min-h-screen text-[#111827] flex flex-col justify-between overflow-x-hidden" id="appWorkspaceView" style="background: radial-gradient(circle at 18% 20%, rgba(232, 240, 254, 0.9) 0%, rgba(243, 232, 253, 0.75) 48%, rgba(230, 244, 234, 0.8) 100%);">
 <!-- Top Header 1-in-1 with Main Start Page -->
-<header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 px-5 sm:px-12 py-5">
+<header class="sticky top-0 z-40 bg-white/95 border-b border-slate-200/90 px-5 sm:px-12 py-5">
 <div class="flex items-center justify-between">
 <div class="flex items-center gap-5">
 <a class="brand-logo-text" href="#introScrollRunway">
@@ -5049,7 +5147,7 @@
          HONEST CHECKOUT VIEW (/checkout/ - With 1-in-1 Main Header!)
          ===================================================================== -->
 <div class="hidden min-h-screen bg-[#FAF7F2] text-[#111827] pb-24" id="checkoutView">
-<header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/90 px-5 sm:px-12 py-5">
+<header class="sticky top-0 z-30 bg-white/95 border-b border-slate-200/90 px-5 sm:px-12 py-5">
 <div class="flex items-center justify-between">
 <div class="flex items-center gap-5">
 <a class="brand-logo-text" href="#introScrollRunway">
@@ -5529,17 +5627,18 @@
 
     // Restrained Editorial Silk Curtain profiles — whisper-quiet vertical breathing & ultra-subtle depth
     // Zero harsh scatter, zero tilt gimmick: crisp luxury typography softly parting as Page 2 rises.
+    // Sculptural Luxury Silk Dispersion (Desktop): unmistakably expressive, fluid, pure-GPU 3D parting
     const DEPTH_CURTAIN_LAYERS = [
-      // Row 1: АВТОРСКАЯ — gentle upward lift
-      { y: -28, x: -4, z: 18,  rx: 1.1,  ry: 0.0, scale: 0.012,  blur: 0.0, fadeStart: 0.46, fadeEnd: 0.98 },
-      // Row 2: ПРОГРАММА ПО — soft upper glide
-      { y: -14, x: 3,  z: 9,   rx: 0.55, ry: 0.0, scale: 0.006,  blur: 0.0, fadeStart: 0.50, fadeEnd: 1.00 },
-      // Row 3: ОТНОШЕНИЯМ · 21 — poised focal anchor
-      { y: 0,   x: 0,  z: -10, rx: 0.0,  ry: 0.0, scale: -0.008, blur: 0.0, fadeStart: 0.56, fadeEnd: 1.00 },
-      // Row 4: КОУЧ-СЕССИЯ С — delicate downward drift
-      { y: 14,  x: -3, z: -16, rx: -0.55,ry: 0.0, scale: -0.012, blur: 0.0, fadeStart: 0.48, fadeEnd: 0.98 },
-      // Row 5: НАДЕЖДОЙ. — graceful lower anchor
-      { y: 26,  x: 4,  z: 14,  rx: -1.0, ry: 0.0, scale: 0.010,  blur: 0.0, fadeStart: 0.52, fadeEnd: 1.00 }
+      // Row 1: АВТОРСКАЯ — majestic upper-left glide forward in depth
+      { y: -138, x: -125, z: 105, rx: 4.8,  ry: -2.6, scale: 0.092,  blur: 0.0, fadeStart: 0.46, fadeEnd: 0.97 },
+      // Row 2: ПРОГРАММА ПО — luminous upper-right parting
+      { y: -68,  x: 140,  z: 58,  rx: 2.5,  ry: 2.4,  scale: 0.048,  blur: 0.0, fadeStart: 0.50, fadeEnd: 0.99 },
+      // Row 3: ОТНОШЕНИЯМ · 21 — deep poised center receding softly
+      { y: 0,    x: -28,  z: -68, rx: 0.0,  ry: -1.0, scale: -0.064, blur: 0.0, fadeStart: 0.56, fadeEnd: 1.00 },
+      // Row 4: КОУЧ-СЕССИЯ С — graceful lower-left counter-drift
+      { y: 74,   x: -132, z: -82, rx: -2.7, ry: -2.2, scale: -0.070, blur: 0.0, fadeStart: 0.48, fadeEnd: 0.98 },
+      // Row 5: НАДЕЖДОЙ. — expansive lower-right silk bloom
+      { y: 142,  x: 118,  z: 94,  rx: -4.4, ry: 2.5,  scale: 0.082,  blur: 0.0, fadeStart: 0.52, fadeEnd: 1.00 }
     ];
 
     let targetFillP = 0;
@@ -5578,17 +5677,18 @@
     // Mobile Cinematic 3D Depth Parallax Curtain (5-layer GPU-composited depth dispersion)
     // Five headline rows part smoothly at distinct Z-depths with subtle 3D tilt & gentle dissolve,
     // opening Page 2 like a cinema scene transition (zero layout reflow, zero blur lag).
+    // Refined Mobile Silk Dispersion: noticeably more restrained than desktop, yet clearly visible & luxurious
     const MOBILE_DEPTH_CURTAIN_LAYERS = [
-      // Row 1: АВТОРСКАЯ — calm vertical lift
-      { y: -20, x: 0, z: 12,  rx: 0.8,  ry: 0.0, scale: 0.008,  fadeStart: 0.44, fadeEnd: 0.98 },
-      // Row 2: ПРОГРАММА ПО — soft upper glide
-      { y: -10, x: 0, z: 6,   rx: 0.4,  ry: 0.0, scale: 0.004,  fadeStart: 0.48, fadeEnd: 1.00 },
-      // Row 3: ОТНОШЕНИЯМ · 21 — serene focal center
-      { y: 0,   x: 0, z: -6,  rx: 0.0,  ry: 0.0, scale: -0.006, fadeStart: 0.54, fadeEnd: 1.00 },
-      // Row 4: КОУЧ-СЕССИЯ С — soft lower drift
-      { y: 10,  x: 0, z: -10, rx: -0.4, ry: 0.0, scale: -0.008, fadeStart: 0.46, fadeEnd: 0.98 },
-      // Row 5: НАДЕЖДОЙ. — graceful lower anchor
-      { y: 18,  x: 0, z: 10,  rx: -0.8, ry: 0.0, scale: 0.006,  fadeStart: 0.50, fadeEnd: 1.00 }
+      // Row 1: АВТОРСКАЯ — poised upper-left parting
+      { y: -52, x: -24, z: 36,  rx: 2.2,  ry: -0.9, scale: 0.036,  fadeStart: 0.44, fadeEnd: 0.97 },
+      // Row 2: ПРОГРАММА ПО — refined upper-right glide
+      { y: -26, x: 26,  z: 20,  rx: 1.1,  ry: 0.9,  scale: 0.020,  fadeStart: 0.48, fadeEnd: 0.99 },
+      // Row 3: ОТНОШЕНИЯМ · 21 — serene focal center receding softly
+      { y: 0,   x: -6,  z: -24, rx: 0.0,  ry: 0.0,  scale: -0.026, fadeStart: 0.54, fadeEnd: 1.00 },
+      // Row 4: КОУЧ-СЕССИЯ С — soft lower-left counter-drift
+      { y: 27,  x: -24, z: -28, rx: -1.1, ry: -0.8, scale: -0.028, fadeStart: 0.46, fadeEnd: 0.98 },
+      // Row 5: НАДЕЖДОЙ. — graceful lower-right parting
+      { y: 52,  x: 22,  z: 32,  rx: -2.0, ry: 0.9,  scale: 0.032,  fadeStart: 0.50, fadeEnd: 1.00 }
     ];
 
     function renderLettersAtProgress(progress) {
@@ -5689,10 +5789,16 @@
       const spreadSpan = cachedRunwayExtra + cachedIntroVh * (isCompactSpan ? 0.46 : 0.62);
       targetFillP = Math.min(1, Math.max(0, sy / spreadSpan));
 
-      if (isCompactSpan) {
-        // Direct 1:1 hardware-synced scroll tracking on mobile (zero lerp fight with iOS/Android inertia!)
+      const isSafariUA = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent || '');
+      if (isCompactSpan || isSafariUA) {
+        // Direct 1:1 hardware-synced scroll tracking on Mobile & macOS Safari (120Hz ProMotion native inertia!)
         smoothFillP = targetFillP;
         renderLettersAtProgress(smoothFillP);
+        if (!isCompactSpan && introSplash) {
+          const liftStartS = Math.max(120, cachedRunwayExtra * 0.65);
+          const liftPS = Math.min(1, Math.max(0, (sy - liftStartS) / (cachedIntroVh * 0.85)));
+          introSplash.style.setProperty('--arch-scale', Math.sin(liftPS * Math.PI).toFixed(3));
+        }
         rafRunning = false;
         return;
       }
@@ -7229,35 +7335,122 @@
       }
     }
 
+    let isMakAnimating = false;
+    const makPreloadedImgs = {};
+    function preloadMakImage(src) {
+      if (!src) return Promise.resolve();
+      if (makPreloadedImgs[src]) return makPreloadedImgs[src];
+      const p = new Promise(function(resolve) {
+        const im = new Image();
+        im.decoding = 'async';
+        im.onload = function() {
+          if (im.decode) im.decode().then(resolve).catch(resolve);
+          else resolve();
+        };
+        im.onerror = resolve;
+        im.src = src;
+      });
+      makPreloadedImgs[src] = p;
+      return p;
+    }
+
+    function applyMakCardContent(cardObj, animate) {
+      const artBox = document.getElementById('makCardArtViewport');
+      if (artBox) {
+        artBox.innerHTML = '<img src="' + cardObj.img + '" alt="Метафорическая карта №' + cardObj.id + '" class="mak-art-img w-full h-full object-cover block select-none cursor-pointer ' + (animate ? 'is-entering' : 'is-settled') + '" title="Нажмите, чтобы вытянуть новую карту" decoding="async"/>';
+        if (animate) {
+          const newImg = artBox.querySelector('img.mak-art-img');
+          if (newImg) {
+            requestAnimationFrame(function() {
+              requestAnimationFrame(function() {
+                newImg.classList.remove('is-entering');
+                newImg.classList.add('is-settled');
+              });
+            });
+          }
+        }
+      }
+      const numBadge = document.getElementById('makCardNumberBadge');
+      if (numBadge) numBadge.textContent = 'Выпала случайная карта №' + cardObj.id;
+      const statusTxt = document.getElementById('makDeckStatusText');
+      if (statusTxt) statusTxt.textContent = '✦ Открыта случайная карта №' + cardObj.id + ' из 21';
+
+      const q1 = document.getElementById('makPromptQ1');
+      const q2 = document.getElementById('makPromptQ2');
+      const q3 = document.getElementById('makPromptQ3');
+      if (q1) q1.textContent = cardObj.q1;
+      if (q2) q2.textContent = cardObj.q2;
+      if (q3) q3.textContent = cardObj.q3;
+      updateMakTelegramLink();
+    }
+
     function selectMakCardByIndex(deckIdx, playSound) {
+      if (playSound && isMakAnimating) return;
       currentMakIndex = (deckIdx + MAK_21_DECK.length) % MAK_21_DECK.length;
       const cardObj = MAK_21_DECK[currentMakIndex];
-      if (playSound) playWheelChime('step');
-
       const bigInner = document.getElementById('makBigCardInner');
-      if (bigInner) {
-        bigInner.classList.remove('is-flipped');
-        setTimeout(function() {
-          const artBox = document.getElementById('makCardArtViewport');
-          if (artBox) {
-            artBox.innerHTML = '<img src="' + cardObj.img + '" alt="Метафорическая карта №' + cardObj.id + '" class="w-full h-full object-cover block select-none cursor-pointer" title="Нажмите, чтобы вытянуть новую карту"  decoding="async" loading="lazy"/>';
-          }
-          const numBadge = document.getElementById('makCardNumberBadge');
-          if (numBadge) numBadge.textContent = 'Выпала случайная карта №' + cardObj.id;
-          const statusTxt = document.getElementById('makDeckStatusText');
-          if (statusTxt) statusTxt.textContent = '✦ Открыта случайная карта №' + cardObj.id + ' из 21';
+      if (!bigInner) return;
 
-          const q1 = document.getElementById('makPromptQ1');
-          const q2 = document.getElementById('makPromptQ2');
-          const q3 = document.getElementById('makPromptQ3');
-          if (q1) q1.textContent = cardObj.q1;
-          if (q2) q2.textContent = cardObj.q2;
-          if (q3) q3.textContent = cardObj.q3;
-
-          bigInner.classList.add('is-flipped');
-          updateMakTelegramLink();
-        }, 160);
+      // Initial silent render on load (instant, zero flicker)
+      if (!playSound) {
+        applyMakCardContent(cardObj, false);
+        bigInner.classList.add('is-flipped');
+        return;
       }
+
+      isMakAnimating = true;
+      playWheelChime('step');
+
+      const promptRows = Array.prototype.slice.call(document.querySelectorAll('#sectionMakPractice .mak-prompt-row'));
+      const numBadge = document.getElementById('makCardNumberBadge');
+      const statusTxt = document.getElementById('makDeckStatusText');
+
+      // Phase 1: Gracefully fold card back to gold-embossed reverse & dissolve question rows upward
+      bigInner.classList.remove('is-sheen-active');
+      bigInner.classList.add('is-folding');
+      bigInner.classList.remove('is-flipped');
+
+      if (numBadge) numBadge.classList.add('is-mak-meta-fade');
+      if (statusTxt) statusTxt.classList.add('is-mak-meta-fade');
+      promptRows.forEach(function(row, idx) {
+        setTimeout(function() {
+          row.classList.add('is-mak-leaving');
+        }, idx * 45);
+      });
+
+      // Wait for BOTH the graceful fold (380ms) AND the next artwork decode
+      const foldWait = new Promise(function(resolve) { setTimeout(resolve, 390); });
+      const imgReady = preloadMakImage(cardObj.img);
+
+      Promise.all([foldWait, imgReady]).then(function() {
+        // Prepare rows for silky upward silk-entrance
+        promptRows.forEach(function(row) {
+          row.classList.remove('is-mak-leaving');
+          row.classList.add('is-mak-entering');
+        });
+
+        applyMakCardContent(cardObj, true);
+
+        // Phase 2: Majestic 3D card opening + gold sheen sweep + staggered poetic prompt reveal
+        requestAnimationFrame(function() {
+          bigInner.classList.remove('is-folding');
+          bigInner.classList.add('is-flipped');
+          bigInner.classList.add('is-sheen-active');
+
+          if (numBadge) numBadge.classList.remove('is-mak-meta-fade');
+          if (statusTxt) statusTxt.classList.remove('is-mak-meta-fade');
+
+          promptRows.forEach(function(row, idx) {
+            setTimeout(function() {
+              row.classList.remove('is-mak-entering');
+            }, 140 + idx * 125);
+          });
+
+          setTimeout(function() {
+            isMakAnimating = false;
+          }, 760);
+        });
+      });
     }
 
     function drawNewRandomMakCard() {
@@ -7349,9 +7542,21 @@
         heroSineWavePath.setAttribute('d', d);
       }
 
-      requestAnimationFrame(renderChiaraSineWave);
+      const syWave = window.scrollY || window.pageYOffset || 0;
+      const vhWave = window.innerHeight || 800;
+      if (syWave < vhWave * 1.25 || isVoiceCurrentlyPlaying) {
+        waveRafId = requestAnimationFrame(renderChiaraSineWave);
+      } else {
+        waveRafId = null;
+      }
     }
-    requestAnimationFrame(renderChiaraSineWave);
+    let waveRafId = requestAnimationFrame(renderChiaraSineWave);
+    window.addEventListener('scroll', function() {
+      if (!waveRafId && ((window.scrollY || window.pageYOffset || 0) < (window.innerHeight || 800) * 1.25 || isVoiceCurrentlyPlaying)) {
+        waveLastTs = performance.now();
+        waveRafId = requestAnimationFrame(renderChiaraSineWave);
+      }
+    }, { passive: true });
 
     function updateAutoVoiceUI(isPlaying) {
       isVoiceCurrentlyPlaying = Boolean(isPlaying);
@@ -7636,7 +7841,8 @@
         // 1. Lenis Inertial Smooth Scroll (strictly desktop mouse/trackpad only — disabled on touch/mobile for native 60fps inertia)
         const isTouchDevice = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ||
           ('ontouchstart' in window && window.innerWidth < 1024);
-        if (hasLenis && !prefersReduced && !isTouchDevice) {
+        const isSafariBrowser = /^((?!chrome|android|crios|fxios).)*safari/i.test(navigator.userAgent || '');
+        if (hasLenis && !prefersReduced && !isTouchDevice && !isSafariBrowser) {
           try {
             const lenis = new window.Lenis({
               duration: 1.25,
@@ -8165,11 +8371,29 @@
       { id: 'sectionPricing', text: 'Есть вопросы? Можно просто познакомиться в Telegram без оплаты ↗', href: 'https://t.me/nadezhda_burleva' }
     ];
 
-    function updateScrollThreadAndWhisper() {
+    let cachedDocScrollable = 1;
+    let cachedZoneOffsets = [];
+    let whisperScrollRaf = false;
+    let lastWhisperIdx = -1;
+
+    function recalcWhisperMetrics() {
+      cachedDocScrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      cachedZoneOffsets = WHISPER_ZONES.map(function(z) {
+        const el = document.getElementById(z.id);
+        return el ? el.offsetTop : 999999;
+      });
+    }
+    recalcWhisperMetrics();
+    window.addEventListener('resize', recalcWhisperMetrics, { passive: true });
+    window.addEventListener('load', recalcWhisperMetrics, { passive: true });
+
+    function flushScrollThreadAndWhisper() {
+      whisperScrollRaf = false;
       const scrollTop = window.scrollY || window.pageYOffset || 0;
-      const docHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      const pct = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
-      if (luxuryScrollThread) luxuryScrollThread.style.width = pct.toFixed(1) + '%';
+      const ratio = Math.min(1, Math.max(0, scrollTop / cachedDocScrollable));
+      if (luxuryScrollThread) {
+        luxuryScrollThread.style.transform = 'scaleX(' + ratio.toFixed(4) + ')';
+      }
 
       if (!nadWhisperDock || whisperDismissed) return;
       if (scrollTop < 480) {
@@ -8178,31 +8402,40 @@
       }
       nadWhisperDock.classList.add('is-visible');
 
-      const midY = window.innerHeight * 0.45;
-      for (let i = WHISPER_ZONES.length - 1; i >= 0; i--) {
-        const el = document.getElementById(WHISPER_ZONES[i].id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= midY) {
-            if (nadWhisperText && nadWhisperText.textContent !== WHISPER_ZONES[i].text) {
-              nadWhisperText.textContent = WHISPER_ZONES[i].text;
-              nadWhisperText.href = WHISPER_ZONES[i].href;
-              if (WHISPER_ZONES[i].href.indexOf('http') === 0) {
-                nadWhisperText.setAttribute('target', '_blank');
-                nadWhisperText.setAttribute('rel', 'noopener noreferrer');
-              } else {
-                nadWhisperText.removeAttribute('target');
-                nadWhisperText.removeAttribute('rel');
-              }
-            }
-            break;
+      const probeY = scrollTop + (window.innerHeight || 800) * 0.45;
+      let activeIdx = -1;
+      for (let i = cachedZoneOffsets.length - 1; i >= 0; i--) {
+        if (cachedZoneOffsets[i] <= probeY) {
+          activeIdx = i;
+          break;
+        }
+      }
+      if (activeIdx !== -1 && activeIdx !== lastWhisperIdx) {
+        lastWhisperIdx = activeIdx;
+        const z = WHISPER_ZONES[activeIdx];
+        if (nadWhisperText) {
+          nadWhisperText.textContent = z.text;
+          nadWhisperText.href = z.href;
+          if (z.href.indexOf('http') === 0) {
+            nadWhisperText.setAttribute('target', '_blank');
+            nadWhisperText.setAttribute('rel', 'noopener noreferrer');
+          } else {
+            nadWhisperText.removeAttribute('target');
+            nadWhisperText.removeAttribute('rel');
           }
         }
       }
     }
 
+    function updateScrollThreadAndWhisper() {
+      if (!whisperScrollRaf) {
+        whisperScrollRaf = true;
+        requestAnimationFrame(flushScrollThreadAndWhisper);
+      }
+    }
+
     window.addEventListener('scroll', updateScrollThreadAndWhisper, { passive: true });
-    updateScrollThreadAndWhisper();
+    flushScrollThreadAndWhisper();
 
   </script>
 
