@@ -130,6 +130,8 @@
       align-items: center;
       transform: scaleX(0.864);
       transform-origin: center center;
+      transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
     }
     #introStatementBlock .headline-row {
       transform-origin: 50% 50%;
@@ -2555,7 +2557,7 @@
        ========================================================================= */
     @media (max-width: 768px) {
       #introScrollRunway {
-        height: calc(100svh + 220px) !important;
+        height: calc(100svh + 280px) !important;
       }
       #introSplash {
         position: sticky !important;
@@ -2564,6 +2566,12 @@
         height: 100svh !important;
         max-height: 100svh !important;
         overflow: hidden !important;
+      }
+      #introSplash .intro-center-wrap {
+        perspective: 920px !important;
+        perspective-origin: 50% 48% !important;
+        transform-style: preserve-3d;
+        -webkit-transform-style: preserve-3d;
       }
       .intro-curtain-skirt {
         display: none !important;
@@ -2574,99 +2582,8 @@
         will-change: transform, opacity;
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
-      }
-    }
-
-    /* =========================================================================
-       GLOBAL LUXURY FLOATING SOUND DOCK (#siteSoundDock)
-       Independent site-wide music toggle in Silk, Champagne Gold & Burgundy aesthetic
-       ========================================================================= */
-    .site-sound-dock {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 65;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 16px 9px 12px;
-      border-radius: 9999px;
-      background: rgba(252, 249, 244, 0.88);
-      border: 1px solid rgba(184, 134, 75, 0.45);
-      box-shadow: 0 12px 34px rgba(42, 12, 22, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      color: #2B1C22;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      cursor: pointer;
-      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, color 0.28s ease;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .site-sound-dock:hover {
-      transform: translateY(-2px);
-      border-color: rgba(140, 29, 64, 0.55);
-      box-shadow: 0 16px 40px rgba(110, 20, 48, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.95);
-    }
-    .site-sound-dock.is-music-on {
-      background: linear-gradient(135deg, rgba(110, 20, 48, 0.94) 0%, rgba(74, 14, 35, 0.96) 100%);
-      border-color: rgba(230, 199, 156, 0.58);
-      color: #FDF8F0;
-      box-shadow: 0 16px 40px rgba(110, 20, 48, 0.28), 0 0 0 3px rgba(184, 134, 75, 0.14);
-    }
-    .site-sound-dock-eq {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2.5px;
-      width: 24px;
-      height: 24px;
-      border-radius: 9999px;
-      background: rgba(110, 20, 48, 0.08);
-      flex-shrink: 0;
-      transition: background-color 0.28s ease;
-    }
-    .site-sound-dock.is-music-on .site-sound-dock-eq {
-      background: rgba(230, 199, 156, 0.18);
-    }
-    .site-sound-dock-bar {
-      width: 2px;
-      height: 4px;
-      border-radius: 9999px;
-      background-color: #6E1430;
-      transition: height 0.25s ease, background-color 0.28s ease;
-    }
-    .site-sound-dock.is-music-on .site-sound-dock-bar {
-      background-color: #E6C79C;
-      animation: soundDockWave 1.15s ease-in-out infinite;
-    }
-    .site-sound-dock.is-music-on .site-sound-dock-bar:nth-child(1) { animation-delay: 0.0s; }
-    .site-sound-dock.is-music-on .site-sound-dock-bar:nth-child(2) { animation-delay: 0.22s; }
-    .site-sound-dock.is-music-on .site-sound-dock-bar:nth-child(3) { animation-delay: 0.44s; }
-    .site-sound-dock.is-music-on .site-sound-dock-bar:nth-child(4) { animation-delay: 0.15s; }
-    @keyframes soundDockWave {
-      0%, 100% { height: 4px; }
-      50% { height: 13px; }
-    }
-    .site-sound-dock-label-short {
-      display: none;
-    }
-    @media (max-width: 640px) {
-      .site-sound-dock {
-        right: 12px;
-        bottom: 14px;
-        padding: 8px 13px 8px 10px;
-        gap: 7px;
-        font-size: 11.5px;
-      }
-      .site-sound-dock-label-full {
-        display: none;
-      }
-      .site-sound-dock-label-short {
-        display: inline;
+        transform-style: preserve-3d;
+        -webkit-transform-style: preserve-3d;
       }
     }
 
@@ -2809,7 +2726,6 @@
 <div id="introScrollRunway">
 <!-- Studio Close-Mic Mastered Voice of Nadezhda Burleva (from голос-референс.m4a) -->
 <audio id="nadRealVoiceAudio" playsinline="" preload="metadata" src="assets/audio/nadezhda-voice.mp3"></audio>
-<audio id="siteAmbientMusic" loop="" playsinline="" preload="metadata" src="assets/audio/ambient-music.mp3"></audio>
 <section class="flex flex-col justify-between px-5 sm:px-12 py-5 sm:py-7 select-none relative" id="introSplash">
 <!-- Top Navigation Row (1-in-1 Reference) -->
 <div class="relative z-10 flex items-center justify-between border-b border-[#6E1430]/[0.05] pb-4 shrink-0">
@@ -3339,79 +3255,7 @@
 </div>
 </div>
 </div>
-<!-- NEURO-TRIGGER 2: INTERACTIVE BEFORE / AFTER EMOTIONAL STATE SLIDER -->
-<div class="mt-16 sm:mt-20 rounded-[32px] p-6 sm:p-10 bg-white border border-rose-200/90 shadow-sm space-y-6">
-<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-5 border-b border-rose-200/70 pb-6">
-              <div class="space-y-2.5">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FAF7F2] border border-rose-200 text-xs font-bold uppercase tracking-[0.14em] text-[#6E1430]">
-                  <span>✦ ИНТЕРАКТИВНАЯ ТРАНСФОРМАЦИЯ СОСТОЯНИЯ</span>
-                </div>
-                <h3 class="font-serif-ed font-normal text-4xl sm:text-5xl leading-[0.98] tracking-[-0.02em] text-[#111827]">
-                  Подвигайте ползунок: <em class="italic font-normal text-[#6E1430]">как меняется ваше поле за 21 сессию</em>
-                </h3>
-              </div>
-              <div class="flex flex-wrap items-center gap-2 shrink-0">
-                <button type="button" data-slider-preset="0" class="slider-preset-btn px-4 py-2 rounded-full bg-[#FAF7F2] hover:bg-[#F9EBEF] text-xs sm:text-sm font-medium text-[#3D2E33] border border-rose-200 transition cursor-pointer">Точка А (Сессия 1)</button>
-                <button type="button" data-slider-preset="50" class="slider-preset-btn px-4 py-2 rounded-full bg-[#FAF7F2] hover:bg-[#F9EBEF] text-xs sm:text-sm font-medium text-[#3D2E33] border border-rose-200 transition cursor-pointer">Экватор (Сессия 10)</button>
-                <button type="button" data-slider-preset="100" class="slider-preset-btn px-4 py-2 rounded-full bg-[#6E1430] text-white text-xs sm:text-sm font-medium transition shadow-2xs cursor-pointer">Точка Б (Сессия 21)</button>
-              </div>
-            </div>
 
-            <div class="space-y-3.5">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm font-medium">
-                <span class="text-[#8C1D40]">До программы: Тревога, обиды и мужские доспехи</span>
-                <span id="neuroSliderLabel" class="px-4 py-1.5 rounded-full bg-[#F9EBEF] border border-rose-200/70 text-[#6E1430] font-semibold text-center">Сессия 21 из 21 · Счастливый союз и опора</span>
-                <span class="text-[#1B5E45] sm:text-right">После 21 сессии: Спокойное достоинство и магнетизм</span>
-              </div>
-              <input id="neuroStateRange" type="range" min="0" max="100" value="85" aria-label="Ползунок трансформации состояния от 1 до 21 сессии" class="neuro-range-slider" />
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
-              <div class="p-5 rounded-2xl bg-[#FAF7F2] border border-rose-200/70 space-y-2.5">
-                <div class="flex items-baseline justify-between gap-2">
-                  <span class="text-sm font-semibold text-[#111827] leading-snug">Внутренняя тревога и контроль</span>
-                  <span id="metricAnxietyVal" class="font-serif-ed text-2xl font-semibold text-[#1B5E45] leading-none shrink-0">14%</span>
-                </div>
-                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
-                  <div id="metricAnxietyBar" class="h-full bg-[#8C1D40] transition-all duration-300" style="width: 14%;"></div>
-                </div>
-                <p id="metricAnxietyText" class="text-sm text-[#3D2E33] leading-relaxed">Вы больше не проверяете и не спасаете — внутри тихая уверенность.</p>
-              </div>
-
-              <div class="p-5 rounded-2xl bg-[#FAF7F2] border border-rose-200/70 space-y-2.5">
-                <div class="flex items-baseline justify-between gap-2">
-                  <span class="text-sm font-semibold text-[#111827] leading-snug">Женская самоценность и ресурс</span>
-                  <span id="metricWorthVal" class="font-serif-ed text-2xl font-semibold text-[#1B5E45] leading-none shrink-0">94%</span>
-                </div>
-                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
-                  <div id="metricWorthBar" class="h-full bg-[#1B5E45] transition-all duration-300" style="width: 94%;"></div>
-                </div>
-                <p id="metricWorthText" class="text-sm text-[#3D2E33] leading-relaxed">Внутренний ребенок согрет любовью, вы выбираете себя без чувства вины.</p>
-              </div>
-
-              <div class="p-5 rounded-2xl bg-[#FAF7F2] border border-rose-200/70 space-y-2.5">
-                <div class="flex items-baseline justify-between gap-2">
-                  <span class="text-sm font-semibold text-[#111827] leading-snug">Тепло и душевный диалог</span>
-                  <span id="metricWarmthVal" class="font-serif-ed text-2xl font-semibold text-[#1B5E45] leading-none shrink-0">91%</span>
-                </div>
-                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
-                  <div id="metricWarmthBar" class="h-full bg-[#1B5E45] transition-all duration-300" style="width: 91%;"></div>
-                </div>
-                <p id="metricWarmthText" class="text-sm text-[#3D2E33] leading-relaxed">Ушли упрёки и молчаливые стены; вы говорите о чувствах легко и безопасно.</p>
-              </div>
-
-              <div class="p-5 rounded-2xl bg-[#FAF7F2] border border-rose-200/70 space-y-2.5">
-                <div class="flex items-baseline justify-between gap-2">
-                  <span class="text-sm font-semibold text-[#111827] leading-snug">Инициатива и забота мужчины</span>
-                  <span id="metricPartnerVal" class="font-serif-ed text-2xl font-semibold text-[#1B5E45] leading-none shrink-0">89%</span>
-                </div>
-                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
-                  <div id="metricPartnerBar" class="h-full bg-[#B8864B] transition-all duration-300" style="width: 89%;"></div>
-                </div>
-                <p id="metricPartnerText" class="text-sm text-[#3D2E33] leading-relaxed">Рядом с вашей мягкой женской полярностью мужчина сам включает опору и заботу.</p>
-              </div>
-            </div>
-          </div>
 
         </div>
       </section>
@@ -3579,6 +3423,79 @@
 </div>
 </div>
 </div>
+<!-- NEURO-TRIGGER 2: INTERACTIVE BEFORE / AFTER EMOTIONAL STATE SLIDER -->
+<div id="neuroStateSliderCard" class="mt-14 sm:mt-16 rounded-[32px] p-6 sm:p-10 bg-white border border-rose-200/90 shadow-sm space-y-6">
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-5 border-b border-rose-200/70 pb-6">
+              <div class="space-y-2.5">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FAF7F2] border border-rose-200 text-xs font-bold uppercase tracking-[0.14em] text-[#6E1430]">
+                  <span>✦ ИНТЕРАКТИВНАЯ ТРАНСФОРМАЦИЯ СОСТОЯНИЯ</span>
+                </div>
+                <h3 class="font-serif-ed font-normal text-4xl sm:text-5xl leading-[0.98] tracking-[-0.02em] text-[#111827]">
+                  Подвигайте ползунок: <em class="italic font-normal text-[#6E1430]">как меняется ваше поле за 21 сессию</em>
+                </h3>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 shrink-0">
+                <button type="button" data-slider-preset="0" class="slider-preset-btn px-4 py-2 rounded-full bg-[#FAF7F2] hover:bg-[#F9EBEF] text-xs sm:text-sm font-medium text-[#3D2E33] border border-rose-200 transition cursor-pointer">Точка А (Сессия 1)</button>
+                <button type="button" data-slider-preset="50" class="slider-preset-btn px-4 py-2 rounded-full bg-[#FAF7F2] hover:bg-[#F9EBEF] text-xs sm:text-sm font-medium text-[#3D2E33] border border-rose-200 transition cursor-pointer">Экватор (Сессия 10)</button>
+                <button type="button" data-slider-preset="100" class="slider-preset-btn px-4 py-2 rounded-full bg-[#6E1430] text-white text-xs sm:text-sm font-medium transition shadow-2xs cursor-pointer">Точка Б (Сессия 21)</button>
+              </div>
+            </div>
+
+            <div class="space-y-3.5">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm font-medium">
+                <span class="text-[#8C1D40]">До программы: Тревога, обиды и мужские доспехи</span>
+                <span id="neuroSliderLabel" class="px-4 py-1.5 rounded-full bg-[#F9EBEF] border border-rose-200/70 text-[#6E1430] font-semibold text-center">Сессия 21 из 21 · Счастливый союз и опора</span>
+                <span class="text-[#1B5E45] sm:text-right">После 21 сессии: Спокойное достоинство и магнетизм</span>
+              </div>
+              <input id="neuroStateRange" type="range" min="0" max="100" value="85" aria-label="Ползунок трансформации состояния от 1 до 21 сессии" class="neuro-range-slider" />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+              <div class="p-5 rounded-2xl bg-[#FAF7F2] border border-rose-200/70 space-y-2.5">
+                <div class="flex items-baseline justify-between gap-2">
+                  <span class="text-sm font-semibold text-[#111827] leading-snug">Внутренняя тревога и контроль</span>
+                  <span id="metricAnxietyVal" class="font-serif-ed text-2xl font-semibold text-[#1B5E45] leading-none shrink-0">14%</span>
+                </div>
+                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                  <div id="metricAnxietyBar" class="h-full bg-[#8C1D40] transition-all duration-300" style="width: 14%;"></div>
+                </div>
+                <p id="metricAnxietyText" class="text-sm text-[#3D2E33] leading-relaxed">Вы больше не проверяете и не спасаете — внутри тихая уверенность.</p>
+              </div>
+
+              <div class="p-5 rounded-2xl bg-[#FAF7F2] border border-rose-200/70 space-y-2.5">
+                <div class="flex items-baseline justify-between gap-2">
+                  <span class="text-sm font-semibold text-[#111827] leading-snug">Женская самоценность и ресурс</span>
+                  <span id="metricWorthVal" class="font-serif-ed text-2xl font-semibold text-[#1B5E45] leading-none shrink-0">94%</span>
+                </div>
+                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                  <div id="metricWorthBar" class="h-full bg-[#1B5E45] transition-all duration-300" style="width: 94%;"></div>
+                </div>
+                <p id="metricWorthText" class="text-sm text-[#3D2E33] leading-relaxed">Внутренний ребенок согрет любовью, вы выбираете себя без чувства вины.</p>
+              </div>
+
+              <div class="p-5 rounded-2xl bg-[#FAF7F2] border border-rose-200/70 space-y-2.5">
+                <div class="flex items-baseline justify-between gap-2">
+                  <span class="text-sm font-semibold text-[#111827] leading-snug">Тепло и душевный диалог</span>
+                  <span id="metricWarmthVal" class="font-serif-ed text-2xl font-semibold text-[#1B5E45] leading-none shrink-0">91%</span>
+                </div>
+                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                  <div id="metricWarmthBar" class="h-full bg-[#1B5E45] transition-all duration-300" style="width: 91%;"></div>
+                </div>
+                <p id="metricWarmthText" class="text-sm text-[#3D2E33] leading-relaxed">Ушли упрёки и молчаливые стены; вы говорите о чувствах легко и безопасно.</p>
+              </div>
+
+              <div class="p-5 rounded-2xl bg-[#FAF7F2] border border-rose-200/70 space-y-2.5">
+                <div class="flex items-baseline justify-between gap-2">
+                  <span class="text-sm font-semibold text-[#111827] leading-snug">Инициатива и забота мужчины</span>
+                  <span id="metricPartnerVal" class="font-serif-ed text-2xl font-semibold text-[#1B5E45] leading-none shrink-0">89%</span>
+                </div>
+                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                  <div id="metricPartnerBar" class="h-full bg-[#B8864B] transition-all duration-300" style="width: 89%;"></div>
+                </div>
+                <p id="metricPartnerText" class="text-sm text-[#3D2E33] leading-relaxed">Рядом с вашей мягкой женской полярностью мужчина сам включает опору и заботу.</p>
+              </div>
+            </div>
+          </div>
 </div>
 </section>
 <!-- ===============================================================
@@ -5638,18 +5555,20 @@
     }
     recalcIntroMetrics();
 
-    // Mobile-tuned 5-layer GPU-only 3D Couture Letter Dispersion (zero letter-spacing reflow, zero blur lag!)
-    const MOBILE_COUTURE_LAYERS = [
-      // Row 1: АВТОРСКАЯ — graceful upper-left lift + delicate outward breath
-      { y: -52, x: -18, z: 46,  rx: 4.5,  sx: 1.060, sy: 1.020, fadeStart: 0.18, fadeEnd: 0.72 },
-      // Row 2: ПРОГРАММА ПО — smooth upper-right glide
-      { y: -26, x: 16,  z: 26,  rx: 2.4,  sx: 1.045, sy: 1.010, fadeStart: 0.24, fadeEnd: 0.78 },
-      // Row 3: ОТНОШЕНИЯМ · 21 — focal center depth recession
-      { y: -4,  x: 0,   z: -30, rx: -1.0, sx: 1.030, sy: 0.985, fadeStart: 0.30, fadeEnd: 0.84 },
-      // Row 4: КОУЧ-СЕССИЯ С — gentle lower-left drift
-      { y: 20,  x: -14, z: -46, rx: -3.2, sx: 1.025, sy: 0.975, fadeStart: 0.36, fadeEnd: 0.88 },
-      // Row 5: НАДЕЖДОЙ. — foreground signature lower-right sweep
-      { y: 46,  x: 16,  z: 52,  rx: -4.8, sx: 1.050, sy: 1.020, fadeStart: 0.44, fadeEnd: 0.96 }
+    // Mobile Cinematic 3D Depth Parallax Curtain (5-layer GPU-composited depth dispersion)
+    // Five headline rows part smoothly at distinct Z-depths with subtle 3D tilt & gentle dissolve,
+    // opening Page 2 like a cinema scene transition (zero layout reflow, zero blur lag).
+    const MOBILE_DEPTH_CURTAIN_LAYERS = [
+      // Row 1: АВТОРСКАЯ — foreground upper-left 3D lift toward viewer
+      { y: -90, x: -24, z: 98,   rx: 7.8,  ry: -2.2, scale: 0.062, fadeStart: 0.40, fadeEnd: 0.96 },
+      // Row 2: ПРОГРАММА ПО — mid-foreground upper-right 3D glide
+      { y: -44, x: 20,  z: 48,   rx: 4.2,  ry: 1.8,  scale: 0.028, fadeStart: 0.44, fadeEnd: 0.98 },
+      // Row 3: ОТНОШЕНИЯМ · 21 — focal center deep Z-recession
+      { y: -5,  x: 0,   z: -84,  rx: -1.6, ry: 0.0,  scale: -0.072, fadeStart: 0.50, fadeEnd: 1.00 },
+      // Row 4: КОУЧ-СЕССИЯ С — deep lower-left graceful drift
+      { y: 40,  x: -20, z: -120, rx: -5.4, ry: -1.6, scale: -0.100, fadeStart: 0.44, fadeEnd: 0.95 },
+      // Row 5: НАДЕЖДОЙ. — foreground signature lower-right 3D sweep
+      { y: 82,  x: 24,  z: 108,  rx: -8.0, ry: 2.0,  scale: 0.074, fadeStart: 0.48, fadeEnd: 1.00 }
     ];
 
     function renderLettersAtProgress(progress) {
@@ -5687,19 +5606,19 @@
         const row = introHeadlineRows[i];
 
         if (isCompact) {
-          const mcfg = MOBILE_COUTURE_LAYERS[i] || MOBILE_COUTURE_LAYERS[2];
+          const mcfg = MOBILE_DEPTH_CURTAIN_LAYERS[i] || MOBILE_DEPTH_CURTAIN_LAYERS[2];
           const tx = mcfg.x * moveP;
           const ty = mcfg.y * moveP;
           const tz = mcfg.z * moveP;
           const rx = mcfg.rx * moveP;
-          const sx = 1 + (mcfg.sx - 1) * moveP;
-          const sy = 1 + (mcfg.sy - 1) * moveP;
+          const ry = mcfg.ry * moveP;
+          const sc = 1 + mcfg.scale * moveP;
           const fadeNorm = Math.min(1, Math.max(0, (p - mcfg.fadeStart) / Math.max(0.01, mcfg.fadeEnd - mcfg.fadeStart)));
           const opacity = 1 - easeInQuad(fadeNorm);
 
           row.style.transform =
             'translate3d(' + tx.toFixed(1) + 'px, ' + ty.toFixed(1) + 'px, ' + tz.toFixed(1) + 'px) ' +
-            'rotateX(' + rx.toFixed(2) + 'deg) scale3d(' + sx.toFixed(4) + ', ' + sy.toFixed(4) + ', 1)';
+            'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) scale3d(' + sc.toFixed(4) + ', ' + sc.toFixed(4) + ', 1)';
           row.style.opacity = opacity.toFixed(3);
           row.style.filter = '';
         } else {
@@ -5747,7 +5666,7 @@
       const isSimMobSpan = document.getElementById('siteViewport') &&
         document.getElementById('siteViewport').classList.contains('is-mobile-sim');
       const isCompactSpan = cachedIntroVw <= 768 || isSimMobSpan;
-      const spreadSpan = cachedRunwayExtra + cachedIntroVh * (isCompactSpan ? 0.34 : 0.62);
+      const spreadSpan = cachedRunwayExtra + cachedIntroVh * (isCompactSpan ? 0.46 : 0.62);
       targetFillP = Math.min(1, Math.max(0, sy / spreadSpan));
 
       if (isCompactSpan) {
@@ -7054,7 +6973,6 @@
       });
 
     let audioCtx = null;
-    let isPlayingMusic = false;
 
     // =========================================================================
     // NEURO-REDESIGN JS: MIRROR STATE SWITCHER, BEFORE/AFTER SLIDER,
@@ -7360,39 +7278,6 @@
     // - Re-clicking the prompt or bottom toggle pauses/resumes voice playback
     // =========================================================================
     const nadRealVoiceAudio = document.getElementById('nadRealVoiceAudio');
-    const siteAmbientMusic = document.getElementById('siteAmbientMusic');
-    let ambientFadeRaf = null;
-    function fadeAmbientVolumeTo(targetVol, durationMs) {
-      if (!siteAmbientMusic) return;
-      if (ambientFadeRaf) cancelAnimationFrame(ambientFadeRaf);
-      const startVol = siteAmbientMusic.volume;
-      const startTs = performance.now();
-      const dur = Math.max(80, durationMs || 650);
-      function tick(now) {
-        const t = Math.min(1, (now - startTs) / dur);
-        siteAmbientMusic.volume = Math.max(0, Math.min(1, startVol + (targetVol - startVol) * t));
-        if (t < 1) ambientFadeRaf = requestAnimationFrame(tick);
-        else ambientFadeRaf = null;
-      }
-      ambientFadeRaf = requestAnimationFrame(tick);
-    }
-    function startAmbientBed(vol) {
-      if (!siteAmbientMusic) return;
-      siteAmbientMusic.muted = false;
-      if (siteAmbientMusic.paused) {
-        siteAmbientMusic.volume = 0.02;
-        const p = siteAmbientMusic.play();
-        if (p && p.then) {
-          p.then(function() { fadeAmbientVolumeTo(vol, 800); }).catch(function() {});
-        }
-      } else {
-        fadeAmbientVolumeTo(vol, 650);
-      }
-    }
-    function pauseAmbientBed() {
-      if (!siteAmbientMusic || siteAmbientMusic.paused) return;
-      siteAmbientMusic.pause();
-    }
     const btnToggleAutoVoice = document.getElementById('btnToggleAutoVoice');
     const heroAutoVoiceBanner = document.getElementById('heroAutoVoiceBanner');
     const heroSoundPromptLeft = document.getElementById('heroSoundPromptLeft');
@@ -7455,9 +7340,9 @@
         if (heroSoundPromptLeft && heroSoundPromptRight) {
           if (isPlaying) {
             heroSoundPromptLeft.textContent = 'Голос Надежды звучит';
-            heroSoundPromptRight.textContent = 'нажмите, чтобы поставить на паузу';
+            heroSoundPromptRight.textContent = 'нажмите в любом месте, чтобы выключить';
           } else {
-            heroSoundPromptLeft.textContent = 'Нажмите на первом экране';
+            heroSoundPromptLeft.textContent = 'Нажмите в любом месте';
             heroSoundPromptRight.textContent = 'чтобы включить голос Надежды';
           }
         }
@@ -7515,55 +7400,6 @@
       }, 640);
     }
 
-    // Independent Site-Wide Ambient Music State
-    let userEnabledSiteMusic = false;
-    const siteSoundDock = document.getElementById('siteSoundDock');
-    const soundDockLabelFull = document.getElementById('soundDockLabelFull');
-    const soundDockLabelShort = document.getElementById('soundDockLabelShort');
-
-    function updateSoundDockUI(isOn) {
-      if (!siteSoundDock) return;
-      siteSoundDock.classList.toggle('is-music-on', Boolean(isOn));
-      siteSoundDock.setAttribute('aria-pressed', isOn ? 'true' : 'false');
-      if (soundDockLabelFull) {
-        soundDockLabelFull.textContent = isOn ? 'Музыка вкл · Выключить' : 'Включить звук сайта';
-      }
-      if (soundDockLabelShort) {
-        soundDockLabelShort.textContent = isOn ? 'Звук · Вкл' : 'Звук';
-      }
-    }
-
-    function toggleIndependentSiteMusic(e) {
-      if (e) e.stopPropagation();
-      if (!siteAmbientMusic) return;
-      if (userEnabledSiteMusic && !siteAmbientMusic.paused) {
-        userEnabledSiteMusic = false;
-        fadeAmbientVolumeTo(0.0, 320);
-        setTimeout(function() {
-          if (!userEnabledSiteMusic) pauseAmbientBed();
-        }, 340);
-        updateSoundDockUI(false);
-      } else {
-        userEnabledSiteMusic = true;
-        const voiceSpeaking = nadRealVoiceAudio && !nadRealVoiceAudio.paused;
-        startAmbientBed(voiceSpeaking ? 0.18 : 0.44);
-        updateSoundDockUI(true);
-      }
-    }
-
-    if (siteSoundDock) {
-      siteSoundDock.addEventListener('click', toggleIndependentSiteMusic);
-    }
-
-    if (nadRealVoiceAudio) {
-      nadRealVoiceAudio.addEventListener('ended', function() {
-        updateAutoVoiceUI(false);
-        if (userEnabledSiteMusic && siteAmbientMusic && !siteAmbientMusic.paused) {
-          fadeAmbientVolumeTo(0.44, 850);
-        }
-      });
-    }
-
     function toggleVoicePlaybackManual(e) {
       if (e) e.stopPropagation();
       if (!nadRealVoiceAudio) return;
@@ -7571,20 +7407,12 @@
       if (isVoicePlaying) {
         userManuallyPausedVoice = true;
         nadRealVoiceAudio.pause();
-        // Keep site music playing smoothly if user enabled it!
-        if (userEnabledSiteMusic && siteAmbientMusic && !siteAmbientMusic.paused) {
-          fadeAmbientVolumeTo(0.44, 650);
-        }
         updateAutoVoiceUI(false);
       } else {
         userManuallyPausedVoice = false;
         autoVoiceStartedOnce = true;
         nadRealVoiceAudio.muted = false;
         nadRealVoiceAudio.volume = 1.0;
-        // If user explicitly enabled site music via the sound button, duck it gently under Nadezhda's voice
-        if (userEnabledSiteMusic && siteAmbientMusic && !siteAmbientMusic.paused) {
-          fadeAmbientVolumeTo(0.16, 450);
-        }
         nadRealVoiceAudio.play().then(function() {
           updateAutoVoiceUI(true);
         }).catch(function() {
@@ -7593,7 +7421,7 @@
       }
     }
 
-    // Clicking or tapping ANYWHERE on the first page toggles Nadezhda's voice ON / OFF
+    // Clicking or tapping ANYWHERE on Page 1 ONLY toggles Nadezhda's voice ON / OFF
     function onFirstPageClickToggleVoice(e) {
       if (!nadRealVoiceAudio || !isPage1CurrentlyVisible()) {
         return;
@@ -7602,9 +7430,8 @@
       if (!page1Root || !e || !e.target || !page1Root.contains(e.target)) {
         return;
       }
-      // Do not hijack navigation links or dedicated action buttons on Page 1
+      // Keep dedicated navigation & action controls on Page 1 working normally
       if (
-        e.target.closest('#siteSoundDock') ||
         e.target.closest('#btnToggleAutoVoice') ||
         e.target.closest('#heroAutoVoiceBanner') ||
         e.target.closest('#btnScrollToPage2') ||
@@ -7754,23 +7581,14 @@
 
     if (nadRealVoiceAudio) {
       nadRealVoiceAudio.addEventListener('play', function() {
-        startAmbientBed(0.22);
         updateAutoVoiceUI(true);
       });
       nadRealVoiceAudio.addEventListener('pause', function() {
-        if (!siteAmbientMusic || siteAmbientMusic.paused) {
-          updateAutoVoiceUI(false);
-        }
+        updateAutoVoiceUI(false);
       });
       nadRealVoiceAudio.addEventListener('ended', function() {
         nadRealVoiceAudio.currentTime = 0;
-        if (siteAmbientMusic && !siteAmbientMusic.paused) {
-          // Keep the ambient music playing softly on loop after Nadezhda finishes speaking
-          fadeAmbientVolumeTo(0.42, 900);
-          updateAutoVoiceUI(true);
-        } else {
-          updateAutoVoiceUI(false);
-        }
+        updateAutoVoiceUI(false);
       });
     }
 
@@ -8319,10 +8137,10 @@
     const WHISPER_ZONES = [
       { id: 'sectionWorkspace', text: 'Выберите вашу ситуацию ниже — я подстрою маршрут под вас ↓', href: '#sectionForWhom' },
       { id: 'sectionForWhom', text: 'Нажмите на одну из реакций — я отвечу прямо на странице ✦', href: '#sectionForWhom' },
-      { id: 'sectionScenarios', text: 'Подвигайте ползунок — посмотрите, как меняется состояние за 21 сессию', href: '#sectionScenarios' },
-      { id: 'sectionStages', text: 'После этапов попробуйте вытянуть 1 метафорическую карту МАК ↓', href: '#sectionMakPractice' },
+      { id: 'sectionScenarios', text: 'Изучите 5 этапов программы и подвигайте ползунок трансформации ↓', href: '#sectionStages' },
+      { id: 'sectionStages', text: 'Подвигайте ползунок трансформации под этапами — ощутите точку Б ↓', href: '#neuroStateSliderCard' },
       { id: 'sectionMakPractice', text: 'Доверьтесь интуиции и откройте одну карту — это займёт 10 секунд', href: '#sectionMakPractice' },
-      { id: 'sectionAuthor', text: 'Нажмите ▶ в плеере, чтобы услышать мой живой голос', href: '#nadVoicePlayerCard' },
+      { id: 'sectionAuthor', text: 'Вы можете написать мне лично в Telegram — я отвечаю сама ↗', href: 'https://t.me/nadezhda_burleva' },
       { id: 'sectionDiagnostics', text: 'Пройдите Колесо баланса — и я лично запишу вам разбор в Telegram', href: '#sectionDiagnostics' },
       { id: 'sectionPricing', text: 'Есть вопросы? Можно просто познакомиться в Telegram без оплаты ↗', href: 'https://t.me/nadezhda_burleva' }
     ];
@@ -8382,19 +8200,6 @@
       ✕
     </button>
   </div>
-
-
-  <!-- Global Floating Site Atmosphere Sound Control (Works independently across all sections) -->
-  <button type="button" id="siteSoundDock" class="site-sound-dock" aria-pressed="false" aria-label="Активировать или выключить фоновую музыку сайта" title="Фоновая музыка сайта (работает на всех экранах)">
-    <span class="site-sound-dock-eq" aria-hidden="true">
-      <span class="site-sound-dock-bar"></span>
-      <span class="site-sound-dock-bar"></span>
-      <span class="site-sound-dock-bar"></span>
-      <span class="site-sound-dock-bar"></span>
-    </span>
-    <span class="site-sound-dock-label-full" id="soundDockLabelFull">Включить звук сайта</span>
-    <span class="site-sound-dock-label-short" id="soundDockLabelShort">Звук</span>
-  </button>
 
 </body>
 </html>
