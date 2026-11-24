@@ -2916,8 +2916,59 @@
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    window.YM_COUNTER_ID = 114656216;
+
+    (function(m,e,t,r,i,k,a){
+      m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      for (var j = 0; j < document.scripts.length; j++) {
+        if (document.scripts[j].src === r) { return; }
+      }
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);
+    })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    if (window.YM_COUNTER_ID) {
+      ym(window.YM_COUNTER_ID, "init", {
+        ssr: true,
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true,
+        trackHash: true
+      });
+    }
+
+    // Безопасная отправка JavaScript-события (Целевое событие)
+    window.ymTrackGoal = function(goalId, params) {
+      try {
+        if (window.YM_COUNTER_ID && typeof window.ym === 'function') {
+          if (params) {
+            window.ym(window.YM_COUNTER_ID, 'reachGoal', goalId, params);
+          } else {
+            window.ym(window.YM_COUNTER_ID, 'reachGoal', goalId);
+          }
+        }
+      } catch (err) {}
+    };
+
+    // Безопасная отправка виртуального просмотра страницы (для SPA-экранов)
+    window.ymTrackPage = function(virtualUrl, title) {
+      try {
+        if (window.YM_COUNTER_ID && typeof window.ym === 'function') {
+          window.ym(window.YM_COUNTER_ID, 'hit', virtualUrl, {
+            title: title || document.title
+          });
+        }
+      } catch (err) {}
+    };
+  </script>
+  <!-- /Yandex.Metrika counter -->
 </head>
 <body class="antialiased selection:bg-[#8C1D40] selection:text-white">
+  <noscript><div><img src="https://mc.yandex.ru/watch/114656216" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <div id="luxCursorRing" aria-hidden="true"></div>
   <div id="luxuryScrollThread" aria-hidden="true"></div>
 <!-- =======================================================================
@@ -5190,231 +5241,183 @@
          - Requirement 4: Same 1-in-1 header with "Записаться (−35%)" & Menu Circle
          - Requirement 5: Registration form to transition into the app & start trial
          ===================================================================== -->
-<div class="hidden min-h-screen text-[#1C1417] flex flex-col justify-between overflow-x-hidden" id="appWorkspaceView" style="background: radial-gradient(circle at 14% 16%, rgba(249, 235, 239, 0.94) 0%, rgba(249, 235, 239, 0) 46%), radial-gradient(circle at 86% 18%, rgba(253, 244, 227, 0.94) 0%, rgba(253, 244, 227, 0) 46%), radial-gradient(circle at 50% 88%, rgba(235, 243, 238, 0.74) 0%, rgba(235, 243, 238, 0) 50%), linear-gradient(180deg, #FAF7F2 0%, #F4EFE6 100%);">
-  <!-- Clean Editorial Header (Fits 100% inside mobile viewport, zero overflow) -->
-  <header class="sticky top-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-rose-900/10 px-4 sm:px-12 py-3.5 sm:py-4">
-    <div class="flex items-center justify-between gap-2 sm:gap-6">
-      <a class="brand-logo-text shrink-0" href="#introScrollRunway">
-        Архитектура<br/>отношений
-      </a>
-      <div class="flex items-center gap-2.5 sm:gap-5 text-sm font-medium text-[#3D2E33] shrink-0">
-        <button class="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-full bg-white/95 hover:bg-[#F9EBEF] border border-rose-200/90 text-xs sm:text-sm font-semibold text-[#1C1417] hover:text-[#6E1430] transition shadow-2xs whitespace-nowrap shrink-0 cursor-pointer" id="btnAppBackToSite" type="button">
-          <span>←</span><span>На главную</span>
-        </button>
-        <button class="hidden md:inline-flex items-center px-5 py-2.5 rounded-full bg-[#1C1417] text-white text-sm font-medium hover:bg-[#8C1D40] transition shadow-sm whitespace-nowrap shrink-0 cursor-pointer" id="btnHeaderScrollReg" type="button">
-          Участие <span class="opacity-75 ml-1 font-normal">−35%</span>
-        </button>
-        <button aria-label="Открыть меню" class="btn-open-menu ref-menu-circle shrink-0" type="button">
-          <svg aria-hidden="true" class="ref-menu-rings-svg" viewBox="0 0 76 76">
-            <ellipse class="ref-orbit-ring-1" cx="37.45" cy="38.25" rx="35.2" ry="33.8"></ellipse>
-            <ellipse class="ref-orbit-ring-2" cx="38.55" cy="37.75" rx="33.8" ry="35.2"></ellipse>
-          </svg>
-          <span class="ref-menu-bars-wrap">
-            <span class="ref-menu-bar ref-menu-bar-top"></span>
-            <span class="ref-menu-bar ref-menu-bar-bot"></span>
-          </span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Editorial Registration Content -->
-  <div class="max-w-6xl mx-auto w-full px-4 sm:px-10 py-8 sm:py-14 my-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-
-      <!-- Left Column: Luxury Editorial Offer Summary & Stage Selection -->
-      <div class="lg:col-span-5 space-y-6">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 border border-rose-200/90 text-[11px] sm:text-xs font-bold uppercase tracking-[0.12em] text-[#6E1430] shadow-2xs">
-          <span>✦</span>
-          <span>21 коуч-сессия · 25 часов · Привилегия −35%</span>
-        </div>
-
-        <h1 class="font-serif-ed text-4xl sm:text-5xl lg:text-[3.4rem] text-[#1C1417] leading-[0.96]">
-          Ваше личное<br/>
-          <em class="italic font-normal text-[#6E1430]">пространство ясности.</em>
-        </h1>
-
-        <p class="text-sm sm:text-base text-[#3D2E33] leading-relaxed">
-          Оставьте заявку за 30 секунд, чтобы закрепить за собой привилегию <strong>−35% (81 250 ₽ вместо 125 000 ₽</strong> за 25 часов индивидуальной работы 1-на-1) или выбрать комфортную рассрочку от Т-Банка на 6, 12 или 18 месяцев.
-        </p>
-
-        <!-- Dynamic Monthly Quota Banner (Synced automatically with calendar) -->
-        <div class="rounded-2xl p-4 bg-white/90 border border-amber-200/80 shadow-2xs flex items-start gap-3">
-          <span class="w-2.5 h-2.5 rounded-full bg-[#1B5E45] mt-1.5 shrink-0 animate-pulse"></span>
-          <div class="text-xs sm:text-sm text-[#1C1417] leading-snug">
-            <strong>Набор на <span class="js-current-month">текущий месяц</span>: свободно 2 места</strong> на личное сопровождение с Надеждой Бурлевой.
-          </div>
-        </div>
-
-        <!-- Stage Selector Pills in Warm Silk & Burgundy Palette -->
-        <div class="space-y-3 pt-1">
-          <div class="text-[11px] sm:text-xs font-bold uppercase tracking-[0.13em] text-[#5C4950]">
-            КАКОЙ ЭТАП ПРОГРАММЫ АКТУАЛЕН ДЛЯ ВАС В ПЕРВУЮ ОЧЕРЕДЬ?
-          </div>
-          <div class="flex flex-wrap items-center gap-2">
-            <button class="app-mode-tab px-4 py-2 rounded-full bg-[#6E1430] text-white text-xs sm:text-sm font-semibold transition shadow-sm cursor-pointer" data-app-tab="stage1" type="button">
-              01 · МАК и Намерение
+<div class="hidden min-h-screen text-[#111827] flex flex-col justify-between overflow-x-hidden" id="appWorkspaceView" style="background: radial-gradient(circle at 18% 20%, rgba(232, 240, 254, 0.9) 0%, rgba(243, 232, 253, 0.75) 48%, rgba(230, 244, 234, 0.8) 100%);">
+<!-- Top Header 1-in-1 with Main Start Page -->
+<header class="sticky top-0 z-40 bg-white/95 border-b border-slate-200/90 px-5 sm:px-12 py-5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-5">
+<a class="brand-logo-text" href="#introScrollRunway">
+              Архитектура<br/>отношений
+            </a>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-[#F9EBEF] text-xs font-semibold text-[#111827] hover:text-[#6E1430] transition" id="btnAppBackToSite" type="button">
+<span>←</span> На главную
             </button>
-            <button class="app-mode-tab px-4 py-2 rounded-full bg-white/90 text-[#3D2E33] hover:bg-[#F9EBEF] hover:text-[#6E1430] border border-rose-200/90 text-xs sm:text-sm font-semibold transition cursor-pointer" data-app-tab="stage2" type="button">
-              02 · Снятие блоков
-            </button>
-            <button class="app-mode-tab px-4 py-2 rounded-full bg-white/90 text-[#3D2E33] hover:bg-[#F9EBEF] hover:text-[#6E1430] border border-rose-200/90 text-xs sm:text-sm font-semibold transition cursor-pointer" data-app-tab="stage3" type="button">
-              03 · Внутренний ребенок
-            </button>
-            <button class="app-mode-tab px-4 py-2 rounded-full bg-white/90 text-[#3D2E33] hover:bg-[#F9EBEF] hover:text-[#6E1430] border border-rose-200/90 text-xs sm:text-sm font-semibold transition cursor-pointer" data-app-tab="stage4" type="button">
-              04 · Сила Рода и Карпман
-            </button>
-            <button class="app-mode-tab px-4 py-2 rounded-full bg-white/90 text-[#3D2E33] hover:bg-[#F9EBEF] hover:text-[#6E1430] border border-rose-200/90 text-xs sm:text-sm font-semibold transition cursor-pointer" data-app-tab="stage5" type="button">
-              05 · Энергия и Баланс
-            </button>
-          </div>
-          <div class="rounded-2xl px-4 py-3 bg-[#F9EBEF]/75 border border-rose-200/80 text-xs sm:text-sm text-[#6E1430] font-medium leading-snug" id="regSelectedModeHint">
-            Выбран Этап I: МАК-диагностика точки А и двухэтапный запуск Намерения (Сессии 1–3).
-          </div>
-        </div>
-
-        <!-- Program Inclusions Card in Signature Luxury Style -->
-        <div class="rounded-[28px] p-5 sm:p-6 bg-gradient-to-br from-white via-[#FAF7F2] to-[#F9EBEF]/55 border border-rose-200/85 space-y-3 shadow-[0_14px_38px_rgba(110,20,48,0.06)]">
-          <div class="text-[11px] sm:text-xs font-bold uppercase tracking-[0.13em] text-[#6E1430]">ЧТО ВХОДИТ В ПРОГРАММУ (21 СЕССИЯ):</div>
-          <ul class="space-y-2.5 text-xs sm:text-sm text-[#3D2E33] font-medium leading-relaxed">
-            <li class="flex items-start gap-2.5">
-              <span class="text-[#1B5E45] font-bold mt-0.5">✦</span>
-              <span><strong>21 индивидуальная коуч-сессия</strong> (25 часов личной работы 1-на-1 с Надеждой Бурлевой в вашем бережном темпе).</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-[#1B5E45] font-bold mt-0.5">✦</span>
-              <span><strong>17+ глубинных практик</strong>, включая МАК-диагностику на старте и финальный разбор изменений.</span>
-            </li>
-            <li class="flex items-start gap-2.5">
-              <span class="text-[#1B5E45] font-bold mt-0.5">✦</span>
-              <span><strong>Привилегия −35%</strong> (81 250 ₽ вместо 125 000 ₽) и рассрочка от Т-Банка от 4 513 ₽/мес (150 ₽ в день).</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Right Column: Luxury Editorial Registration Card -->
-      <div class="lg:col-span-7">
-        <div class="bg-white rounded-[32px] border border-rose-200/90 shadow-[0_24px_64px_rgba(110,20,48,0.10)] overflow-hidden" id="regFormCard">
-          <!-- Warm Silk-Burgundy-Gold Accent Top Bar -->
-          <div class="h-1.5 w-full bg-gradient-to-r from-[#6E1430] via-[#B8864B] to-[#1B5E45]"></div>
-
-          <div class="p-6 sm:p-10 space-y-5">
-            <!-- Author Live Presence Row -->
-            <div class="flex items-center justify-between gap-3 pb-4 border-b border-rose-100">
-              <div class="flex items-center gap-3 min-w-0">
-                <div class="relative shrink-0">
-                  <img alt="Надежда Бурлева" class="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF73]/80 shadow-xs" decoding="async" loading="lazy" src="assets/img/img-02.webp"/>
-                  <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#1B5E45] border-2 border-white"></span>
-                </div>
-                <div class="min-w-0">
-                  <div class="text-[11px] font-bold uppercase tracking-[0.12em] text-[#8C1D40]">Личная заявка Надежде</div>
-                  <h2 class="font-serif-ed font-semibold text-2xl sm:text-3xl text-[#1C1417] leading-tight">Заявка на участие</h2>
-                </div>
-              </div>
-              <span class="px-3.5 py-1.5 rounded-full bg-[#EBF3EE] border border-emerald-200/80 text-[#1B5E45] text-xs font-bold whitespace-nowrap shrink-0">81 250 ₽ (−35%)</span>
+</div>
+<div class="flex items-center gap-4 sm:gap-7 text-sm font-medium text-[#374151]">
+<button class="px-4 sm:px-5 py-2.5 rounded-full bg-[#111111] text-white text-xs sm:text-sm font-medium hover:bg-[#8C1D40] transition shadow-sm" id="btnHeaderScrollReg" type="button">
+              Участие <span class="opacity-75 ml-1 font-normal">−35%</span>
+</button>
+<button aria-label="Открыть меню" class="btn-open-menu ref-menu-circle" type="button">
+<svg aria-hidden="true" class="ref-menu-rings-svg" viewbox="0 0 76 76">
+<ellipse class="ref-orbit-ring-1" cx="37.45" cy="38.25" rx="35.2" ry="33.8"></ellipse>
+<ellipse class="ref-orbit-ring-2" cx="38.55" cy="37.75" rx="33.8" ry="35.2"></ellipse>
+</svg>
+<span class="ref-menu-bars-wrap">
+<span class="ref-menu-bar ref-menu-bar-top"></span>
+<span class="ref-menu-bar ref-menu-bar-bot"></span>
+</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Registration Form & Trial Onboarding Content -->
+<div class="max-w-5xl mx-auto w-full px-5 sm:px-10 py-10 sm:py-14 my-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+<!-- Left Column: Trial Value Summary & Mode Selection -->
+<div class="lg:col-span-5 space-y-6">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-rose-200 text-xs font-bold uppercase tracking-wider text-[#6E1430] shadow-sm">
+<span>✦</span> 21 коуч-сессия · 25 часов · Привилегия −35%
             </div>
-
-            <form class="space-y-4" id="trialRegistrationForm" novalidate="">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-xs sm:text-sm font-semibold text-[#1C1417] mb-1.5" for="regUserName">Ваше имя *</label>
-                  <input class="w-full px-4 py-3.5 rounded-2xl bg-[#FAF7F2] border border-rose-200/90 text-sm text-[#1C1417] placeholder:text-[#5C4950]/65 focus:outline-none focus:border-[#8C1D40] focus:bg-white focus:ring-2 focus:ring-[#8C1D40]/15 transition" id="regUserName" placeholder="Например, Анна" required="" type="text"/>
-                </div>
-                <div>
-                  <label class="block text-xs sm:text-sm font-semibold text-[#1C1417] mb-1.5" for="regUserPhone">Телефон или Telegram *</label>
-                  <input class="w-full px-4 py-3.5 rounded-2xl bg-[#FAF7F2] border border-rose-200/90 text-sm text-[#1C1417] placeholder:text-[#5C4950]/65 focus:outline-none focus:border-[#8C1D40] focus:bg-white focus:ring-2 focus:ring-[#8C1D40]/15 transition" id="regUserPhone" placeholder="+7 (999) 000-00-00 или @nick" required="" type="text"/>
-                </div>
+<h1 class="gsap-clip-reveal font-serif-ed text-4xl sm:text-5xl text-[#111827] leading-[0.98]">
+              Ваше личное<br/>
+<em class="italic font-normal text-[#6E1430]">пространство ясности.</em>
+</h1>
+<p class="text-sm sm:text-base text-[#374151] leading-relaxed">
+              Оставьте заявку за 30 секунд, чтобы зафиксировать за собой скидку 35% (81 250 ₽ вместо 125 000 ₽ за 25 часов индивидуальной работы) или выбрать комфортную рассрочку от банка-партнера Т-Банк на 6, 12 или 18 месяцев.
+            </p>
+<!-- Mode Selector inside Registration -->
+<div class="space-y-2.5 pt-1">
+<div class="text-xs font-bold uppercase tracking-wider text-[#4B5563]">
+                КАКОЙ ЭТАП ПРОГРАММЫ АКТУАЛЕН ДЛЯ ВАС В ПЕРВУЮ ОЧЕРЕДЬ?
               </div>
-
-              <div>
-                <label class="block text-xs sm:text-sm font-semibold text-[#1C1417] mb-1.5" for="regUserEmail">Электронная почта <span class="text-[#5C4950] font-normal">(необязательно)</span></label>
-                <input class="w-full px-4 py-3.5 rounded-2xl bg-[#FAF7F2] border border-rose-200/90 text-sm text-[#1C1417] placeholder:text-[#5C4950]/65 focus:outline-none focus:border-[#8C1D40] focus:bg-white focus:ring-2 focus:ring-[#8C1D40]/15 transition" id="regUserEmail" placeholder="anna@example.com" type="email"/>
-              </div>
-
-              <div>
-                <label class="block text-xs sm:text-sm font-semibold text-[#1C1417] mb-1.5" for="regUserGoal">Ваш главный запрос на программу <span class="text-[#5C4950] font-normal">(необязательно)</span></label>
-                <textarea class="w-full px-4 py-3 rounded-2xl bg-[#FAF7F2] border border-rose-200/90 text-sm text-[#1C1417] placeholder:text-[#5C4950]/65 focus:outline-none focus:border-[#8C1D40] focus:bg-white focus:ring-2 focus:ring-[#8C1D40]/15 transition resize-none" id="regUserGoal" placeholder="Например: вернуть тепло и близость в браке, убрать тревогу и обиды..." rows="2"></textarea>
-              </div>
-
-              <div class="pt-1 space-y-2">
-                <label class="flex items-start gap-2.5 text-xs sm:text-sm text-[#3D2E33] cursor-pointer select-none leading-snug">
-                  <input checked="" class="mt-0.5 w-4 h-4 rounded accent-[#8C1D40] shrink-0" id="regConsentTerms" type="checkbox"/>
-                  <span>Принимаю условия политики конфиденциальности и <button class="btn-open-legal text-[#6E1430] underline font-semibold cursor-pointer" type="button">юридического дисклеймера</button>, а также фиксирую скидку 35% (81 250 ₽ за 25 часов работы).</span>
-                </label>
-              </div>
-
-              <div class="hidden rounded-2xl px-4 py-3 bg-[#FCE8E9] border border-rose-300 text-xs font-semibold text-[#6E1430]" id="regErrorBox">
-                Пожалуйста, укажите ваше имя и контакт (телефон или Telegram) для отправки заявки Надежде.
-              </div>
-
-              <button class="w-full py-4 px-6 rounded-full bg-gradient-to-r from-[#6E1430] to-[#8C1D40] hover:from-[#8C1D40] hover:to-[#6E1430] text-white text-sm sm:text-base font-semibold transition shadow-[0_12px_30px_rgba(110,20,48,0.25)] flex items-center justify-center gap-2 cursor-pointer" id="btnSubmitRegistration" type="submit">
-                <span>Отправить заявку Надежде в Telegram (−35%)</span>
-                <span>↗</span>
-              </button>
-
-              <p class="text-[11.5px] sm:text-xs text-center text-[#5C4950]">
-                Без оплаты на сайте · Сначала спокойное знакомство в Telegram и обсуждение удобного графика
+<div class="flex flex-wrap items-center gap-2">
+<button class="app-mode-tab px-3.5 py-2 rounded-full bg-[#8C1D40] text-white text-xs font-semibold transition shadow-sm" data-app-tab="stage1" type="button">
+                  01 · МАК и Намерение
+                </button>
+<button class="app-mode-tab px-3.5 py-2 rounded-full bg-white/85 text-[#374151] hover:bg-white border border-slate-200 text-xs font-semibold transition" data-app-tab="stage2" type="button">
+                  02 · Снятие блоков
+                </button>
+<button class="app-mode-tab px-3.5 py-2 rounded-full bg-white/85 text-[#374151] hover:bg-white border border-slate-200 text-xs font-semibold transition" data-app-tab="stage3" type="button">
+                  03 · Внутренний ребенок
+                </button>
+<button class="app-mode-tab px-3.5 py-2 rounded-full bg-white/85 text-[#374151] hover:bg-white border border-slate-200 text-xs font-semibold transition" data-app-tab="stage4" type="button">
+                  04 · Сила Рода и Карпман
+                </button>
+<button class="app-mode-tab px-3.5 py-2 rounded-full bg-white/85 text-[#374151] hover:bg-white border border-slate-200 text-xs font-semibold transition" data-app-tab="stage5" type="button">
+                  05 · Энергия и Баланс
+                </button>
+</div>
+<p class="text-xs sm:text-sm text-[#6E1430] font-medium pt-1" id="regSelectedModeHint">
+                Выбран Этап I: МАК-диагностика точки А и двухэтапный запуск Намерения.
               </p>
-            </form>
-
-            <!-- Success State inside Registration Card -->
-            <div class="hidden space-y-5 pt-2" id="regSuccessBox">
-              <div class="rounded-2xl p-5 sm:p-6 bg-gradient-to-br from-[#EBF3EE] via-white to-[#F9EBEF] border border-emerald-300/90 space-y-3 shadow-sm">
-                <div class="flex items-center justify-between gap-2 flex-wrap">
-                  <span class="px-3 py-1 rounded-full bg-[#1B5E45] text-white text-xs font-bold">✓ ЗАЯВКА СФОРМИРОВАНА</span>
-                  <span class="text-xs font-semibold text-[#1B5E45]">Привилегия −35% зафиксирована</span>
+</div>
+<div class="rounded-2xl p-5 bg-white/80 backdrop-blur-sm border border-slate-200/90 space-y-2.5 shadow-sm">
+<div class="text-xs font-bold uppercase tracking-wider text-[#111827]">ЧТО ВХОДИТ В ПРОГРАММУ (21 СЕССИЯ):</div>
+<ul class="space-y-2 text-xs sm:text-sm text-[#374151] font-medium">
+<li class="flex items-start gap-2"><span class="text-emerald-600 font-bold">✓</span><span>21 индивидуальная коуч-сессия (25 часов личной работы с Надеждой Бурлевой).</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-600 font-bold">✓</span><span>Все 17+ энергетических, духовных и психологических практик, включая МАК-карты на старте и в финале.</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-600 font-bold">✓</span><span>Скидка 35% (81 250 ₽ вместо 125 000 ₽) и рассрочка от Т-Банка (от 4 513 ₽/мес).</span></li>
+</ul>
+</div>
+</div>
+<!-- Right Column: Interactive Registration Form Card -->
+<div class="lg:col-span-7">
+<div class="bg-white rounded-[32px] p-6 sm:p-10 border border-slate-200/90 shadow-xl space-y-5" id="regFormCard">
+<div class="flex items-center justify-between border-b border-slate-100 pb-4">
+<div>
+<div class="text-xs font-bold uppercase tracking-wider text-[#8C1D40]">ШАГ 1 ИЗ 1</div>
+<h2 class="font-serif-ed font-semibold text-2xl sm:text-3xl text-[#111827] mt-0.5 gsap-clip-reveal">Заявка на участие в программе</h2>
+</div>
+<span class="px-3 py-1 rounded-full bg-[#E6F4EA] text-emerald-800 text-xs font-bold">81 250 ₽ (−35%)</span>
+</div>
+<form class="space-y-4" id="trialRegistrationForm" novalidate="">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block text-xs sm:text-sm font-semibold text-[#111827] mb-1.5" for="regUserName">Ваше имя *</label>
+<input class="w-full px-4 py-3 rounded-2xl bg-[#FAF7F2] border border-slate-300 text-sm text-[#111827] focus:outline-none focus:border-[#8C1D40] focus:bg-white transition" id="regUserName" placeholder="Например, Анна" required="" type="text"/>
+</div>
+<div>
+<label class="block text-xs sm:text-sm font-semibold text-[#111827] mb-1.5" for="regUserPhone">Телефон или Telegram *</label>
+<input class="w-full px-4 py-3 rounded-2xl bg-[#FAF7F2] border border-slate-300 text-sm text-[#111827] focus:outline-none focus:border-[#8C1D40] focus:bg-white transition" id="regUserPhone" placeholder="+7 (999) 000-00-00 или @nick" required="" type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-xs sm:text-sm font-semibold text-[#111827] mb-1.5" for="regUserEmail">Электронная почта <span class="text-[#4B5563] font-normal">(необязательно)</span></label>
+<input class="w-full px-4 py-3 rounded-2xl bg-[#FAF7F2] border border-slate-300 text-sm text-[#111827] focus:outline-none focus:border-[#8C1D40] focus:bg-white transition" id="regUserEmail" placeholder="anna@example.com" type="email"/>
+</div>
+<div>
+<label class="block text-xs sm:text-sm font-semibold text-[#111827] mb-1.5" for="regUserGoal">Ваш главный запрос на программу <span class="text-[#4B5563] font-normal">(необязательно)</span></label>
+<textarea class="w-full px-4 py-2.5 rounded-2xl bg-[#FAF7F2] border border-slate-300 text-sm text-[#111827] focus:outline-none focus:border-[#8C1D40] focus:bg-white transition resize-none" id="regUserGoal" placeholder="Например: вернуть тепло и близость в браке, убрать тревогу и обиды..." rows="2"></textarea>
+</div>
+<div class="pt-1 space-y-2">
+<label class="flex items-start gap-2.5 text-xs sm:text-sm text-[#374151] cursor-pointer select-none">
+<input checked="" class="mt-0.5 w-4 h-4 rounded accent-[#8C1D40] shrink-0" id="regConsentTerms" type="checkbox"/>
+<span>Принимаю условия политики конфиденциальности и <button class="btn-open-legal text-[#6E1430] underline font-semibold" type="button">юридического дисклеймера</button>, а также фиксирую скидку 35% (81 250 ₽ за 25 часов работы).</span>
+</label>
+</div>
+<div class="hidden rounded-xl px-4 py-2.5 bg-rose-50 border border-rose-200 text-xs font-semibold text-rose-700" id="regErrorBox">
+                  Пожалуйста, укажите ваше имя и контакт (телефон или Telegram) для отправки заявки Надежде.
                 </div>
-                <h3 class="font-serif-ed font-semibold text-2xl sm:text-3xl text-[#1C1417]" id="regWelcomeHeading">
-                  Заявка готова к отправке Надежде в Telegram!
-                </h3>
-                <p class="text-sm text-[#3D2E33] leading-relaxed" id="regWelcomeText">
-                  За вами закреплена скидка 35% (81 250 ₽ за 25 часов работы). Если чат Telegram не открылся автоматически, нажмите кнопку ниже — ваше сообщение уже заполнено.
-                </p>
-                <div class="pt-1">
-                  <a class="w-full py-3.5 px-5 rounded-full bg-[#6E1430] hover:bg-[#8C1D40] text-white text-sm font-semibold transition shadow-sm flex items-center justify-center gap-2" href="https://t.me/nadezhda_burleva" id="regTelegramDirectLink" rel="noopener noreferrer" target="_blank">
-                    <span>Открыть чат с Надеждой (@nadezhda_burleva)</span>
-                    <span>↗</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div class="pt-3 border-t border-rose-100 flex flex-wrap items-center justify-between gap-2 text-xs text-[#5C4950]">
-              <span>✦ Приватность диалогов гарантирована</span>
-              <button class="text-[#6E1430] font-semibold hover:underline cursor-pointer" id="btnAppGoPricing" type="button">
-                Подробнее о стоимости и рассрочке ↗
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <footer class="px-4 sm:px-12 py-5 border-t border-rose-900/10 bg-[#FAF7F2]/90 text-xs sm:text-sm text-[#5C4950] flex flex-col sm:flex-row items-center justify-between gap-2">
-    <span>Архитектура отношений · Индивидуальная программа (21 сессия)</span>
-    <span>Надежда Бурлева · ICF Coach</span>
-  </footer>
+<button class="w-full py-4 px-6 rounded-full bg-[#8C1D40] hover:bg-[#6E1430] text-white text-sm sm:text-base font-semibold transition shadow-md flex items-center justify-center gap-2" id="btnSubmitRegistration" type="submit">
+<span>Отправить заявку Надежде в Telegram (−35%)</span>
+<span>↗</span>
+</button>
+</form>
+<!-- Success State inside Registration Card (Direct Telegram Link to @nadezhda_burleva) -->
+<div class="hidden space-y-5 pt-2" id="regSuccessBox">
+<div class="rounded-2xl p-5 bg-gradient-to-br from-[#ECFDF5] via-white to-[#F9EBEF] border border-emerald-300 space-y-3 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 rounded-full bg-emerald-500 text-white text-xs font-bold">✓ ЗАЯВКА СФОРМИРОВАНА</span>
+<span class="text-xs font-semibold text-emerald-800">Скидка 35% зафиксирована</span>
+</div>
+<h3 class="font-serif-ed font-semibold text-2xl sm:text-3xl text-[#111827]" id="regWelcomeHeading">
+                    Заявка готова к отправке Надежде в Telegram!
+                  </h3>
+<p class="text-sm text-[#374151] leading-relaxed" id="regWelcomeText">
+                    За вами закреплена скидка 35% (81 250 ₽ за 25 часов работы). Если чат Telegram не открылся автоматически, нажмите кнопку ниже - ваше сообщение уже заполнено.
+                  </p>
+<div class="pt-1">
+<a class="w-full py-3.5 px-5 rounded-full bg-[#8C1D40] hover:bg-[#6E1430] text-white text-sm font-semibold transition shadow-sm flex items-center justify-center gap-2" href="https://t.me/nadezhda_burleva" id="regTelegramDirectLink" rel="noopener noreferrer" target="_blank">
+<span>Отправить заявку в Telegram (@nadezhda_burleva)</span>
+<span>↗</span>
+</a>
+</div>
+</div>
+</div>
+<div class="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs text-[#4B5563]">
+<span>Защищённое соединение · Приватность диалогов</span>
+<button class="text-[#8C1D40] font-semibold hover:underline" id="btnAppGoPricing" type="button">
+                  Подробнее о стоимости и рассрочке ↗
+                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer class="px-5 sm:px-12 py-5 border-t border-slate-200/80 bg-white/80 text-xs sm:text-sm text-[#4B5563] flex flex-col sm:flex-row items-center justify-between gap-2">
+<span>Архитектура отношений · Индивидуальная программа (21 сессия)</span>
+<span>Надежда Бурлева · ICF Coach</span>
+</footer>
 </div>
 <!-- =====================================================================
          HONEST CHECKOUT VIEW (/checkout/ - With 1-in-1 Main Header!)
          ===================================================================== -->
 <div class="hidden min-h-screen bg-[#FAF7F2] text-[#111827] pb-24" id="checkoutView">
-<header class="sticky top-0 z-30 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-rose-900/10 px-4 sm:px-12 py-3.5 sm:py-4">
-<div class="flex items-center justify-between gap-2 sm:gap-6">
-<a class="brand-logo-text shrink-0" href="#introScrollRunway">
+<header class="sticky top-0 z-30 bg-white/95 border-b border-slate-200/90 px-5 sm:px-12 py-5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-5">
+<a class="brand-logo-text" href="#introScrollRunway">
               Архитектура<br/>отношений
             </a>
-<div class="flex items-center gap-2.5 sm:gap-5 text-sm font-medium text-[#3D2E33] shrink-0">
-<button class="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-full bg-white/95 hover:bg-[#F9EBEF] border border-rose-200/90 text-xs sm:text-sm font-semibold text-[#1C1417] hover:text-[#6E1430] transition shadow-2xs whitespace-nowrap shrink-0 cursor-pointer" id="btnCheckoutBackToSite" type="button">
-<span>←</span><span>Назад</span>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-[#F9EBEF] text-xs font-semibold text-[#111827] transition" id="btnCheckoutBackToSite" type="button">
+<span>←</span> Назад к условиям
             </button>
-<button class="hidden md:inline-flex items-center px-5 py-2.5 rounded-full bg-[#1C1417] text-white text-sm font-medium hover:bg-[#8C1D40] transition shadow-sm whitespace-nowrap shrink-0 cursor-pointer" id="btnCheckoutTryDemo" type="button">
+</div>
+<div class="flex items-center gap-4 sm:gap-7 text-sm font-medium text-[#374151]">
+<button class="px-4 sm:px-5 py-2.5 rounded-full bg-[#111111] text-white text-xs sm:text-sm font-medium hover:bg-[#8C1D40] transition shadow-sm" id="btnCheckoutTryDemo" type="button">
               Участие <span class="opacity-75 ml-1 font-normal">−35%</span>
 </button>
-<button aria-label="Открыть меню" class="btn-open-menu ref-menu-circle shrink-0" type="button">
+<button aria-label="Открыть меню" class="btn-open-menu ref-menu-circle" type="button">
 <svg aria-hidden="true" class="ref-menu-rings-svg" viewbox="0 0 76 76">
 <ellipse class="ref-orbit-ring-1" cx="37.45" cy="38.25" rx="35.2" ry="33.8"></ellipse>
 <ellipse class="ref-orbit-ring-2" cx="38.55" cy="37.75" rx="33.8" ry="35.2"></ellipse>
@@ -6223,9 +6226,13 @@
         appWorkspaceView.classList.remove('hidden');
         renderAppWorkspace(currentActiveMode);
         window.scrollTo(0, 0);
+        if (window.ymTrackPage) window.ymTrackPage('/21-day/apply', 'Заявка на участие');
+        if (window.ymTrackGoal) window.ymTrackGoal('view_apply_page');
       } else if (viewName === 'checkout') {
         checkoutView.classList.remove('hidden');
         window.scrollTo(0, 0);
+        if (window.ymTrackPage) window.ymTrackPage('/21-day/checkout', 'Оформление участия');
+        if (window.ymTrackGoal) window.ymTrackGoal('view_checkout_page');
       } else {
         landingView.classList.remove('hidden');
       }
@@ -6267,6 +6274,10 @@
         'Контакт: ' + cContact;
       const tgUrl = 'https://t.me/nadezhda_burleva?text=' + encodeURIComponent(msg);
       document.getElementById('checkoutConfirmMsg').classList.remove('hidden');
+      if (window.ymTrackGoal) {
+        window.ymTrackGoal('form_checkout_submit');
+        window.ymTrackGoal('tg_click_any', { source: 'checkout_form' });
+      }
       window.open(tgUrl, '_blank', 'noopener,noreferrer');
     });
 
@@ -6339,9 +6350,9 @@
         if (m === 'sos') {
           tab.className = 'app-mode-tab sos-aux-pill px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition' + (active ? ' is-active-sos' : '');
         } else if (active) {
-          tab.className = 'app-mode-tab px-4 py-2 rounded-full bg-[#6E1430] text-white text-xs sm:text-sm font-semibold transition shadow-sm cursor-pointer';
+          tab.className = 'app-mode-tab px-4 py-2 rounded-full bg-[#8C1D40] text-white text-xs sm:text-sm font-semibold transition shadow-sm';
         } else {
-          tab.className = 'app-mode-tab px-4 py-2 rounded-full bg-white/90 text-[#3D2E33] hover:bg-[#F9EBEF] hover:text-[#6E1430] border border-rose-200/90 text-xs sm:text-sm font-semibold transition cursor-pointer';
+          tab.className = 'app-mode-tab px-4 py-2 rounded-full bg-white/85 text-[#374151] hover:bg-white border border-slate-200 text-xs sm:text-sm font-semibold transition';
         }
       });
       document.querySelectorAll('.app-sos-widget').forEach(function(w) {
@@ -6442,6 +6453,10 @@
         }
         regSuccessBox.classList.remove('hidden');
         renderAppWorkspace(currentActiveMode);
+        if (window.ymTrackGoal) {
+          window.ymTrackGoal('form_apply_submit', { stage: currentActiveMode });
+          window.ymTrackGoal('tg_click_any', { source: 'apply_form' });
+        }
         window.open(tgUrl, '_blank', 'noopener,noreferrer');
       });
     }
@@ -6530,6 +6545,10 @@
     if (btnSendFounderRequest) {
       btnSendFounderRequest.addEventListener('click', function() {
         if (founderContactConfirm) founderContactConfirm.classList.remove('hidden');
+        if (window.ymTrackGoal) {
+          window.ymTrackGoal('form_founder_submit');
+          window.ymTrackGoal('tg_click_any', { source: 'founder_modal' });
+        }
         if (FOUNDER_TELEGRAM_URL && FOUNDER_TELEGRAM_URL !== 'https://t.me/') {
           window.open(FOUNDER_TELEGRAM_URL, '_blank', 'noopener,noreferrer');
         }
@@ -6994,6 +7013,12 @@
       if (ctaLink) {
         ctaLink.href = window.tgRedirectUrl;
       }
+      if (window.ymTrackGoal) {
+        window.ymTrackGoal('wheel_complete', {
+          total_score: total48,
+          weakest_sphere: WHEEL_AXES[minIdx]
+        });
+      }
     }
 
     function scrollToWheelQuizTop() {
@@ -7025,6 +7050,7 @@
         document.getElementById('wheelQuizScreen').classList.remove('hidden');
         renderCurrentWheelQuestion();
         requestAnimationFrame(scrollToWheelQuizTop);
+        if (window.ymTrackGoal) window.ymTrackGoal('wheel_start');
       });
     }
 
@@ -7735,6 +7761,7 @@
         nextIdx = (nextIdx + 1 + Math.floor(Math.random() * (MAK_21_DECK.length - 1))) % MAK_21_DECK.length;
       }
       selectMakCardByIndex(nextIdx, true);
+      if (window.ymTrackGoal) window.ymTrackGoal('mak_draw', { card_index: nextIdx + 1 });
     }
 
     const btnDrawRandomMak = document.getElementById('btnDrawRandomMak');
@@ -8363,18 +8390,14 @@
     'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'
   ];
 
-  // Smart automatic month switcher for personal quota:
-  // Days 1-24 -> current month; from the 25th onward -> automatically switches to next month
-  try {
-    var now = new Date();
-    var targetMonthIdx = now.getDate() >= 25 ? (now.getMonth() + 1) % 12 : now.getMonth();
-    var activeMonthName = MONTHS_ACC[targetMonthIdx] || 'текущий месяц';
-    var monthEl = document.getElementById('pricingCurrentMonth');
-    if (monthEl) monthEl.textContent = activeMonthName;
-    document.querySelectorAll('.js-current-month').forEach(function(el) {
-      el.textContent = activeMonthName;
-    });
-  } catch (e) {}
+  // Dynamic current month for honest personal quota
+  var monthEl = document.getElementById('pricingCurrentMonth');
+  if (monthEl) {
+    try {
+      var now = new Date();
+      monthEl.textContent = MONTHS_ACC[now.getMonth()] || 'текущий месяц';
+    } catch (e) {}
+  }
 
   function safeGetExpiry() {
     try {
@@ -8746,5 +8769,83 @@
     </button>
   </div>
 
+
+  <!-- Yandex.Metrika SPA Events & Section Visibility Tracker -->
+  <script type="text/javascript">
+    (function() {
+      // 1. Отслеживание ввода чувства в блоке МАК-карт (1 раз за визит)
+      var makTypedSent = false;
+      var makInput = document.getElementById('makUserAssociationInput');
+      if (makInput) {
+        makInput.addEventListener('input', function() {
+          if (!makTypedSent && (makInput.value || '').trim().length >= 3) {
+            makTypedSent = true;
+            if (window.ymTrackGoal) window.ymTrackGoal('mak_write_feeling');
+          }
+        });
+      }
+
+      // 2. Отслеживание всех переходов в Telegram по ссылкам <a>
+      document.addEventListener('click', function(e) {
+        var link = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+        if (!link) return;
+        var href = link.getAttribute('href') || '';
+        if (href.indexOf('t.me/') === -1 && href.indexOf('tg://') !== 0) return;
+
+        var id = link.id || '';
+        if (id === 'makSendToTelegramBtn') {
+          if (window.ymTrackGoal) {
+            window.ymTrackGoal('mak_send_tg');
+            window.ymTrackGoal('tg_click_any', { source: 'mak' });
+          }
+        } else if (id === 'wheelCtaTelegramLink') {
+          if (window.ymTrackGoal) {
+            window.ymTrackGoal('wheel_send_tg');
+            window.ymTrackGoal('tg_click_any', { source: 'wheel' });
+          }
+        } else if (id === 'regTelegramDirectLink') {
+          if (window.ymTrackGoal) {
+            window.ymTrackGoal('tg_click_any', { source: 'form_direct' });
+          }
+        } else {
+          if (window.ymTrackGoal) {
+            window.ymTrackGoal('tg_click_direct', { href: href.slice(0, 120) });
+            window.ymTrackGoal('tg_click_any', { source: id || 'direct_link' });
+          }
+        }
+      });
+
+      // 3. Отслеживание просмотра ключевых секций лендинга (1 раз за визит)
+      if ('IntersectionObserver' in window) {
+        var sectionGoals = {
+          sectionMakPractice: { goal: 'view_mak_section', path: '/21-day/#sectionMakPractice', title: 'МАК-карты' },
+          sectionDiagnostics: { goal: 'view_wheel_section', path: '/21-day/#sectionDiagnostics', title: 'Колесо супружеского баланса' },
+          sectionAuthor:      { goal: 'view_author_section', path: '/21-day/#sectionAuthor', title: 'Об авторе' },
+          sectionPricing:     { goal: 'view_pricing_section', path: '/21-day/#sectionPricing', title: 'Стоимость участия' },
+          sectionStart:       { goal: 'view_start_section', path: '/21-day/#sectionStart', title: 'Следующий шаг' }
+        };
+        var seenSections = {};
+        var io = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            var sid = entry.target.id;
+            if (seenSections[sid]) return;
+            seenSections[sid] = true;
+            var cfg = sectionGoals[sid];
+            if (cfg) {
+              if (window.ymTrackGoal) window.ymTrackGoal(cfg.goal);
+              if (window.ymTrackPage) window.ymTrackPage(cfg.path, cfg.title);
+            }
+            io.unobserve(entry.target);
+          });
+        }, { threshold: 0.35 });
+
+        Object.keys(sectionGoals).forEach(function(sid) {
+          var el = document.getElementById(sid);
+          if (el) io.observe(el);
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
